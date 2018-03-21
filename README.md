@@ -9,6 +9,9 @@ Copyright © 2017-2019 Zuercher Hochschule fuer Angewandte Wissenschaften. Licen
 [![Build Status](https://travis-ci.org/elastest/elastest-service-manager.svg?branch=master)](https://travis-ci.org/elastest/elastest-service-manager)
 [![codecov](https://codecov.io/gh/elastest/elastest-service-manager/branch/master/graph/badge.svg)](https://codecov.io/gh/elastest/elastest-service-manager)
 
+Web backend currently using [Laradock](https://github.com/laradock/laradock). 
+Template adapted from [Creative Tim's](https://www.creative-tim.com).
+
 This is the elastest service manager that is responsible for providing support service instances to test jobs. 
 It's an implementation of the [Open Service Broker API](https://github.com/openservicebrokerapi/servicebroker), v2.12, 
 with further extensions ([See the spec for further details](http://petstore.swagger.io/?url=https://raw.githubusercontent.com/elastest/elastest-service-manager/master/api.yaml)).
