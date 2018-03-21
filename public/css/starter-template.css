@@ -1,0 +1,92 @@
+/* Sticky footer styles
+-------------------------------------------------- */
+/*html {*/
+  /*position: relative;*/
+  /*min-height: 100%;*/
+/*}*/
+/*body {*/
+  /*!* Margin bottom by footer height *!*/
+  /*margin-bottom: 70px;*/
+  /*min-height: 100%;*/
+/*}*/
+/*.footer {*/
+  /*position: absolute;*/
+  /*bottom: 0;*/
+  /*width: 100%;*/
+  /*!* Set the fixed height of the footer here *!*/
+  /*height: 60px;*/
+  /*background-color: #f5f5f5;*/
+/*}*/
+
+
+/*!* Custom page CSS*/
+/*-------------------------------------------------- *!*/
+/*!* Not required for template or sticky footer method. *!*/
+
+/*body > .container {*/
+  /*padding: 20px 15px 0;*/
+  /*width: 90%;*/
+/*}*/
+
+/*nav.navbar > div.container {*/
+  /*padding-left: 15px;*/
+  /*width: 90%;*/
+/*}*/
+/*.footer > .container {*/
+  /*padding-right: 15px;*/
+  /*padding-left: 15px;*/
+/*}*/
+
+/*.container .text-muted {*/
+  /*margin: 20px 0;*/
+/*}*/
+
+
+/*@import "compass/css3";*/
+
+
+/*.card {*/
+    /*!*background: #fff;*!*/
+    /*border-radius: 2px;*/
+    /*margin: 1rem;*/
+/*}*/
+
+/*.card-1 {*/
+    /*box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);*/
+    /*transition: all 0.3s cubic-bezier(.25,.8,.25,1);*/
+/*}*/
+
+/*.card-1:hover {*/
+    /*box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);*/
+/*}*/
+
+/*.card-2 {*/
+    /*box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);*/
+/*}*/
+
+/*.card-3 {*/
+    /*box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);*/
+/*}*/
+
+/*.card-4 {*/
+    /*box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);*/
+/*}*/
+
+/*.card-5 {*/
+    /*box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);*/
+/*}*/
+
+
+
+.main-panel>.content{
+    margin-top: 0px;
+
+}
+
+.logo-normal > img {
+    width: 100%;
+}
+
+td.action > a {
+    padding: 0;
+}
