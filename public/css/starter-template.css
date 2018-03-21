@@ -90,3 +90,87 @@
 td.action > a {
     padding: 0;
 }
+
+/*.card .card-actions-plan {*/
+    /*position: absolute;*/
+    /*z-index: 1;*/
+    /*top: -50px;*/
+    /*width: calc(100% - 30px);*/
+    /*left: 25px;*/
+    /*right: 17px;*/
+    /*text-align: left;*/
+/*}*/
+.card .card-actions-plan {position:absolute;z-index:1;top:-50px;width:calc(40% - 30px);left:17px;right:17px;text-align:center}
+.card .card-actions-plan .card-header{padding:0;min-height:160px}
+.card .card-actions-plan .btn{padding-left:6px;padding-right:12px}
+.card .card-actions-plan .fix-broken-card{position:absolute;top:-45px}
+
+.card .card-actions-service {position:absolute;z-index:1;top:-50px;width:calc(33% - 30px);left:17px;right:17px;text-align:center}
+.card .card-actions-service .card-header{padding:0;min-height:160px}
+.card .card-actions-service .btn{padding-left:12px;padding-right:12px}
+.card .card-actions-service .fix-broken-card{position:absolute;top:-45px}
+
+
+.card.card-stats .card-header.card-header-icon, .card.card-stats .card-header.card-header-text {
+    text-align: right;
+}
+
+.card:hover [data-header-animation=true] {
+    -webkit-transform: translate3d(0,-50px,0);
+    transform: translate3d(0,-50px,0);
+}
+.card [data-header-animation=true] {
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+    transition: all .3s cubic-bezier(.34,1.61,.7,1);
+}
+.card-title-plan {
+    position: absolute;
+    top: -60px;
+    right: 17px;
+}
+.card-body-plan {
+    padding: 0 !important;
+}
+
+.card-icon > img {
+    max-height: 4em;
+    max-width: 4em;
+}
+.card-icon-logo {
+    background: white !important;
+    box-shadow: 0 4px 20px 0 rgba(0,0,0,.34) !important;
+    display: flex;
+    align-items: center;
+    min-height: 6em;
+}
+
+.flex-container {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+
+    -webkit-flex-flow: row wrap;
+    justify-content: unset;
+
+    padding-right: 15em;
+}
+
+.flex-item {
+    min-width: 20em;
+}
+/*.flex-container .container-plan{*/
+    /*padding-right: 5em;*/
+/*}*/
+
+/*@media (max-width: 978px) {*/
+    /*.flex-container .container-plan{*/
+        /*padding-right: 0;*/
+    /*}*/
+/*}*/

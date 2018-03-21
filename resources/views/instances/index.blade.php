@@ -19,7 +19,7 @@
                                 <tr>
                                     <td>
                                         <div class="flag">
-                                            <img src="../assets/img/flags/US.png"
+                                            <img src="../assets/img/flags/US.png">
                                         </div>
                                     </td>
                                     <td>Wordpress_Service_122130192857</td>
@@ -28,7 +28,7 @@
                                 <tr>
                                     <td>
                                         <div class="flag">
-                                            <img src="../assets/img/flags/US.png"
+                                            <img src="../assets/img/flags/US.png">
                                         </div>
                                     </td>
                                     <td>Wordpress_Service_122130192857</td>
@@ -37,7 +37,7 @@
                                 <tr>
                                     <td>
                                         <div class="flag">
-                                            <img src="../assets/img/flags/US.png"
+                                            <img src="../assets/img/flags/US.png">
                                         </div>
                                     </td>
                                     <td>Wordpress_Service_122130192857</td>
