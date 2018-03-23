@@ -8,6 +8,7 @@
 </head>
 
 <body class="">
+
     <div class="wrapper">
         @include('includes.header')
 

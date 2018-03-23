@@ -1,79 +1,84 @@
-@extends('layouts.default')
-@section('content')
 
-
-<ul class="flex-container">
-        <div class="flex-item card card-1">
-            <h2>Service1</h2>
-            <ul>
-                <li>DB service</li>
-                <li>50 gb ram</li>
-                <li>12 CPU</li>
-            </ul>
+<!DOCTYPE html>
+<head>
+    <title>Collapsed Form Elements</title>
+    <style>
+        .label
+        {
+            width: 400px;
+            margin: 10px 0 0 0;
+            padding: 10px;
+            background-color: #ccccff;
+            text-align: center;
+            border: 1px solid #ccccff;
+        }
+        .elements
+        {
+            border: 1px solid #ccccff;
+            padding: 10px;
+            border: 1px solid #ccccff;
+            width: 400px;
+        }
+        button
+        {
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+<form>
+    <div>
+        <div id="section1" class="label">
+            <p>Checkboxes</p>
         </div>
-    <div class="flex-item card card-1">
-            <h2>Service2</h2>
-            <ul>
-                <li>DB service</li>
-                <li>50 gb ram</li>
-                <li>12 CPU</li>
-            </ul>
-        </div>
-    <div class="flex-item card card-1">
-            <h2>Service3</h2>
-            <ul>
-                <li>DB service</li>
-                <li>50 gb ram</li>
-                <li>12 CPU</li>
-            </ul>
-        </div>
-    <div class="flex-item card card-1">
-            <h2>Service4</h2>
-            <ul>
-                <li>DB service</li>
-                <li>50 gb ram</li>
-                <li>12 CPU</li>
-            </ul>
-        </div>
-    <div class="flex-item card card-1">
-            <h2>Service5</h2>
-            <ul>
-                <li>DB service</li>
-                <li>50 gb ram</li>
-                <li>12 CPU</li>
-            </ul>
-        </div>
-    <div class="flex-item card card-1">
-            <h2>Service6</h2>
-            <ul>
-                <li>DB service</li>
-                <li>50 gb ram</li>
-                <li>12 CPU</li>
-            </ul>
-        </div>
-    <div class="flex-item card card-1">
-            <h2>Service7</h2>
-            <ul>
-                <li>DB service</li>
-                <li>50 gb ram</li>
-                <li>12 CPU</li>
-            </ul>
-        </div>
-</ul>
-
-<div class="row">
-    <div class="col-lg-6 col-md-12 col-xs-12">
-        <div class="panel panel-default">
-            <h3>mysql</h3>
-            <ul>
-                <li>DB service</li>
-                <li>50 gb ram</li>
-                <li>12 CPU</li>
-            </ul>
-
+        <div id="section1b" class="elements">
+            <input type="checkbox" name="box1" /> - box one<br />
+            <input type="checkbox" name="box1" /> - box one<br />
+            <input type="checkbox" name="box1" /> - box one<br />
+            <input type="checkbox" name="box1" /> - box one<br />
+            <input type="checkbox" name="box1" /> - box one<br />
         </div>
     </div>
-</div>
+    <div>
 
+        <div id="section2" class="label">
+            <p>Buttons</p>
+        </div>
+        <div class="elements">
+            <input type="radio" name="button1" /> - button one<br />
+            <input type="radio" name="button1" /> - button one<br />
+            <input type="radio" name="button1" /> - button one<br />
+            <input type="radio" name="button1" /> - button one<br />
+            <input type="radio" name="button1" /> - button one<br />
+            <button>Submit</button>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
 
-@stop
+    var elements = document.getElementsByTagName("div");
+
+    // collapse all sections
+    for (var i = 0; i < elements.length; i++) {
+        if (elements[i].className == "elements") {
+            elements[i].style.display="none";
+        } else if (elements[i].className == "label") {
+            elements[i].onclick=switchDisplay;
+        }
+    }
+
+    //collapse or expand depending on state
+    function switchDisplay() {
+
+        var parent = this.parentNode;
+        var target = parent.getElementsByTagName("div")[1];
+
+        if (target.style.display == "none") {
+            target.style.display="block";
+        } else {
+            target.style.display="none";
+        }
+        return false;
+    }
+</script>
+</body>

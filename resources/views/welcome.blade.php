@@ -1,5 +1,6 @@
 @extends('layouts.default')
 @section('content')
+
     <h3>Overview</h3>
 
     <div class="row">
