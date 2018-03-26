@@ -295,8 +295,14 @@ var demo = {
                 }
             },
 
-            errorPlacement: function(error, element) {
-                $(element).parent('div').addClass('has-danger');
+            highlight: function(element) {
+                $(element).closest('.form-group').removeClass('has-success').addClass('has-danger');
+            },
+            success: function(element) {
+                $(element).closest('.form-group').removeClass('has-danger').addClass('has-success');
+            },
+            errorPlacement : function(error, element) {
+                $(element).append(error);
             }
         });
 
@@ -507,7 +513,7 @@ var demo = {
     },
 
     initCharts: function() {
-        if ($('#roundedLineChart').length != 0 && $('#straightLinesChart').length != 0 && $('#colouredRoundedLineChart').length != 0 && $('#colouredBarsChart').length != 0 && $('#simpleBarChart').length != 0 && $('#multipleBarsChart').length != 0) {
+        if ($('#roundedLineChart').length != 0 ){
             /* ----------==========    Rounded Line Chart initialization    ==========---------- */
 
             dataRoundedLineChart = {
@@ -538,7 +544,8 @@ var demo = {
             var RoundedLineChart = new Chartist.Line('#roundedLineChart', dataRoundedLineChart, optionsRoundedLineChart);
 
             md.startAnimationForLineChart(RoundedLineChart);
-
+        }
+        if ($('#straightLinesChart').length != 0 ){
 
             /*  **************** Straight Lines Chart - single line with points ******************** */
 
@@ -571,7 +578,8 @@ var demo = {
 
             md.startAnimationForLineChart(straightLinesChart);
 
-
+        }
+        if ($('#colouredRoundedLineChart').length != 0 ) {
             /*  **************** Coloured Rounded Line Chart - Line Chart ******************** */
 
 
@@ -604,9 +612,9 @@ var demo = {
 
             md.startAnimationForLineChart(colouredRoundedLineChart);
 
-
-            /*  **************** Coloured Rounded Line Chart - Line Chart ******************** */
-
+        }
+        if ($('#colouredBarsChart').length != 0) {
+            /*  **************** Coloured Rounded Bars Chart - Bar Chart ******************** */
 
             dataColouredBarsChart = {
                 labels: ['\'06', '\'07', '\'08', '\'09', '\'10', '\'11', '\'12', '\'13', '\'14', '\'15'],
@@ -639,22 +647,32 @@ var demo = {
 
             md.startAnimationForLineChart(colouredBarsChart);
 
-
-
+        }
+        if ($('#chartPreferences').length != 0) {
             /*  **************** Public Preferences - Pie Chart ******************** */
 
             var dataPreferences = {
                 labels: ['62%', '32%', '6%'],
-                series: [62, 32, 6]
+                series: [
+                    {value: 62, className: "pie-success"},
+                    {value: 32, className: "pie-danger"},
+                    {value: 6, className: "pie-warning"}
+                ]
             };
 
             var optionsPreferences = {
                 height: '230px'
             };
 
-            Chartist.Pie('#chartPreferences', dataPreferences, optionsPreferences);
 
-            /*  **************** Simple Bar Chart - barchart ******************** */
+            var simplePieChart = Chartist.Pie('#chartPreferences', dataPreferences, optionsPreferences);
+            md.startAnimationForBarChart(simplePieChart);
+
+        }
+
+        if ($('#simpleBarChart').length != 0) {
+
+                /*  **************** Simple Bar Chart - barchart ******************** */
 
             var dataSimpleBarChart = {
                 labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
@@ -674,7 +692,7 @@ var demo = {
                 ['screen and (max-width: 640px)', {
                     seriesBarDistance: 5,
                     axisX: {
-                        labelInterpolationFnc: function(value) {
+                        labelInterpolationFnc: function (value) {
                             return value[0];
                         }
                     }
@@ -685,7 +703,8 @@ var demo = {
 
             //start animation for the Emails Subscription Chart
             md.startAnimationForBarChart(simpleBarChart);
-
+        }
+        if ($('#multipleBarsChart').length != 0) {
 
             var dataMultipleBarsChart = {
                 labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
@@ -719,7 +738,6 @@ var demo = {
             //start animation for the Emails Subscription Chart
             md.startAnimationForBarChart(multipleBarsChart);
         }
-
     },
 
     initDashboardPageCharts: function() {

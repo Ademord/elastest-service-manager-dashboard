@@ -3,18 +3,55 @@
 <h2>Wordpress Service</h2>
 <div id="modal-background"></div>
 
-<div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Dropdown button
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" href="#">Action</a>
-        <a class="dropdown-item" href="#">Another action</a>
-        <a class="dropdown-item" href="#">Something else here</a>
-    </div>
-</div>
+<div class="row">
+    <div class="col-lg-8 col-md-12 col-sm-12">
+        <div class="card">
+            <div class="card-header card-header-text card-header-warning">
+                <div class="card-text">
+                    <h4 class="card-title">Service Preview</h4>
+                </div>
+            </div>
 
-<div class="flex-container container-plan pr-3">
+            <div class="card-body">
+                <img class="img-fluid" src="/assets/img/wordpress-dashboard.png" alt="Wordpress Interface Preview">
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-12 col-sm-12">
+        <div class="card">
+            <div class="card-header card-header-text card-header-rose">
+                <div class="card-text">
+                    <h4 class="card-title">Example Variables</h4>
+                </div>
+            </div>
+            <div class="card-body table-responsive">
+                <table class="table table-hover">
+                    <thead class="text-rose">
+                        <th>Variable</th>
+                        <th>Value</th>
+                    </tr></thead>
+                    <tbody>
+                    <tr>
+                        <td>Endpoint:</td>
+                        <td>http://192.168.0.1/wp-login</td>
+                    </tr>
+                    <tr>
+                        <td>Username:</td>
+                        <td>admin</td>
+                    </tr>
+                    <tr>
+                        <td>Password:</td>
+                        <td>admin</td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="row">
 
     @include('includes.plan_card', ['name' => 'Tiny', 'description' => '2 Cores <br> 2 GB RAM', 'color' => 'card-header-success'])
     @include('includes.plan_card', ['name' => 'Small', 'description' => '4 Cores <br> 4 GB RAM', 'color' => 'card-header-info'])

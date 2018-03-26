@@ -182,26 +182,30 @@ td.action > a {
 
 .modal-header, .close {
     /*background-color: #5cb85c;*/
-    background: linear-gradient(60deg,#66bb6a,#43a047);
-    color: white !important;
-    text-align: center;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    padding: 35px 50px 20px 50px !important;
+    /*background: linear-gradient(60deg,#66bb6a,#43a047);*/
+    /*color: white !important;*/
+    /*text-align: center;*/
+    /*font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;*/
+    /*padding: 35px 50px 20px 50px !important;*/
 }
-.modal-footer {
-    display: block;
-    background-color: #f9f9f9;
-}
-.modal-footer p {
-    margin-bottom: 0;
-}
-.bmd-form-group [class*=' bmd-label'], .bmd-form-group [class^=bmd-label] {
-    position: unset;
-}
-.modal-header{  display:flex;align-items:flex-start;justify-content:space-around;
-                padding:1rem;border-bottom:1px solid #e9ecef;border-top-left-radius:.3rem;border-top-right-radius:.3rem}
-.modal-header .close{padding:1rem;margin:-1rem -1rem -1rem auto}
+/*.modal-footer {*/
+    /*display: block;*/
+    /*background-color: #f9f9f9;*/
+/*}*/
+/*.modal-footer p {*/
+    /*margin-bottom: 0;*/
+/*}*/
+/*.bmd-form-group [class*=' bmd-label'], .bmd-form-group [class^=bmd-label] {*/
+    /*position: unset;*/
+/*}*/
+/*.modal-header{  display:flex;align-items:flex-start;justify-content:space-around;*/
+                /*padding:1rem;border-bottom:1px solid #e9ecef;border-top-left-radius:.3rem;border-top-right-radius:.3rem}*/
+/*.modal-header .close{padding:1rem;margin:-1rem -1rem -1rem auto}*/
 
+
+/*.modal .modal-header .close {*/
+    /*background: transparent;*/
+/*}*/
 
 html
 {
@@ -228,10 +232,10 @@ html
 }
 
 .template-input-background {
-    background-color: rgba(0,0,0,0.1) !important;
+    background-color: rgba(0,0,0,0.05) !important;
 }
 .template-input{
-    background-color: rgba(0,0,0,0.1);
+    background-color: rgba(0,0,0,0.05);
     padding: 10px;
     border-radius: 6px;
     margin-top: 13px;
@@ -252,3 +256,29 @@ html
 /*.card-header-deploy.title.mb-0 {*/
     /*margin:0 !important;*/
 /*}*/
+
+.pie-success {
+    fill: #40c576;
+    stroke: #40c576;
+}
+.pie-warning {
+    fill: #ffbc36;
+    stroke: #ffbc36;
+
+}
+.pie-danger {
+    fill: #f35959;
+    stroke: #f35959;
+}
+.pie-info {
+    fill: #33b5e5;
+    stroke: #33b5e5;
+}
+.ct-chart .ct-label {
+    fill: rgba(0,0,0,.6);
+    color: rgba(0,0,0,.6);
+    display: flex;
+}
+.ct-label {
+    font-size: .9rem;
+}

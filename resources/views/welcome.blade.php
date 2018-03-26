@@ -21,12 +21,12 @@
                             <i class="material-icons">edit</i>
                         </button>
                     </div>
-                    <h4 class="card-title">Website Views</h4>
-                    <p class="card-category">Last Campaign Performance</p>
+                    <h4 class="card-title">Deployed Instances</h4>
+                    <p class="card-category">Last Project Performance</p>
                 </div>
                 <div class="card-footer">
                     <div class="stats">
-                        <i class="material-icons">access_time</i> campaign sent 2 days ago
+                        <i class="material-icons">access_time</i> project was updated 2 days ago
                     </div>
                 </div>
             </div>
@@ -48,9 +48,9 @@
                             <i class="material-icons">edit</i>
                         </button>
                     </div>
-                    <h4 class="card-title">Daily Sales</h4>
+                    <h4 class="card-title">CPU Usage</h4>
                     <p class="card-category">
-                        <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> increase in today sales.</p>
+                        <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> increase in today's computing.</p>
                 </div>
                 <div class="card-footer">
                     <div class="stats">
@@ -77,11 +77,11 @@
                         </button>
                     </div>
                     <h4 class="card-title">Completed Tasks</h4>
-                    <p class="card-category">Last Campaign Performance</p>
+                    <p class="card-category">Last Project Performance</p>
                 </div>
                 <div class="card-footer">
                     <div class="stats">
-                        <i class="material-icons">access_time</i> campaign sent 2 days ago
+                        <i class="material-icons">access_time</i> project updated 2 days ago
                     </div>
                 </div>
             </div>
@@ -93,9 +93,9 @@
             <div class="card card-stats">
                 <div class="card-header card-header-warning card-header-icon">
                     <div class="card-icon">
-                        <i class="material-icons">weekend</i>
+                        <i class="material-icons">access_time</i>
                     </div>
-                    <p class="card-category">Services Registered</p>
+                    <p class="card-category">Instances Running</p>
                     <h3 class="card-title">184</h3>
                 </div>
                 <div class="card-footer">
@@ -112,12 +112,12 @@
                     <div class="card-icon">
                         <i class="material-icons">equalizer</i>
                     </div>
-                    <p class="card-category">Website Visits</p>
+                    <p class="card-category">Services Registered</p>
                     <h3 class="card-title">75.521</h3>
                 </div>
                 <div class="card-footer">
                     <div class="stats">
-                        <i class="material-icons">access_time</i> campaign sent 2 days ago
+                        <i class="material-icons">access_time</i> project updated 2 days ago
                     </div>
                 </div>
             </div>
@@ -144,7 +144,7 @@
                     <div class="card-icon">
                         <i class="material-icons">compare arrows</i>
                     </div>
-                    <p class="card-category">Followers</p>
+                    <p class="card-category">Current Users</p>
                     <h3 class="card-title">+245</h3>
                 </div>
                 <div class="card-footer">
