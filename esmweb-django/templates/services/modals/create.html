@@ -1,0 +1,52 @@
+<!-- Modal -->
+<div class="modal fade"  tabindex="-1" id="createServiceModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content" style="box-shadow: none; background: transparent;">
+            <!--      Wizard container        -->
+            <div class="wizard-container">
+                <div class="card card-wizard" data-color="rose" id="wizardProfile" >
+                    <form id="create_service" action="/catalog/" method="post">
+                        <!--        You can switch " data-color="primary" "  with one of the next bright colors: "green", "orange", "red", "blue"       -->
+                        <div class="card-header text-center">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h3 class="card-title">Add Service</h3>
+                            <h5 class="card-description">Register a service for future deployment.</h5>
+                        </div>
+                        <div class="wizard-navigation">
+                            <ul class="nav nav-pills">
+                                <li class="nav-item"><a class="nav-link active" href="#about"   data-toggle="tab" role="tab">Service</a></li>
+                                <li class="nav-item"><a class="nav-link"        href="#account" data-toggle="tab" role="tab">Plan</a></li>
+                                <li class="nav-item"><a class="nav-link"        href="#address" data-toggle="tab" role="tab">Template</a></li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <div class="tab-content" style="min-height: 358px;">
+                                {% include "services/modals/tab_service.html" %}
+                                {% include "services/modals/tab_plan.html" %}
+                                {% include "services/modals/tab_template.html" %}
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="mr-auto">
+                                <input type="button" class="btn btn-previous btn-fill btn-default btn-wd" name="previous" value="Previous">
+                            </div>
+                            <div class="ml-auto">
+                                <input type="button" class="btn btn-next btn-fill btn-rose btn-wd" name="next" value="Next">
+                                <input type="submit" class="btn btn-finish btn-fill btn-rose btn-wd" name="finish" value="Finish" style="display: none;" form="create_service">
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- wizard container -->
+        </div>
+    </div>
+</div>
+<!--<p class="card-category">Last Campaign Performance</p>-->
+<!--<button class="btn btn-default">Default</button>-->
+<!--<button class="btn btn-info">Info</button>-->
+<!--<button class="btn btn-success">Success</button>-->
+<!--<button class="btn btn-warning">Warning</button>-->
+<!--<button class="btn btn-danger">Danger</button>-->

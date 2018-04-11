@@ -286,7 +286,7 @@ html
 .plus-plugin {
     padding: 5px;
     position: fixed;
-    bottom: 10px;
+    bottom: 100px;
     right: 30px;
     width: 64px;
     z-index: 1031;
@@ -343,4 +343,16 @@ html
     top: 0;
     -webkit-transition: all .2s cubic-bezier(.4,0,.2,1);
     transition: all .2s cubic-bezier(.4,0,.2,1);
+}
+
+.hide {
+    display: none;
+}
+
+.unhide {
+    display: inherit;
+}
+.card [class*=card-header-] .card-icon, .card [class*=card-header-] .card-text {
+
+    text-align: center;
 }
