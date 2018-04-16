@@ -13,9 +13,8 @@
 <div class="flex-container container-plan pr-3">
 
     {% for service in services %}
-        {% include "includes/service_card.html" with name=service.name image_path=service.image_path %}
+        {% include "services/cards/service_icon.html" with service=service %}
     {% endfor %}
-    {% include "includes/service_card_icon.html" with name=custom.name icon=custom.icon %}
     <button id="minimizeSidebar" class="btn btn-just-icon btn-white btn-fab btn-round">
             <i class="fa fa-plus"></i>
     <div class="ripple-container"></div></button>

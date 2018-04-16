@@ -1,17 +1,25 @@
 <tr>
+    <td class='instance_status'><i class="fa fa-circle {{ instance.color }}"></td>
     <td>{{ instance.id }} </td>
     <td>{{ instance.name }}</td>
     <td>{{ instance.backend }}</td>
-    <td><i class="fa fa-circle {{ instance.color }}"></i> {{ instance.time_alive }}</td>
+    <td>{{ instance.time_alive }}</td>
     <td class="td-actions text-right">
-        <button type="button" rel="tooltip" class="btn btn-info" data-original-title="" title="">
-            <i class="material-icons">info</i>
-            <div class="ripple-container"></div></button>
-        <button type="button" rel="tooltip" class="btn btn-success" data-original-title="" title="">
-            <i class="material-icons">history</i>
-            <div class="ripple-container"></div></button>
-        <button type="button" rel="tooltip" class="btn btn-danger" data-original-title="" title="">
-            <i class="material-icons">close</i>
-            <div class="ripple-container"></div></button>
+        <form id="delete_instance" action="/instances/delete">
+            {% csrf_token %}
+
+            <button id="edit" type="button" rel="tooltip" class="btn btn-info" data-original-title="" title="">
+            <i class="material-icons">info</i> VIEW
+            </button>
+
+            <button type="button" rel="tooltip" class="btn btn-success" data-original-title="" title="">
+            <i class="material-icons">history</i> RESTART
+            </button>
+
+            <button id="delete_instance_button" type="button" rel="tooltip" class="btn btn-danger" data-original-title="" title="" form="delete_instance">
+                <i class="material-icons">close</i> STOP
+            </button>
+        </form>
     </td>
+
 </tr>

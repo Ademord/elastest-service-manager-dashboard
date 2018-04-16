@@ -2,6 +2,61 @@
 {% block content %}
 
 <div class="row">
+
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header card-header-icon card-header-rose">
+                <div class="card-icon">
+                    <i class="material-icons">insert_chart</i>
+                </div>
+                <h4 class="card-title">Instances Performance
+                    <small>- Running vs Crashes</small>
+                </h4>
+            </div>
+            <div class="card-body">
+                <div id="multipleBarsChart" class="ct-chart"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header card-header-rose card-header-icon">
+                <div class="card-icon">
+                    <i class="material-icons">assignment</i>
+                </div>
+                <h4 class="card-title">Instances Overview</h4>
+
+            </div>
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class="text-primary">
+                        <tr>
+                            <th></th>
+                            <th>ID</th>
+                            <th>Service</th>
+                            <th>Backend</th>
+                            <th>Age</th>
+                            <th class="text-right">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for instance in instances %}
+                                {% include "instances/instance_row.html" with instance=instance %}
+                            {% empty %}
+                                <tr><td><h4>No instances running.</h4></td></tr>
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="col-md-4">
         <div class="card card-chart">
             <div class="card-header card-header-icon card-header-rose">
@@ -27,56 +82,9 @@
             </div>
         </div>
     </div>
-    <div class="col-md-8">
-        <div class="card">
-            <div class="card-header card-header-icon card-header-rose">
-                <div class="card-icon">
-                    <i class="material-icons">insert_chart</i>
-                </div>
-                <h4 class="card-title">Instances Performance
-                    <small>- Running vs Crashes</small>
-                </h4>
-            </div>
-            <div class="card-body">
-                <div id="multipleBarsChart" class="ct-chart"></div>
-            </div>
-        </div>
-    </div>
 </div>
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-header card-header-rose card-header-icon">
-                <div class="card-icon">
-                    <i class="material-icons">assignment</i>
-                </div>
-                <h4 class="card-title">Instances Overview</h4>
+{% include "instances/modals/success.html" with message="Your Service Instance has been deprovisioned." %}
 
-            </div>
 
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead class="text-primary">
-                        <tr>
-                            <th>ID</th>
-                            <th>Service</th>
-                            <th>Backend</th>
-                            <th>Since</th>
-                            <th class="text-right">Actions</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            {% for instance in instances %}
-                                {% include "instances/instance_row.html" with instance=instance %}
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</div>
 {% endblock %}

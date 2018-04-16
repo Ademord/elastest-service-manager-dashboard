@@ -1,8 +1,8 @@
 <div class="col-lg-3 col-md-6 col-sm-6 flex-item-plan">
     <div class="card card-stats">
-        <div class="card-header {{ color }} card-header-icon" data-header-animation="true">
+        <div class="card-header {{ plan.color }} card-header-icon" data-header-animation="true">
             <div class="card-icon" style="min-width: 90px !important;">
-                <h2>{{ name }} </h2>
+                <h2>{{ plan.name }} </h2>
             </div>
         </div>
         <div class="card-body card-body-plan">
@@ -10,15 +10,16 @@
                 <button type="button" class="btn btn-danger btn-link fix-broken-card" rel="tooltip" data-placement="bottom" title="Fix Header">
                     <i class="material-icons">build</i>
                 </button>
-                <button id="launchPlan" type="button" class="btn btn-info btn-link btn-plan" rel="tooltip" data-placement="bottom" title="Launch Service">
+                <button id="launch_preview" type="button" class="btn btn-info btn-link btn-plan" rel="tooltip" data-placement="bottom" title="Launch Service">
                     <i class="material-icons">launch</i>
+                    <p hidden>{{ plan.tmp_id }}</p>
                 </button>
                 <button id="edit" type="button" class="btn btn-default btn-link btn-plan" rel="tooltip" data-placement="bottom" title="Edit Plan">
                     <i class="material-icons">edit</i>
                 </button>
             </div>
-<!--            <h3 class="card-title card-title-plan">{{ name }} <br> Service </h3>-->
-            <h3 class="card-title card-title-plan"> {{ description |safe }} </h3>
+<!--            <h3 class="card-title card-title-plan">{{ plan.name }} <br> Service </h3>-->
+            <h3 class="card-title card-title-plan"> {{ plan.description |safe }} </h3>
         </div>
         <div class="card-footer">
             <div class="stats">

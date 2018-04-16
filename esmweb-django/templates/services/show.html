@@ -3,10 +3,11 @@
     {% load static %}
 
 
-<h2>Wordpress Service</h2>
+<h2>{{ service.name }} Service</h2>
 <div id="modal-background"></div>
 
-<div class="row">
+{% if service.preview_image != None %}
+   <div class="row">
     <div class="col-lg-8 col-md-12 col-sm-12">
         <div class="card">
             <div class="card-header card-header-text card-header-warning">
@@ -54,16 +55,19 @@
     </div>
 
 </div>
+{% endif %}
+
 <div class="row">
 
-    {% for plan in plans %}
-        {% include "includes/plan_card.html" with name=plan.name description=plan.description color=plan.color %}
+    {% for plan in service.plans %}
+        {% include "services/cards/plan.html" with plan=plan %}
     {% endfor %}
 
 
 </div>
 
-{% include "manifests/create_modal.html" %}
+{% include "instances/modals/launch.html" %}
+{% include "instances/modals/success.html" with message="Your Service Instance has been created." %}
 
 {% endblock %}
 

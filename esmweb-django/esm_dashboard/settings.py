@@ -2,15 +2,17 @@ from django.http import HttpResponse
 import os
 from django.shortcuts import render
 from django.urls import path
-from services.views import service_catalog
-from services.views import service_detail
+from services.views import service_catalog, create_service, service_detail
+from instances.views import instance_catalog, create_instance, delete_instance
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 DEBUG = True
 SECRET_KEY = '4l0ngs3cr3tstr1ngw3lln0ts0l0ngw41tn0w1tsl0ng3nouuuugh15'
 ROOT_URLCONF = __name__
-
+DATABASES = {
+    'default': {'ENGINE': 'django.db.backends.dummy'}
+}
 # Application definition
 
 INSTALLED_APPS = [
@@ -26,7 +28,7 @@ INSTALLED_APPS = [
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['/usr/src/app/templates/'],
+        'DIRS': ['/Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -38,39 +40,43 @@ TEMPLATES = [
         },
     },
 ]
+#Cookie Domain
+SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
+MIDDLEWARE = [
+        'django.middleware.security.SecurityMiddleware',
+        'django.contrib.sessions.middleware.SessionMiddleware',
+        'django.middleware.common.CommonMiddleware',
+        'django.middleware.csrf.CsrfViewMiddleware',
+        'django.contrib.auth.middleware.AuthenticationMiddleware',
+        'django.contrib.messages.middleware.MessageMiddleware',
+        'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    ]
 
-
-def about(request):
+def test(request):
     title = 'Tinyapp'
     author = 'Vitor Freitas'
-    return render(request, 'about.html', {'title': title, 'author': author})
+    return render(request, 'tests/login.html', {'title': title, 'author': author})
 
 
 def welcome(request):
     return render(request, 'welcome.html')
 
 
-def instance_catalog(request):
-    instances = [
-        {'id': '92', 'name': 'Spark', 'backend': 'Kubernetes', 'time_alive': '26 days', 'color': 'text-danger'},
-        {'id': '62', 'name': 'Custom_LabCC2', 'backend': 'OpenStack', 'time_alive': '156 days', 'color': 'text-warning'},
-        {'id': '55', 'name': 'Wordpress', 'backend': 'Openshift', 'time_alive': '106 days', 'color': 'text-success'},
-        {'id': '12', 'name': 'Hurtle', 'backend': 'OpenStack', 'time_alive': '276 days', 'color': 'text-danger'},
-        {'id': '43', 'name': 'Elastest', 'backend': 'Docker', 'time_alive': '20 seconds', 'color': 'text-success'},
-        {'id': '31', 'name': 'Cyclops', 'backend': 'Unikernel', 'time_alive': '2 hours', 'color': 'text-success'}
-    ]
-    return render(request, 'instances/index.html', {'instances': instances})
-
-
 urlpatterns = [
     path('',                            welcome,            name='welcome_page'),
     path('catalog',                     service_catalog,    name='service_catalog_page'),
     path('catalog/',                    service_catalog,    name='service_catalog_page'),
+    path('catalog/create',              create_service,    name='service_catalog_page'),
     path('catalog/<int:service_id>',    service_detail,     name='service_detail_page'),
     path('catalog/<int:service_id>/',   service_detail,     name='service_detail_page'),
+
     path('instances',                   instance_catalog,   name='instance_catalog_page'),
     path('instances/',                  instance_catalog,   name='instance_catalog_page'),
-    path('test', about, name='catalogpage')
+    path('instances/delete',            delete_instance,   name='instance_catalog_page'),
+    path('instances/create',            create_instance,   name='instance_catalog_page'),
+    path('instances/create/<int:plan_id>',     create_instance,   name='instance_catalog_page'),
+
+    path('test', test, name='catalogpage')
 ]
 
 STATIC_URL = '/static/'
