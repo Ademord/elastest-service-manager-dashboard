@@ -6,7 +6,7 @@
                 <div class="default-plans row">
                     <div class="col-sm-3">
                         <div class="choice" data-toggle="wizard-checkbox">
-                            <input type="checkbox" name="jobb" value="Design">
+                            <input type="checkbox" name="jobb" value="Tiny">
                             <div class="icon">
                                 <h2 style="margin-top: 25%;">XS</h2>
                             </div>
@@ -15,7 +15,7 @@
                     </div>
                     <div class="col-sm-3">
                         <div class="choice" data-toggle="wizard-checkbox">
-                            <input type="checkbox" name="jobb" value="Code">
+                            <input type="checkbox" name="jobb" value="Small">
                             <div class="icon">
                                 <h2 style="margin-top: 25%;">S</h2>
                             </div>
@@ -24,7 +24,7 @@
                     </div>
                     <div class="col-sm-3">
                         <div class="choice" data-toggle="wizard-checkbox">
-                            <input type="checkbox" name="jobb" value="Develop">
+                            <input type="checkbox" name="jobb" value="Medium">
                             <div class="icon">
                                 <h2 style="margin-top: 25%;">M</h2>
                             </div>
@@ -33,14 +33,13 @@
                     </div>
                     <div class="col-sm-3">
                         <div class="choice" data-toggle="wizard-checkbox">
-                            <input type="checkbox" name="jobb" value="Develop">
+                            <input type="checkbox" name="jobb" value="Big">
                             <div class="icon">
                                 <h2 style="margin-top: 25%;">X</h2>
                             </div>
                             <h6>Big</h6>
                         </div>
                     </div>
-
                 </div>
                 <div class="custom-plans hide row" style="min-height: 182px;">
                     <div class="input-group form-control-lg">
@@ -50,8 +49,9 @@
                             </span>
                         </div>
                         <div class="form-group">
+                            {{ form.plan_name.errors }}
                             <label for="plan_name" class="bmd-label-floating">Plan Name (required)</label>
-                            <input type="text" class="form-control" id="plan_name" name="plan_name" >
+                            <input type="text" class="form-control" id="plan_name" name="plan_name" required>
                         </div>
                     </div>
                     <div class="input-group form-control-lg">
@@ -61,8 +61,9 @@
                             </span>
                         </div>
                         <div class="form-group bmd-form-group">
+                            {{ form.plan_description.errors }}
                             <label for="plan_description" class="bmd-label-floating">Plan Description (required)</label>
-                            <textarea class="form-control" rows="2" id="plan_description"></textarea>
+                            <textarea class="form-control" rows="2" id="plan_description" name="plan_description" required></textarea>
                         </div>
                     </div>
                 </div>

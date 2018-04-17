@@ -67,14 +67,14 @@ urlpatterns = [
     path('catalog',                     service_catalog,    name='service_catalog_page'),
     path('catalog/',                    service_catalog,    name='service_catalog_page'),
     path('catalog/create',              create_service,    name='service_catalog_page'),
-    path('catalog/<int:service_id>',    service_detail,     name='service_detail_page'),
-    path('catalog/<int:service_id>/',   service_detail,     name='service_detail_page'),
+    path('catalog/<str:service_id>',    service_detail,     name='service_detail_page'),
+    path('catalog/<str:service_id>/',   service_detail,     name='service_detail_page'),
 
     path('instances',                   instance_catalog,   name='instance_catalog_page'),
     path('instances/',                  instance_catalog,   name='instance_catalog_page'),
     path('instances/delete',            delete_instance,   name='instance_catalog_page'),
     path('instances/create',            create_instance,   name='instance_catalog_page'),
-    path('instances/create/<int:plan_id>',     create_instance,   name='instance_catalog_page'),
+    path('instances/create/<str:plan_id>',     create_instance,   name='instance_catalog_page'),
 
     path('test', test, name='catalogpage')
 ]

@@ -11,7 +11,7 @@ $('#launch_preview').on('click', function() {
 
 });
 // Catalog | Add Service
-$('#addService').on('click', function() {
+$('#add_service_button').on('click', function() {
     // $("#modal-background").toggleClass("active", 1000);
     $('#modal_create_service').modal({backdrop: 'static', keyboard: false});
     $("div[role=tooltip]").remove();

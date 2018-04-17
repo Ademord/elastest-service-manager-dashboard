@@ -2,7 +2,7 @@
 {% block content %}
 
 <div class="plus-plugin">
-        <button id="addService" class="y hC" style="background: #e91e63;">
+        <button id="add_service_button" class="y hC" style="background: #e91e63;">
             <img class="o8 a6" src="https://ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/2x/btw_ic_speeddial_white_24dp_2x.png" alt="">
         </button>
 </div>
@@ -13,7 +13,11 @@
 <div class="flex-container container-plan pr-3">
 
     {% for service in services %}
-        {% include "services/cards/service_icon.html" with service=service %}
+        {% if service.logo_path != None %}
+            {% include "services/cards/service_image.html" with service=service %}
+        {% else %}
+            {% include "services/cards/service_icon.html" with service=service %}
+        {% endif %}
     {% endfor %}
     <button id="minimizeSidebar" class="btn btn-just-icon btn-white btn-fab btn-round">
             <i class="fa fa-plus"></i>

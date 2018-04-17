@@ -7,14 +7,14 @@
         </div>
         <div class="card-body card-body-plan">
             <div class="card-actions-service ">
-                <button type="button" class="btn btn-danger btn-link fix-broken-card" rel="tooltip" data-placement="bottom" title="Fix Header">
-                    <i class="material-icons">build</i>
-                </button>
-                <a class="nav-link" href="/catalog/{{ service.tmp_id }}">
+                <a class="nav-link" href="/catalog/{{ service.id }}">
                     <button type="button" class="btn btn-info btn-link" rel="tooltip" data-placement="bottom" title="Inspect Service">
                         <i class="material-icons">search</i>
                     </button>
                 </a>
+                <button type="button" class="btn btn-danger btn-link fix-broken-card" rel="tooltip" data-placement="bottom" title="Fix Header">
+                    <i class="material-icons">build</i>
+                </button>
             </div>
             <h3 class="card-title card-title-plan">{{ service.name }} <br> Service </h3>
         </div>

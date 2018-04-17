@@ -13,141 +13,149 @@
     <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/esm_dashboard/settings.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="181">
-              <caret line="50" column="29" lean-forward="true" selection-start-line="50" selection-start-column="29" selection-end-line="50" selection-end-column="29" />
-              <folding>
-                <element signature="e#0#36#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/instances/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="113" column="13" lean-forward="true" selection-start-line="113" selection-start-column="13" selection-end-line="113" selection-end-column="13" />
-              <folding>
-                <element signature="e#143#459#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/services/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="71" column="34" lean-forward="true" selection-start-line="71" selection-start-column="34" selection-end-line="71" selection-end-column="34" />
-              <folding>
-                <element signature="e#2952#5825#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/js/app.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="25" column="39" lean-forward="false" selection-start-line="25" selection-start-column="39" selection-end-line="25" selection-end-column="39" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/templates/instances/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="0" lean-forward="true" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-              <folding>
-                <element signature="n#div#0;n#div#0;n#!!top" expanded="false" />
-                <element signature="n#div#1;n#div#0;n#!!top" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="show.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/services/show.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="686">
-              <caret line="57" column="6" lean-forward="false" selection-start-line="57" selection-start-column="6" selection-end-line="57" selection-end-column="6" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="launch.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/instances/modals/launch.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="24" column="73" lean-forward="false" selection-start-line="24" selection-start-column="73" selection-end-line="24" selection-end-column="73" />
-              <folding>
-                <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="starter-template.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/css/starter-template.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="737">
-              <caret line="364" column="26" lean-forward="false" selection-start-line="364" selection-start-column="26" selection-end-line="364" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="horizontal" split-proportion="0.5718901">
+      <split-first>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/services/views.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="820">
+                  <caret line="233" column="50" lean-forward="false" selection-start-line="233" selection-start-column="50" selection-end-line="233" selection-end-column="50" />
+                  <folding>
+                    <element signature="e#0#24#0" expanded="true" />
+                    <element signature="e#183#662#0" expanded="false" />
+                    <element signature="e#699#1253#0" expanded="false" />
+                    <element signature="e#1284#1642#0" expanded="false" />
+                    <element signature="e#1679#2078#0" expanded="false" />
+                    <element signature="e#2117#2393#0" expanded="false" />
+                    <element signature="e#2426#2849#0" expanded="false" />
+                    <element signature="e#2886#3572#0" expanded="false" />
+                    <element signature="e#2941#3127#0" expanded="false" />
+                    <element signature="e#4236#4561#0" expanded="false" />
+                    <element signature="e#4617#4847#0" expanded="false" />
+                    <element signature="e#4928#6537#0" expanded="false" />
+                    <element signature="e#6573#7472#0" expanded="false" />
+                    <element signature="e#7591#7777#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/templates/services/index.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="465">
+                  <caret line="30" column="14" lean-forward="true" selection-start-line="30" selection-start-column="14" selection-end-line="30" selection-end-column="14" />
+                  <folding>
+                    <element signature="n#style#0;n#button#0;n#div#0;n#!!top" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="show.html" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/templates/services/show.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="420">
+                  <caret line="58" column="0" lean-forward="true" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+                  <folding>
+                    <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+                    <element signature="n#style#0;n#img#0;n#div#1;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+                    <element signature="n#div#1;n#div#1;n#!!top" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file leaf-file-name="tab_service.html" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/templates/services/modals/tab_service.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="165">
+                  <caret line="8" column="13" lean-forward="true" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="create.html" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/templates/services/modals/create.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="15">
+                  <caret line="1" column="29" lean-forward="false" selection-start-line="1" selection-start-column="29" selection-end-line="1" selection-end-column="29" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/static/js/app.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="255">
+                  <caret line="15" column="28" lean-forward="false" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="28" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="about.html" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/templates/about.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="307">
+                  <caret line="1057" column="20" lean-forward="false" selection-start-line="1057" selection-start-column="20" selection-end-line="1057" selection-end-column="20" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
-        <option value="HTML File" />
         <option value="CSS File" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>sidebar-wrapper</find>
-      <find>create_modal</find>
-      <find>onClick</find>
-      <find>plan_card</find>
-      <find>includes/</find>
-      <find>show1</find>
-      <find>launch_mo</find>
-      <find>launch</find>
-      <find>launchPlan</find>
-      <find>#launch</find>
-      <find>dashboard</find>
-      <find>glyphicon</find>
-      <find>.bmd-label</find>
-      <find>class</find>
-      <find>body</find>
-      <find>modal-body</find>
-      <find>background-size:</find>
-      <find>ripple-container</find>
-      <find>Launch</find>
       <find>launch_modal_success</find>
       <find>/success</find>
       <find>HttpResponse</find>
-      <find>{{</find>
       <find>preview</find>
       <find>databa</find>
       <find>if</find>
       <find>hours</find>
       <find>Since</find>
       <find>minutes</find>
+      <find>fix-broken-card</find>
+      <find>endif</find>
+      <find>{{</find>
+      <find>{</find>
+      <find>padding</find>
+      <find>\.card\-body\-plan \{\n    padding\: 0 \!important\;\n\}</find>
+      <find>min-height</find>
+      <find>csrf</find>
       <find>delete</find>
+      <find>render_field</find>
+      <find>tests/</find>
+      <find>\n</find>
+      <find>\\n</find>
+      <find>bootstrap_services</find>
+      <find>boot</find>
+      <find>modal fade</find>
+      <find>pepe</find>
+      <find>fixed-pl</find>
+      <find>add</find>
+      <find>print</find>
+      <find>addSer</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -173,33 +181,35 @@
         <option value="$PROJECT_DIR$/templates/services/tab_service.html" />
         <option value="$PROJECT_DIR$/static/js/demo.js" />
         <option value="$PROJECT_DIR$/templates/includes/footer.html" />
-        <option value="$PROJECT_DIR$/templates/services/modals/tab_plan.html" />
-        <option value="$PROJECT_DIR$/templates/services/modals/tab_template.html" />
         <option value="$PROJECT_DIR$/templates/includes/header.html" />
         <option value="$PROJECT_DIR$/templates/includes/plan_card.html" />
         <option value="$PROJECT_DIR$/templates/manifests/create_modal.html" />
         <option value="$PROJECT_DIR$/requirements.txt" />
         <option value="$PROJECT_DIR$/templates/services/show1.html" />
         <option value="$PROJECT_DIR$/templates/instances/launch_modal.html" />
-        <option value="$PROJECT_DIR$/templates/services/modals/tab_service.html" />
         <option value="$PROJECT_DIR$/templates/includes/success.html" />
         <option value="$PROJECT_DIR$/templates/tests/login.html" />
         <option value="$PROJECT_DIR$/templates/includes/head.html" />
         <option value="$PROJECT_DIR$/static/css/modals.css" />
         <option value="$PROJECT_DIR$/templates/instances/modals/success.html" />
-        <option value="$PROJECT_DIR$/templates/services/modals/create.html" />
-        <option value="$PROJECT_DIR$/templates/services/index.html" />
-        <option value="$PROJECT_DIR$/templates/services/cards/service_icon.html" />
-        <option value="$PROJECT_DIR$/templates/instances/modals/launch.html" />
-        <option value="$PROJECT_DIR$/templates/services/show.html" />
-        <option value="$PROJECT_DIR$/services/views.py" />
-        <option value="$PROJECT_DIR$/templates/services/cards/plan.html" />
-        <option value="$PROJECT_DIR$/static/js/app.js" />
-        <option value="$PROJECT_DIR$/esm_dashboard/settings.py" />
         <option value="$PROJECT_DIR$/instances/views.py" />
         <option value="$PROJECT_DIR$/templates/instances/instance_row.html" />
-        <option value="$PROJECT_DIR$/static/css/starter-template.css" />
         <option value="$PROJECT_DIR$/templates/instances/index.html" />
+        <option value="$PROJECT_DIR$/static/css/starter-template.css" />
+        <option value="$PROJECT_DIR$/templates/services/cards/plan.html" />
+        <option value="$PROJECT_DIR$/templates/instances/modals/launch.html" />
+        <option value="$PROJECT_DIR$/templates/services/modals/tab_plan.html" />
+        <option value="$PROJECT_DIR$/templates/services/modals/tab_template.html" />
+        <option value="$PROJECT_DIR$/templates/tests/jsontoimg.html" />
+        <option value="$PROJECT_DIR$/templates/services/modals/tab_service.html" />
+        <option value="$PROJECT_DIR$/templates/services/cards/service_icon.html" />
+        <option value="$PROJECT_DIR$/esm_dashboard/settings.py" />
+        <option value="$PROJECT_DIR$/templates/services/cards/service_image.html" />
+        <option value="$PROJECT_DIR$/services/views.py" />
+        <option value="$PROJECT_DIR$/templates/services/show.html" />
+        <option value="$PROJECT_DIR$/static/js/app.js" />
+        <option value="$PROJECT_DIR$/templates/services/index.html" />
+        <option value="$PROJECT_DIR$/templates/services/modals/create.html" />
       </list>
     </option>
   </component>
@@ -209,10 +219,9 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="y" value="23" />
-    <option name="width" value="1664" />
-    <option name="height" value="954" />
+  <component name="ProjectFrameBounds" fullScreen="true">
+    <option name="width" value="1280" />
+    <option name="height" value="800" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -229,7 +238,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -323,12 +332,12 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="SearchEverywhereHistoryKey" value="plan.html&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/services/cards/plan.html&#10;app.j&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/static/js/app.js&#10;starter&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/static/css/starter-template.css&#10;show&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/services/show.html&#10;Launch&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/instances/modals/launch.html&#10;app&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/static/js/app.js&#10;index.html&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/instances/index.html&#10;launch&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/instances/modals/launch.html&#10;plan&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/services/cards/plan.html&#10;succ&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/instances/modals/success.html&#10;suc&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/instances/modals/success.html&#10;succe&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/instances/modals/success.html&#10;modals&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/static/css/modals.css&#10;head&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/includes/head.html&#10;star&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/static/css/starter-template.css&#10;s&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/static/css/starter-template.css&#10;create&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/manifests/create_modal.html&#10;start&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/static/css/starter-template.css&#10;demo.&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/static/js/demo.js&#10;settin&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/esm_dashboard/settings.py&#10;creat&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/manifests/create_modal.html&#10;crea&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/manifests/create_modal.html&#10;foot&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/includes/footer.html&#10;requireme&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/requirements.txt&#10;sett&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/esm_dashboard/settings.py&#10;header&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/includes/header.html&#10;starter-te&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/static/css/starter-template.css&#10;material-das&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/static/css/material-dashboard.css&#10;footer&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/includes/footer.html&#10;sideb&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/static/assets/img/sidebar-1.jpg&#10;default&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/esm_dashboard/templates/layouts/default.html&#10;welcome&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/esm_dashboard/templates/welcome.html&#10;mana&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/manage.py" />
+    <property name="SearchEverywhereHistoryKey" value="app.&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/static/js/app.js&#10;icon&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/services/cards/service_icon.html&#10;image&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/services/cards/service_image.html&#10;sett&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/esm_dashboard/settings.py&#10;index&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/services/index.html&#10;service_image&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/services/cards/service_image.html&#10;show&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/services/show.html&#10;json&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/tests/jsontoimg.html&#10;jsont&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/tests/jsontoimg.html&#10;tab_&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/services/modals/tab_plan.html&#10;create&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/services/modals/create.html&#10;plan.html&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/services/cards/plan.html&#10;app.j&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/static/js/app.js&#10;starter&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/static/css/starter-template.css&#10;Launch&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/instances/modals/launch.html&#10;app&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/static/js/app.js&#10;index.html&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/instances/index.html&#10;launch&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/instances/modals/launch.html&#10;plan&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/services/cards/plan.html&#10;succ&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/instances/modals/success.html&#10;suc&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/instances/modals/success.html&#10;succe&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/instances/modals/success.html&#10;modals&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/static/css/modals.css&#10;head&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/includes/head.html&#10;star&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/static/css/starter-template.css&#10;s&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/static/css/starter-template.css&#10;start&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/static/css/starter-template.css&#10;demo.&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/static/js/demo.js&#10;settin&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/esm_dashboard/settings.py&#10;creat&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/manifests/create_modal.html&#10;crea&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/manifests/create_modal.html&#10;foot&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/includes/footer.html&#10;requireme&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/requirements.txt&#10;header&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/includes/header.html&#10;starter-te&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/static/css/starter-template.css&#10;material-das&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/static/css/material-dashboard.css&#10;footer&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/includes/footer.html&#10;sideb&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/static/assets/img/sidebar-1.jpg&#10;default&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/esm_dashboard/templates/layouts/default.html&#10;welcome&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/esm_dashboard/templates/welcome.html&#10;mana&#9;FILE&#9;file:///Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/manage.py" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
@@ -344,6 +353,31 @@
         </RuleState>
       </list>
     </option>
+  </component>
+  <component name="RunManager" selected="Python.views">
+    <configuration name="views" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/services" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="esmweb-django" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/services/views.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+    </configuration>
+    <recent_temporary>
+      <list size="1">
+        <item index="0" class="java.lang.String" itemvalue="Python.views" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
@@ -362,7 +396,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1664" height="954" extended-state="0" />
+    <frame x="0" y="0" width="1280" height="800" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -371,7 +405,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32920536" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.7523105" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23736128" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21001616" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -385,6 +419,27 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
+    <layout-to-restore>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32920536" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.7523105" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21001616" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -394,25 +449,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="7" />
+      <option name="time" value="14" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/static/js/bootstrap.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="381">
-          <caret line="1469" column="7" lean-forward="true" selection-start-line="1469" selection-start-column="7" selection-end-line="1469" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/bootstrap-material-design.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="0" column="64999" lean-forward="false" selection-start-line="0" selection-start-column="64999" selection-end-line="0" selection-end-column="64999" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/js/material-dashboard-angular.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="540">
@@ -424,13 +465,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/about.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -495,14 +529,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/services/modals/tab_plan.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1110">
-          <caret line="74" column="53" lean-forward="false" selection-start-line="74" selection-start-column="47" selection-end-line="74" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/manifests/create_modal.html" />
     <entry file="file://$PROJECT_DIR$/templates/services/show1.html" />
     <entry file="file://$PROJECT_DIR$/templates/includes/plan_card.html" />
@@ -518,13 +544,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
           <caret line="21" column="41" lean-forward="false" selection-start-line="21" selection-start-column="41" selection-end-line="21" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/services/modals/tab_service.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="96" lean-forward="false" selection-start-line="22" selection-start-column="96" selection-end-line="22" selection-end-column="96" />
         </state>
       </provider>
     </entry>
@@ -546,13 +565,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/includes/success.html" />
-    <entry file="file://$PROJECT_DIR$/templates/services/modals/tab_template.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="68" lean-forward="true" selection-start-line="10" selection-start-column="68" selection-end-line="10" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/js/vendor/Chart.min.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="352">
@@ -572,7 +584,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="22" column="57" lean-forward="false" selection-start-line="22" selection-start-column="57" selection-end-line="22" selection-end-column="57" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -616,117 +627,176 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/services/modals/create.html">
+    <entry file="file://$PROJECT_DIR$/templates/instances/instance_row.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
-          <caret line="42" column="37" lean-forward="true" selection-start-line="42" selection-start-column="37" selection-end-line="42" selection-end-column="37" />
-          <folding />
+        <state relative-caret-position="15">
+          <caret line="1" column="30" lean-forward="false" selection-start-line="1" selection-start-column="30" selection-end-line="1" selection-end-column="30" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/services/index.html">
+    <entry file="file://$PROJECT_DIR$/static/css/starter-template.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="16" lean-forward="true" selection-start-line="16" selection-start-column="16" selection-end-line="16" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/services/cards/service_icon.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="35" lean-forward="false" selection-start-line="8" selection-start-column="35" selection-end-line="8" selection-end-column="35" />
-          <folding />
+        <state relative-caret-position="426">
+          <caret line="114" column="10" lean-forward="false" selection-start-line="114" selection-start-column="9" selection-end-line="114" selection-end-column="10" />
+          <folding>
+            <element signature="e#3223#3283#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/services/cards/plan.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="24" column="31" lean-forward="true" selection-start-line="24" selection-start-column="31" selection-end-line="24" selection-end-column="31" />
+        <state relative-caret-position="450">
+          <caret line="30" column="6" lean-forward="true" selection-start-line="30" selection-start-column="6" selection-end-line="30" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/instances/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="66" lean-forward="true" selection-start-line="13" selection-start-column="66" selection-end-line="13" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/services/modals/tab_plan.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="547">
+          <caret line="65" column="99" lean-forward="false" selection-start-line="65" selection-start-column="99" selection-end-line="65" selection-end-column="99" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/instances/modals/launch.html">
+    <entry file="file://$PROJECT_DIR$/templates/tests/jsontoimg.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="24" column="73" lean-forward="false" selection-start-line="24" selection-start-column="73" selection-end-line="24" selection-end-column="73" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="25" column="39" lean-forward="false" selection-start-line="25" selection-start-column="39" selection-end-line="25" selection-end-column="39" />
+        <state relative-caret-position="105">
+          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="26" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/esm_dashboard/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
-          <caret line="50" column="29" lean-forward="true" selection-start-line="50" selection-start-column="29" selection-end-line="50" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/css/starter-template.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="737">
-          <caret line="364" column="26" lean-forward="false" selection-start-line="364" selection-start-column="26" selection-end-line="364" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="71" column="34" lean-forward="true" selection-start-line="71" selection-start-column="34" selection-end-line="71" selection-end-column="34" />
-          <folding>
-            <element signature="e#2952#5825#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/instances/instance_row.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="30" lean-forward="false" selection-start-line="1" selection-start-column="30" selection-end-line="1" selection-end-column="30" />
+        <state relative-caret-position="563">
+          <caret line="76" column="31" lean-forward="true" selection-start-line="76" selection-start-column="31" selection-end-line="76" selection-end-column="31" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/instances/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="113" column="13" lean-forward="true" selection-start-line="113" selection-start-column="13" selection-end-line="113" selection-end-column="13" />
+        <state relative-caret-position="739">
+          <caret line="93" column="12" lean-forward="false" selection-start-line="93" selection-start-column="12" selection-end-line="93" selection-end-column="12" />
           <folding>
             <element signature="e#143#459#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/services/show.html">
+    <entry file="file://$PROJECT_DIR$/templates/services/cards/service_icon.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="686">
-          <caret line="57" column="6" lean-forward="false" selection-start-line="57" selection-start-column="6" selection-end-line="57" selection-end-column="6" />
+        <state relative-caret-position="135">
+          <caret line="9" column="44" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/instances/index.html">
+    <entry file="file://$PROJECT_DIR$/templates/services/cards/service_image.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="0" lean-forward="true" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+        <state relative-caret-position="210">
+          <caret line="13" column="41" lean-forward="false" selection-start-line="13" selection-start-column="41" selection-end-line="13" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/services/show.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="58" column="0" lean-forward="true" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
           <folding>
-            <element signature="n#div#0;n#div#0;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#div#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#div#1;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="n#div#1;n#div#1;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/services/modals/tab_service.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="8" column="13" lean-forward="true" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/services/modals/tab_template.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="23" lean-forward="false" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/instances/modals/launch.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="23" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="820">
+          <caret line="233" column="50" lean-forward="false" selection-start-line="233" selection-start-column="50" selection-end-line="233" selection-end-column="50" />
+          <folding>
+            <element signature="e#0#24#0" expanded="true" />
+            <element signature="e#183#662#0" expanded="false" />
+            <element signature="e#699#1253#0" expanded="false" />
+            <element signature="e#1284#1642#0" expanded="false" />
+            <element signature="e#1679#2078#0" expanded="false" />
+            <element signature="e#2117#2393#0" expanded="false" />
+            <element signature="e#2426#2849#0" expanded="false" />
+            <element signature="e#2886#3572#0" expanded="false" />
+            <element signature="e#2941#3127#0" expanded="false" />
+            <element signature="e#4236#4561#0" expanded="false" />
+            <element signature="e#4617#4847#0" expanded="false" />
+            <element signature="e#4928#6537#0" expanded="false" />
+            <element signature="e#6573#7472#0" expanded="false" />
+            <element signature="e#7591#7777#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/about.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="307">
+          <caret line="1057" column="20" lean-forward="false" selection-start-line="1057" selection-start-column="20" selection-end-line="1057" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="28" lean-forward="false" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/services/modals/create.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="29" lean-forward="false" selection-start-line="1" selection-start-column="29" selection-end-line="1" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/services/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="30" column="14" lean-forward="true" selection-start-line="30" selection-start-column="14" selection-end-line="30" selection-end-column="14" />
+          <folding>
+            <element signature="n#style#0;n#button#0;n#div#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
