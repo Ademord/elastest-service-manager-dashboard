@@ -1,0 +1,123 @@
+{% extends "layouts/default.html" %}
+{% block content %}
+    {% load static %}
+
+
+<h2> Instance Overview </h2>
+<div class="row">
+    <div class="col-lg-6 col-md-10">
+    <ul class="timeline timeline-simple">
+        <li class="timeline-inverted">
+            <div class="timeline-badge {{ instance.color }}">
+                <i class="material-icons">card_travel</i>
+            </div>
+            <div class="timeline-panel">
+                <div class="timeline-heading">
+                    <span class="badge badge-info">{{ instance.service_name }} Service</span>
+                </div>
+                <div class="timeline-body">
+                    <p>{{ instance.service_description }}</p>
+                </div>
+            </div>
+        </li>
+        <li class="timeline-inverted">
+            <div class="timeline-badge {{ instance.color }}">
+                <i class="material-icons">cloud</i>
+            </div>
+            <div class="timeline-panel">
+                <div class="timeline-heading" style="margin: 0;">
+                    <span class="badge badge-info">Plan</span>
+                </div>
+                <div class="timeline-body">
+                    <div class="card card-pricing" style="margin: 0; box-shadow: none;">
+                        <h6 class="card-category" style="color: #212529;padding: 0;margin: 0;">{{ instance.plan_name }}</h6>
+                        <div class="card-body" style="margin: 0; padding: 0;">
+                            <div class="card-icon icon-info">
+                                <i class="material-icons" style="border: 1px solid #212529;">cloud</i>
+                            </div>
+                            <h3 class="card-title" style="color: #212529;">29$</h3>
+                            <p class="card-description" style="margin: 0;color: #343a40;">{{ instance.plan_description }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </li>
+        <li class="timeline-inverted">
+            <div class="timeline-badge {{ instance.color }}">
+                <i class="material-icons">fingerprint</i>
+            </div>
+            <div class="timeline-panel">
+                <div class="timeline-heading" style="margin: 0;">
+                    <span class="badge badge-info">Backend</span>
+                </div>
+                <div class="timeline-body">
+                    <div class="card card-pricing" style="margin: 0; box-shadow: none;">
+                        <h6 class="card-category" style="color: #212529;padding: 0;margin: 0;">{{ instance.backend }}</h6>
+                        <div class="card-body" style="margin: 0; padding: 0;">
+                            <p class="card-description" style="margin: 0;color: #343a40;">{{ instance.template }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </li>
+        <li class="timeline-inverted">
+            <div class="timeline-badge {{ instance.color }}">
+                <i class="material-icons">{{ instance.status_icon }}</i>
+            </div>
+        </li>
+    </ul>
+</div>
+    <div class="col-lg-6 col-md-10">
+        <div class="card">
+            <div class="card-header card-header-icon card-header-info">
+                <div class="card-icon">
+                    <i class="material-icons">insert_chart</i>
+                </div>
+                <h4 class="card-title">Instances Performance
+                    <small>- Running vs Crashes</small>
+                </h4>
+            </div>
+            <div class="card-body">
+                <div id="multipleBarsChart" class="ct-chart"></div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header card-header-icon card-header-info">
+                <div class="card-icon">
+                    <i class="material-icons">code</i>
+                </div>
+                <h4 class="card-title">Access Variables
+                </h4>
+            </div>
+            <div class="card-body table-responsive">
+                <table class="table table-hover">
+                    <thead class="text-info">
+                        <th>Variable</th>
+                        <th>Value</th>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Endpoint:</td>
+                        <td>http://192.168.0.1/wp-login</td>
+                    </tr>
+                    <tr>
+                        <td>Username:</td>
+                        <td>admin</td>
+                    </tr>
+                    <tr>
+                        <td>Password:</td>
+                        <td>admin</td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

@@ -1,5 +1,5 @@
 <tr>
-    <td class='instance_status'><i class="fa fa-circle {{ instance.color }}"></td>
+    <td class='instance_status'><i class="fa fa-circle text-{{ instance.color }}"></td>
     <td>{{ instance.id }} </td>
     <td>{{ instance.name }}</td>
     <td>{{ instance.backend }}</td>
@@ -8,12 +8,12 @@
         <form id="delete_instance" action="/instances/delete">
             {% csrf_token %}
 
-            <button id="edit" type="button" rel="tooltip" class="btn btn-info" data-original-title="" title="">
-            <i class="material-icons">info</i> VIEW
+            <button id="info" type="button" rel="tooltip" class="btn btn-info" data-original-title="" title="" onclick="location.href='/instances/{{ instance.id }}';">
+                <i class="material-icons">info</i> VIEW
             </button>
 
-            <button type="button" rel="tooltip" class="btn btn-success" data-original-title="" title="">
-            <i class="material-icons">history</i> RESTART
+            <button id="restart" type="button" rel="tooltip" class="btn btn-success" data-original-title="" title="">
+                <i class="material-icons">history</i> RESTART
             </button>
 
             <button id="delete_instance_button" type="button" rel="tooltip" class="btn btn-danger" data-original-title="" title="" form="delete_instance">

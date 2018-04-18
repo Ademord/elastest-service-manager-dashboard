@@ -3,8 +3,9 @@ $('#launch_preview').on('click', function() {
     // $("#modal-background").toggleClass("active", 1000);
     $("div[role=tooltip]").remove();
     // adjust form
-    var $selected_plan = $('#launch_preview').children()[1].innerHTML;
-    var $new_action = "/instances/create/" + $selected_plan;
+    var $selected_service = $('#launch_preview').children()[1].innerHTML;
+    var $selected_plan = $('#launch_preview').children()[2].innerHTML;
+    var $new_action = "/instances/create/" + $selected_service + "k" + $selected_plan;
     $('#launch_instance').attr('action', $new_action);
     // show the modal
     $('#launch_modal_preview').modal({backdrop: 'static', keyboard: false});

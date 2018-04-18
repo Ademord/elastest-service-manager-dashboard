@@ -1,6 +1,8 @@
 from django import forms
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
+import json
+import requests
 
 
 class ServiceForm(forms.Form):
@@ -11,8 +13,6 @@ class ServiceForm(forms.Form):
 
 
 def delete_instance(request):
-    import requests
-
     url = "http://localhost:8080/v2/service_instances/test_service_instance"
 
     querystring = {"service_id": "b1620b13-7d11-4abc-a762-f34a108ea49c", "plan_id": "36ed4b3e-c132-4746-af71-26dee76e59cb", "accept_incomplete": "false"}
@@ -32,22 +32,12 @@ def delete_instance(request):
     return HttpResponseRedirect('/instances/')
 
 
-def create_instance(request, plan_id=None):
-    service = request.session['service']
-    service_id = service['id']
-    plan_id = service['plans'][plan_id - 1]['id']
-    # from django.http import HttpResponse
-    # return HttpResponse(service_id + plan_id)
-
-    del request.session['service']
-    del request.session['parsed_services']
-    import requests
-
+def create_instance(request, parameter=None):
+    service_id, plan_id = parameter.split("k")
     url = "http://localhost:8080/v2/service_instances/test_service_instance"
 
     querystring = {"accept_incomplete": "false"}
 
-    # payload = "{\n  \"organization_guid\": \"org\",\n  \"plan_id\": \"36ed4b3e-c132-4746-af71-26dee76e59cb\",\n  \"service_id\": \"b1620b13-7d11-4abc-a762-f34a108ea49c\",\n  \"space_guid\": \"space\"\n}"
     payload = "{\"organization_guid\": \"org\", \"plan_id\": \"" + plan_id + "\", \"service_id\": \"" + service_id + "\",\"space_guid\": \"space\"}"
 
     headers = {
@@ -59,14 +49,14 @@ def create_instance(request, plan_id=None):
     }
 
     response = requests.request("PUT", url, data=payload, headers=headers, params=querystring)
+    print('instance', response.text)
 
-    print('instance provisioned', response.text)
     import time
-    time.sleep(5)
+    time.sleep(4)
     return HttpResponseRedirect('/instances/')
 
 
-def get_instance():
+def bootstrap_instances():
 
     instances = [
             {'id': '92', 'name': 'Spark', 'backend': 'Kubernetes', 'time_alive': '26 days', 'color': 'text-danger'},
@@ -82,12 +72,6 @@ def get_instance():
 
 
 def str_to_datetime(s = "2016-03-26T09:25:55.000Z"):
-    # from datetime import datetime
-    # # 2018-04-11T14:39:53.7037297Z
-    # f = "%Y-%m-%dT%H:%M:%S.%fZ"
-    # print('received, ', s)
-    # datetime = datetime.strptime(s, f)
-    # return datetime
     # from stackoverflow.com/questions/28408614/time-data-2015-02-10t130000z-does-not-match-format-y-m-d-hms
     import dateutil.parser
     # '2015-02-10T13:00:00Z'
@@ -118,31 +102,19 @@ def get_running_time(started_date, now):
     return running_time
 
 
-# TODO incomplete
-def instance_catalog(request):
-    # instances = get_instance()
-    import requests
-
-    url = "http://localhost:8080/v2/et/service_instances"
-
-    headers = {
-        'X-Broker-Api-Version': "2.12",
-        'Cache-Control': "no-cache",
-        'Postman-Token': "8a6bfa39-d96f-fa28-61d8-e3a480c937db"
-    }
-
-    response = requests.request("GET", url, headers=headers)
-    import json
-    instances = json.loads(response.text)
+def parse_instances(instances):
     parsed_instances = []
 
     for instance in instances:
         # get Status
         preview = ['status']
+        type([v for k, v in instance['context'].items() if any(possible_key in k for possible_key in preview)])
         status = [v for k, v in instance['context'].items() if any(possible_key in k for possible_key in preview)][0]
-        color = 'text-danger'
-        if status == 'running':
-            color = 'text-success'
+        color = 'danger'
+        status_icon = 'clear'
+        # if status == 'running':
+        #     color = 'success'
+        #     status_icon = 'done'
 
         # get Status
         preview = ['startedat']
@@ -156,37 +128,58 @@ def instance_catalog(request):
         id = instance['context']['id']
         backend = 'Docker'
 
-        service_name = instance['service_type']['name']
-
+        manifest_id = instance['context']['manifest_id']
         parsed_instances.append({
             'id': id,
+            'color': color,
+            'status_icon': status_icon,
+
+            'service_name': instance['service_type']['name'],
+            'service_description': instance['service_type']['description'],
+
+            'plan_name': 'dumdum_plan',
+            'plan_description': 'This is a very important plan.',
+
+            'backend': backend,
+            'template': 'This is a very important template',
+            # Also for Preview
             'status': status,
             'time_alive': running_time,
             'started_time': str(started_date),
-            'current_time': str(now),
-            'color': color,
-            'backend': backend,
-            'name': service_name
+            'current_time': str(now)
         })
 
-    print('Parsing Instances... 200 OK')
-    from django.http import HttpResponse
-    # return HttpResponse(str(parsed_instances))
-    return render(request, 'instances/index.html', {'instances': parsed_instances})
+    return parsed_instances
 
-# TODO incomplete
-# def instance_detail(request, service_id=None):
-#     # Service Loading | Display Index
-#     services = ['wordpress', 'kubernetes', 'openstack', 'redis', 'elastest', 'spark', 'openshift', 'postgres',
-#                 'cyclops', 'hurtle']
-#     services = [{'name': s.title(), 'image_path': "assets/img/{}-icon.png".format(s)} for s in services]
-#     custom = {'name': 'Custom', 'icon': 'dashboard'}
-#
-#     plans = [
-#         {'name': 'Tiny', 'description': '2 Cores <br> 2 GB RAM', 'color': 'card-header-success'},
-#         {'name': 'Small', 'description': '4 Cores <br> 4 GB RAM', 'color': 'card-header-info'},
-#         {'name': 'Medium', 'description': '8 Cores <br> 8 GB RAM', 'color': 'card-header-warning'},
-#         {'name': 'Big', 'description': '16 Cores <br> 16 GB RAM', 'color': 'card-header-rose'}
-#     ]
-#
-#     return render(request, 'services/show1.html', {'service': services[service_id], 'plans': plans})
+
+def instance_catalog(request):
+    url = "http://localhost:8080/v2/et/service_instances"
+    headers = {
+        'X-Broker-Api-Version': "2.12",
+        'Cache-Control': "no-cache",
+        'Postman-Token': "8a6bfa39-d96f-fa28-61d8-e3a480c937db"
+    }
+    response = requests.request("GET", url, headers=headers)
+
+    parsed_instances = parse_instances(json.loads(response.text))
+    return render(request, 'instances/index.html', {'instances': parsed_instances + bootstrap_instances()})
+
+
+def instance_detail(request, instance_id=None):
+    url = "http://localhost:8080/v2/et/service_instances/{}".format(instance_id)
+
+    headers = {
+        'X-Broker-Api-Version': "2.12",
+        'Cache-Control': "no-cache",
+        'Postman-Token': "66fba99d-2fe6-d11e-0424-1488c889132b"
+    }
+
+    response = requests.request("GET", url, headers=headers)
+
+    if response.status_code == 200:
+        parsed_instance = parse_instances([json.loads(response.text)])[0]
+        print(parsed_instance)
+        return render(request, 'instances/show.html', {'instance': parsed_instance})
+    else:
+        # todo return error message isntance not found
+        return instance_catalog(request)

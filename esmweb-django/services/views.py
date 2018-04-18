@@ -96,12 +96,6 @@ def service_catalog(request):
     response = requests.request("GET", url, headers=headers)
 
     parsed_services = parse_services(json.loads(response.text))
-    # todo find a better way to pass views to the different view
-    request.session['parsed_services'] = parsed_services
-
-    # from django.http import HttpResponse
-    # return HttpResponse(str(parsed_services))
-
     return render(request, 'services/index.html', {'services': parsed_services + bootstrap_services()})
 
 
@@ -109,10 +103,7 @@ def build_create_manifest_request(cache):
     url = "http://localhost:8080/v2/et/manifest/test_manifest"
     payload = {
         "id": cache['manifest_id'],
-        "manifest_content": "networks:\n  dumdum: {driver: bridge}\nservices:\n  dumdum:\n "
-                            "environment: [USE_TORM=true, 'AAA=http://keystone']\n    "
-                            "expose: [56567]\n    image: ademord/dumdum:latest\n   "
-                            " networks: [dumdum]\n    ports: ['56567:5000']\nversion: '3'\n",
+        "manifest_content": cache['template'],
         "manifest_type": cache['backend'],
         "plan_id": cache['plan_id'],
         "service_id": cache['service_id'],
@@ -218,7 +209,6 @@ def create_service(request):
 
 
 def service_detail(request, service_id=None):
-    # try:
     url = "http://localhost:8080/v2/catalog"
     headers = {
         'Accept': "application/json",

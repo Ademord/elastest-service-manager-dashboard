@@ -3,7 +3,7 @@ import os
 from django.shortcuts import render
 from django.urls import path
 from services.views import service_catalog, create_service, service_detail
-from instances.views import instance_catalog, create_instance, delete_instance
+from instances.views import instance_catalog, create_instance, delete_instance, instance_detail
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -74,7 +74,8 @@ urlpatterns = [
     path('instances/',                  instance_catalog,   name='instance_catalog_page'),
     path('instances/delete',            delete_instance,   name='instance_catalog_page'),
     path('instances/create',            create_instance,   name='instance_catalog_page'),
-    path('instances/create/<str:plan_id>',     create_instance,   name='instance_catalog_page'),
+    path('instances/create/<str:parameter>',     create_instance,   name='instance_catalog_page'),
+    path('instances/<str:instance_id>',     instance_detail,   name='instance_catalog_page'),
 
     path('test', test, name='catalogpage')
 ]
