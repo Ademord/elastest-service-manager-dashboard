@@ -7,7 +7,9 @@ from instances.views import instance_catalog, create_instance, delete_instance, 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-DEBUG = True
+# DEBUG = True
+DEBUG = False
+ALLOWED_HOSTS = ['*']
 SECRET_KEY = '4l0ngs3cr3tstr1ngw3lln0ts0l0ngw41tn0w1tsl0ng3nouuuugh15'
 ROOT_URLCONF = __name__
 DATABASES = {
@@ -60,6 +62,40 @@ def test(request):
 
 def welcome(request):
     return render(request, 'welcome.html')
+
+
+# error views
+from django.shortcuts import render_to_response
+from django.template import RequestContext
+from django.conf.urls import ( handler400, handler403, handler404, handler500 )
+
+# handler400 = 'esm_dashboard.settings.bad_request'
+# handler403 = 'settings.permission_denied'
+handler400 = 'esm_dashboard.settings.page_not_found'
+handler404 = 'esm_dashboard.settings.page_not_found'
+handler500 = 'esm_dashboard.settings.page_not_found'
+# handler500 = 'esm_dashboard.settings.server_error'
+
+
+# HTTP Error 400
+def bad_request(request):
+    response = render_to_response('400.html')
+    response.status_code = 400
+    return render(request, 'welcome.html')
+
+
+# HTTP Error 404
+def page_not_found(request):
+    response = render_to_response('404.html')
+    response.status_code = 404
+    return response
+
+
+# HTTP Error 500
+def server_error(request):
+    response = render_to_response('500.html')
+    response.status_code = 500
+    return response
 
 
 urlpatterns = [

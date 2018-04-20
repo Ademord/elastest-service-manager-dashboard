@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 import json
 import requests
-
+from services.views import manifest_detail
 
 class ServiceForm(forms.Form):
     service_name = forms.CharField(label='Your Service name', max_length=100)
@@ -59,14 +59,14 @@ def create_instance(request, parameter=None):
 def bootstrap_instances():
 
     instances = [
-            {'id': '92', 'name': 'Spark', 'backend': 'Kubernetes', 'time_alive': '26 days', 'color': 'text-danger'},
-            {'id': '62', 'name': 'Custom_LabCC2', 'backend': 'OpenStack', 'time_alive': '156 days',
+            {'id': '92', 'service_name': 'Spark', 'backend': 'Kubernetes', 'time_alive': '26 days', 'color': 'text-danger'},
+            {'id': '62', 'service_name': 'Custom_LabCC2', 'backend': 'OpenStack', 'time_alive': '156 days',
              'color': 'text-warning'},
-            {'id': '55', 'name': 'Wordpress', 'backend': 'Openshift', 'time_alive': '106 days',
+            {'id': '55', 'service_name': 'Wordpress', 'backend': 'Openshift', 'time_alive': '106 days',
              'color': 'text-success'},
-            {'id': '12', 'name': 'Hurtle', 'backend': 'OpenStack', 'time_alive': '276 days', 'color': 'text-danger'},
-            {'id': '43', 'name': 'Elastest', 'backend': 'Docker', 'time_alive': '20 seconds', 'color': 'text-success'},
-            {'id': '31', 'name': 'Cyclops', 'backend': 'Unikernel', 'time_alive': '2 hours', 'color': 'text-success'}
+            {'id': '12', 'service_name': 'Hurtle', 'backend': 'OpenStack', 'time_alive': '276 days', 'color': 'text-danger'},
+            {'id': '43', 'service_name': 'Elastest', 'backend': 'Docker', 'time_alive': '20 seconds', 'color': 'text-success'},
+            {'id': '31', 'service_name': 'Cyclops', 'backend': 'Unikernel', 'time_alive': '2 hours', 'color': 'text-success'}
         ]
     return instances
 
@@ -110,11 +110,12 @@ def parse_instances(instances):
         preview = ['status']
         type([v for k, v in instance['context'].items() if any(possible_key in k for possible_key in preview)])
         status = [v for k, v in instance['context'].items() if any(possible_key in k for possible_key in preview)][0]
+        # color and icon for instances.index/.show
         color = 'danger'
         status_icon = 'clear'
-        # if status == 'running':
-        #     color = 'success'
-        #     status_icon = 'done'
+        if status == 'running':
+            color = 'success'
+            status_icon = 'done'
 
         # get Status
         preview = ['startedat']
@@ -126,23 +127,33 @@ def parse_instances(instances):
 
         # get id
         id = instance['context']['id']
-        backend = 'Docker'
 
+        # prerequisites
         manifest_id = instance['context']['manifest_id']
+        # this could in an impossible case break.
+        manifest = manifest_detail(manifest_id)[0]
+        # get the plan
+        plan = None
+        for plan in instance['service_type']['plans']:
+            if plan['id'] == manifest['id']:
+                plan = plan
+                break
+
         parsed_instances.append({
             'id': id,
             'color': color,
             'status_icon': status_icon,
 
+            'service_id': instance['service_type']['id'],
             'service_name': instance['service_type']['name'],
             'service_description': instance['service_type']['description'],
 
-            'plan_name': 'dumdum_plan',
-            'plan_description': 'This is a very important plan.',
+            'plan_name': plan['name'],
+            'plan_description': plan['description'],
 
-            'backend': backend,
-            'template': 'This is a very important template',
-            # Also for Preview
+            'backend': manifest['manifest_type'],
+            'template': manifest['manifest_content'],
+
             'status': status,
             'time_alive': running_time,
             'started_time': str(started_date),
@@ -162,7 +173,8 @@ def instance_catalog(request):
     response = requests.request("GET", url, headers=headers)
 
     parsed_instances = parse_instances(json.loads(response.text))
-    return render(request, 'instances/index.html', {'instances': parsed_instances + bootstrap_instances()})
+    # return render(request, 'instances/index.html', {'instances': parsed_instances + bootstrap_instances()})
+    return render(request, 'instances/index.html', {'instances': parsed_instances, 'bootstrap_instances': bootstrap_instances()})
 
 
 def instance_detail(request, instance_id=None):

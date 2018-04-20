@@ -1,11 +1,11 @@
-<div class="col-lg-3 col-md-6 col-sm-6 flex-item-plan">
+<div class="col-lg-3 col-md-12 col-sm-12 flex-item-plan">
     <div class="card card-stats">
         <div class="card-header {{ plan.color }} card-header-icon" data-header-animation="true">
             <div class="card-icon" style="min-width: 90px !important;">
                 <h2>{{ plan.name }} </h2>
             </div>
         </div>
-        <div class="card-body card-body-plan">
+        <div class="card-body card-body-plan" style="text-align: left;padding: 30px !important;">
             <div class="card-actions-plan ">
 
                 <button id="launch_preview" type="button" class="btn btn-info btn-link btn-plan" rel="tooltip" data-placement="bottom" title="Launch Service">
@@ -13,15 +13,13 @@
                     <p hidden>{{ service_id }}</p>
                     <p hidden>{{ plan.id }}</p>
                 </button>
-                <button id="edit" type="button" class="btn btn-default btn-link btn-plan" rel="tooltip" data-placement="bottom" title="Edit Plan">
-                    <i class="material-icons">edit</i>
-                </button>
+
                 <button type="button" class="btn btn-danger btn-link fix-broken-card" rel="tooltip" data-placement="bottom" title="Fix Header">
                     <i class="material-icons">build</i>
                 </button>
             </div>
 <!--            <h3 class="card-title card-title-plan">{{ plan.name }} <br> Service </h3>-->
-            <h4 class="card-title card-title-plan"> {{ plan.description |safe }} </h4>
+            <h4> {{ plan.description |safe }} </h4>
         </div>
         <div class="card-footer">
             <div class="stats">

@@ -18,11 +18,41 @@
         {% else %}
             {% include "services/cards/service_icon.html" with service=service %}
         {% endif %}
-    {% endfor %}
-    <button id="minimizeSidebar" class="btn btn-just-icon btn-white btn-fab btn-round">
-            <i class="fa fa-plus"></i>
-    <div class="ripple-container"></div></button>
+    {% empty %}
+        <div class="col-lg-3 col-md-6 col-sm-6 flex-item">
+            <div class="card card-stats">
+                <div class="card-header card-header-rose card-header-icon" data-header-animation="true">
+                    <div class="card-icon">
+                        <i class="material-icons">exposure_neg_1</i>
+                    </div>
+                </div>
+                <div class="card-body card-body-plan">
+                    <div class="card-actions-service ">
+                        <button type="button" class="btn btn-danger btn-link fix-broken-card" rel="tooltip" data-placement="bottom" title="Fix Header">
+                            <i class="material-icons">build</i>
+                        </button>
+                    </div>
+                    <h3 class="card-title card-title-plan"> No services <br> registered </h3>
+                </div>
+                <br>
+            </div>
+        </div>
 
+    {% endfor %}
+
+</div>
+
+<h2>Template Services</h2>
+
+<div class="flex-container container-plan pr-3">
+
+    {% for service in bootstrap_services %}
+        {% if service.logo_path != None %}
+            {% include "services/cards/service_image.html" with service=service %}
+        {% else %}
+            {% include "services/cards/service_icon.html" with service=service %}
+        {% endif %}
+    {% endfor %}
 
 </div>
 

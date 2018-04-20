@@ -78,9 +78,27 @@
 
 
 
-.main-panel>.content{
-    margin-top: 0px;
+/*.main-panel>.content{*/
+    /*margin-top: 0px;*/
 
+/*}*/
+.slider {
+  width: 400px;
+  margin: 20px auto;
+  text-align: center;
+  padding: 20px;
+  color: white;
+}
+.slider .parent-slide {
+  padding: 15px;
+}
+.slider img {
+  display: block;
+  margin: auto;
+}
+
+.slick-dots {
+  left: 0;
 }
 
 .logo-normal > img {

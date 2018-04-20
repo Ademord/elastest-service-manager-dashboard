@@ -6,69 +6,75 @@
 <h2> Instance Overview </h2>
 <div class="row">
     <div class="col-lg-6 col-md-10">
-    <ul class="timeline timeline-simple">
-        <li class="timeline-inverted">
-            <div class="timeline-badge {{ instance.color }}">
-                <i class="material-icons">card_travel</i>
-            </div>
-            <div class="timeline-panel">
-                <div class="timeline-heading">
-                    <span class="badge badge-info">{{ instance.service_name }} Service</span>
+        <ul class="timeline timeline-simple">
+            <li class="timeline-inverted">
+                <div class="timeline-badge {{ instance.color }}">
+                    <i class="material-icons">card_travel</i>
                 </div>
-                <div class="timeline-body">
-                    <p>{{ instance.service_description }}</p>
+                <div class="timeline-panel">
+                    <div class="timeline-heading">
+                        <span class="badge badge-info">{{ instance.service_name }} Service</span>
+                    </div>
+                    <div class="timeline-body" style="display: flex;">
+                        <p>{{ instance.service_description }} <button type="button" class="btn btn-info btn-link" rel="tooltip" data-placement="bottom" title="Inspect Service" onclick="location.href='/catalog/{{ instance.service_id }}';" style="padding: 0; padding-left: 5px; margin: 0;">
+                            <i class="material-icons">launch</i>
+                        </button></p>
+
+                    </div>
                 </div>
-            </div>
-        </li>
-        <li class="timeline-inverted">
-            <div class="timeline-badge {{ instance.color }}">
-                <i class="material-icons">cloud</i>
-            </div>
-            <div class="timeline-panel">
-                <div class="timeline-heading" style="margin: 0;">
-                    <span class="badge badge-info">Plan</span>
+            </li>
+            <li class="timeline-inverted">
+                <div class="timeline-badge {{ instance.color }}">
+                    <i class="material-icons">cloud</i>
                 </div>
-                <div class="timeline-body">
-                    <div class="card card-pricing" style="margin: 0; box-shadow: none;">
-                        <h6 class="card-category" style="color: #212529;padding: 0;margin: 0;">{{ instance.plan_name }}</h6>
-                        <div class="card-body" style="margin: 0; padding: 0;">
-                            <div class="card-icon icon-info">
-                                <i class="material-icons" style="border: 1px solid #212529;">cloud</i>
+                <div class="timeline-panel">
+                    <div class="timeline-heading" style="margin: 0;">
+                        <span class="badge badge-info">Plan</span>
+                    </div>
+                    <div class="timeline-body">
+                        <div class="card card-pricing" style="margin: 0; box-shadow: none;">
+                            <h6 class="card-category" style="color: #212529;padding: 0;margin: 0;">{{ instance.plan_name }}</h6>
+                            <div class="card-body" style="margin: 0; padding: 0;">
+                                <div class="card-icon icon-info">
+                                    <i class="material-icons" style="border: 1px solid #212529;">cloud</i>
+                                </div>
+                                <h3 class="card-title" style="color: #212529;">29$</h3>
+                                <p class="card-description" style="margin: 0;color: #343a40;">{{ instance.plan_description }}</p>
                             </div>
-                            <h3 class="card-title" style="color: #212529;">29$</h3>
-                            <p class="card-description" style="margin: 0;color: #343a40;">{{ instance.plan_description }}</p>
                         </div>
                     </div>
                 </div>
-            </div>
 
-        </li>
-        <li class="timeline-inverted">
-            <div class="timeline-badge {{ instance.color }}">
-                <i class="material-icons">fingerprint</i>
-            </div>
-            <div class="timeline-panel">
-                <div class="timeline-heading" style="margin: 0;">
-                    <span class="badge badge-info">Backend</span>
+            </li>
+            <li class="timeline-inverted">
+                <div class="timeline-badge {{ instance.color }}">
+                    <i class="material-icons">fingerprint</i>
                 </div>
-                <div class="timeline-body">
-                    <div class="card card-pricing" style="margin: 0; box-shadow: none;">
-                        <h6 class="card-category" style="color: #212529;padding: 0;margin: 0;">{{ instance.backend }}</h6>
-                        <div class="card-body" style="margin: 0; padding: 0;">
-                            <p class="card-description" style="margin: 0;color: #343a40;">{{ instance.template }}</p>
+                <div class="timeline-panel">
+                    <div class="timeline-heading" style="margin: 0;">
+                        <span class="badge badge-info">Backend</span>
+                    </div>
+                    <div class="timeline-body">
+                        <div class="card card-pricing" style="margin: 0; box-shadow: none;">
+                            <h6 class="card-category" style="color: #212529;padding: 0;margin: 0;">{{ instance.backend }}</h6>
+                            <div class="card-body" style="text-align: left;">
+
+                                <p class="card-description" style="margin: 0;color: #343a40;">
+                                    <pre>{{ instance.template }}</pre>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-        </li>
-        <li class="timeline-inverted">
-            <div class="timeline-badge {{ instance.color }}">
-                <i class="material-icons">{{ instance.status_icon }}</i>
-            </div>
-        </li>
-    </ul>
-</div>
+            </li>
+            <li class="timeline-inverted">
+                <div class="timeline-badge {{ instance.color }}">
+                    <i class="material-icons">{{ instance.status_icon }}</i>
+                </div>
+            </li>
+        </ul>
+    </div>
     <div class="col-lg-6 col-md-10">
         <div class="card">
             <div class="card-header card-header-icon card-header-info">

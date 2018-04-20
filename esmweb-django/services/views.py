@@ -73,6 +73,13 @@ def parse_image(preview_image):
     return preview_image
     # End Parse Image
 
+def bootstrap_empty_service():
+    return {
+        'id': '',
+        'name': 'No registered services',
+        'icon': 'unknown',
+        'plans': [],
+    }
 
 def bootstrap_services():
     default = ['wordpress', 'kubernetes', 'openstack', 'redis', 'elastest', 'spark', 'openshift',
@@ -83,6 +90,42 @@ def bootstrap_services():
     # from django.http import HttpResponse
     # return HttpResponse(str(parsed_services))
     return default
+
+
+def parse_manifests(manifests):
+    parsed_manifests = []
+    # def parse_mani(m): {'id': manifest['id'], 'service_id': manifest['service_id'], 'plan_id': manifest['plan_id']}
+    # result = [parse_manifest(manifest) for manifest in manifests]
+    for manifest in manifests:
+        parsed_manifests.append({
+            'id': manifest['id'],
+            'service_id': manifest['service_id'],
+            'plan_id': manifest['plan_id'],
+            'manifest_type': manifest['manifest_type'],
+            'manifest_content': manifest['manifest_content']
+        })
+    return parsed_manifests
+
+
+def manifest_detail(manifest_id=None):
+    url = "http://localhost:8080/v2/et/manifest"
+
+    headers = {
+        'X-Broker-API-Version': "2.12",
+        'Cache-Control': "no-cache",
+        'Postman-Token': "40bc1976-f185-d0db-97fe-067162bbbcfc"
+    }
+    response = requests.request("GET", url, headers=headers)
+
+    if response.status_code == 200:
+        parsed_manifests = parse_manifests(json.loads(response.text))
+        if parsed_manifests and manifest_id:
+            return [manifest for manifest in parsed_manifests if manifest_id == manifest['id']]
+        else:
+            return parsed_manifests
+    else:
+        # todo return error message item not found
+        return None
 
 
 def service_catalog(request):
@@ -96,7 +139,8 @@ def service_catalog(request):
     response = requests.request("GET", url, headers=headers)
 
     parsed_services = parse_services(json.loads(response.text))
-    return render(request, 'services/index.html', {'services': parsed_services + bootstrap_services()})
+    # return render(request, 'services/index.html', {'services': parsed_services + bootstrap_services()})
+    return render(request, 'services/index.html', {'services': parsed_services, 'bootstrap_services': bootstrap_services()})
 
 
 def build_create_manifest_request(cache):
@@ -188,7 +232,11 @@ def create_service(request):
 
     if form.is_valid():
         cache = form.cleaned_data
-        cache['preview_image'] = parse_image(request.FILES['preview_image'])
+        if 'preview_image' in request.FILES:
+            cache['preview_image'] = parse_image(request.FILES['preview_image'])
+        else:
+            cache['preview_image'] = ""
+
         cache['service_id'] = uuid.uuid4().hex
         cache['plan_id'] = uuid.uuid4().hex
         cache['manifest_id'] = uuid.uuid4().hex
@@ -223,5 +271,5 @@ def service_detail(request, service_id=None):
         if service['id'] == service_id:
             return render(request, 'services/show.html', {'service': service})
 
-    # TODO notified that the requested service does not exist
-    return render(request, 'services/index.html', {'services': parsed_services + bootstrap_services()})
+    # todo return error message item not found
+    return service_catalog(request)

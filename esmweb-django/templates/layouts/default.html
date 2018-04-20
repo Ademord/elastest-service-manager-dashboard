@@ -10,6 +10,27 @@
         {% include "includes/header.html" %}
 
         <div class="main-panel">
+            <nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute fixed-top">
+                <div class="container-fluid">
+                    <div class="navbar-wrapper">
+                        <div class="navbar-minimize">
+                            <button id="minimizeSidebar" class="btn btn-just-icon btn-white btn-fab btn-round" data-vivaldi-spatnav-clickable="1">
+                                <i class="material-icons text_align-center visible-on-sidebar-regular">more_vert</i>
+                                <i class="material-icons design_bullet-list-67 visible-on-sidebar-mini">view_list</i>
+                            </button>
+                        </div>
+                        <a class="navbar-brand" href="/">Dashboard</a>
+                    </div>
+
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="navbar-toggler-icon icon-bar"></span>
+                        <span class="navbar-toggler-icon icon-bar"></span>
+                        <span class="navbar-toggler-icon icon-bar"></span>
+                    </button>
+
+                </div>
+            </nav>
             <div class="content">
                 <div class="container-fluid">
                    {% block content %}{% endblock %}
@@ -17,6 +38,14 @@
             </div>
 
             <br>
+
+            <footer class="footer ">
+                <div class="container">
+                    <div class="copyright center">
+                        &copy; <script>document.write(new Date().getFullYear())</script>, adapted with <i class="material-icons">favorite</i> by <a href="https://github.com/ademord" target="_blank">Ademord</a> for a better web.
+                    </div>
+                </div>
+            </footer>
             {% include "includes/footer.html" %}
         </div>
     </div>
