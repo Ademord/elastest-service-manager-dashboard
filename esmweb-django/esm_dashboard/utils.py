@@ -1,6 +1,40 @@
 from django.shortcuts import render
+from django.shortcuts import redirect
 import requests
 
+ERROR_TITLE = 'Oh no!'
+SUCCESS_TITLE = 'Success!'
+INFO_TITLE = 'Info!'
+
+SUCCESS_MESSAGE = 'Operation was successfully executed.'
+ERROR_MESSAGE = 'Oops! Something went wrong, \n you should try again.'
+
+# instances
+SUCCESS_PROVISION_MESSAGE = 'Your Service Instance has been successfully deployed.'
+ERROR_PROVISION_MESSAGE = 'Oops! Something went wrong, \n Check your variables and try again.'
+SUCCESS_DEPROVISION_MESSAGE = 'Your Service Instance has been deprovisioned.'
+ERROR_DEPROVISION_MESSAGE = ERROR_MESSAGE
+
+notify_error_dict = {
+    'notify_title': ERROR_TITLE,
+    'notify_message': ERROR_MESSAGE,
+    'notify_fa_icon': 'fa-thumbs-down',
+    'notify_fa_color': 'error'
+}
+
+notify_info_dict = {
+    'notify_title': INFO_TITLE,
+    'notify_message': 'unset',
+    'notify_fa_icon': 'fa-info',
+    'notify_fa_color': 'success neutral'
+}
+
+notify_success_dict = {
+    'notify_title': SUCCESS_TITLE,
+    'notify_message': SUCCESS_MESSAGE,
+    'notify_fa_icon': 'fa-check',
+    'notify_fa_color': 'success'
+}
 
 def endpoint_alive(url):
     try:
@@ -11,8 +45,10 @@ def endpoint_alive(url):
         return False
 
 
-def esm_endpoint_check(request):
-    print(request.build_absolute_uri())
+def esm_endpoint_check(request, original_url=None):
+    print("checking esm_alive", request.build_absolute_uri())
+    request.session['original_url'] = request.build_absolute_uri()
+
     endpoint = request.session.get('esm_endpoint')
     if not endpoint:
         return redirect_first_time(request)
@@ -57,5 +93,7 @@ def set_esm_endpoint(request):
     if not endpoint_alive(endpoint):
         return redirect_offline(request)
 
-    return render(request, 'welcome.html')
+    print('redirecting after configure...')
+    return redirect(request.session.get('original_url', 'welcome.html'))
+    # return render(request, 'welcome.html')
 

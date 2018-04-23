@@ -1,23 +1,25 @@
-// Catalog/Show | Launch (PreviewModal)
-$('#launch_preview').on('click', function() {
-    // $("#modal-background").toggleClass("active", 1000);
-    $("div[role=tooltip]").remove();
-    // adjust form
-    var $selected_service = $('#launch_preview').children()[1].innerHTML;
-    var $selected_plan = $('#launch_preview').children()[2].innerHTML;
-    var $new_action = "/instances/create/" + $selected_service + "k" + $selected_plan;
-    $('#launch_instance').attr('action', $new_action);
-    // show the modal
-    $('#launch_modal_preview').modal({backdrop: 'static', keyboard: false});
-
-});
-// Catalog | Add Service
 $('#add_service_button').on('click', function() {
-    // $("#modal-background").toggleClass("active", 1000);
-    $('#modal_create_service').modal({backdrop: 'static', keyboard: false});
-    $("div[role=tooltip]").remove();
+    showCreateModal();
 });
 
+$('#launch_preview').on('click', function() {
+    showLaunchModal();
+});
+
+$('#launch').on('click', function() {
+    showAfterLaunchModal();
+});
+
+// Catalog/Show | Edit (Test)
+$('#edit').on('click', function() {
+    showAfterLaunchModal()
+});
+
+$('#delete_instance_button').click(function(){
+    showAfterDeleteModal();
+});
+
+// Change Dropdown Value on Select
 $(".dropdown-menu a").click(function(){
     $(this).parents(".dropdown").find('.btn').html($(this).text() );
     $(this).parents(".dropdown").find('.btn').val($(this).data('value'));
@@ -35,64 +37,8 @@ $(document).ready(function(){
 	$('.div-toggle').trigger('change');
 });
 
-// Catalog/Show | Launch
-$('#launch').on('click', function() {
-    $("div[role=tooltip]").remove();
 
-    var $new = $('#launch_modal_success');
-    $('#launch_modal_preview').modal('hide');
-
-    $new.prop('class', 'modal fade') // revert to default
-        .addClass($(this).data('direction'));
-    setTimeout(function() {
-        $new.modal('show');
-    }, 1500);
-
-
-    // setTimeout(function() {
-    //     $new.modal('hide');
-    // }, 4000);
-});
-
-// Catalog/Show | Edit (Test)
-$('#edit').on('click', function() {
-    $("div[role=tooltip]").remove();
-    var $new = $('#launch_modal_success');
-
-    $new.prop('class', 'modal fade') // revert to default
-        .addClass($(this).data('direction'));
-    $new.modal('show');
-
-    // setTimeout(function() {
-    //     $new.modal('hide');
-    // }, 4000);
-});
-
-$('#delete_instance_button').click(function(){
-    var $new = $('#launch_modal_success');
-
-    $new.prop('class', 'modal fade') // revert to default
-        .addClass($(this).data('direction'));
-    $new.modal('show');
-    $('#delete_instance').submit();
-});
-
-window.onload=function(){
-  $slideshow = $('.slider').slick({
-    dots:true,
-  autoplay:true,
-  arrows:true,
-  prevArrow:'<button type="button" class="slick-prev"></button>',
-  nextArrow:'<button type="button" class="slick-next"></button>',
-  slidesToShow:1,
-  slidesToScroll:1
-  });
-  $('.slide').click(function() {
-    $slideshow.slick('slickNext');
-  });
-};
-
-
+// function for the create service form
 function addFields(){
     var number = document.getElementById("num_variables").value;
     var container = document.getElementById("container_variables");
@@ -125,4 +71,64 @@ function addFields(){
         container.appendChild(form_control);
         // container.appendChild(document.createElement("br"));
     }
+}
+
+function showAfterDeleteModal() {
+    var $new = $('#launch_modal_success');
+
+    $new.prop('class', 'modal fade') // revert to default
+        .addClass($(this).data('direction'));
+    $new.modal('show');
+    $('#delete_instance').submit();
+}
+
+function showAfterLaunchModal() {
+    $("div[role=tooltip]").remove();
+    // code improved for showNotifyModal
+}
+
+function showLaunchModal() {
+    // $("#modal-background").toggleClass("active", 1000);
+    $("div[role=tooltip]").remove();
+    // adjust form
+    var $selected_service = $('#launch_preview').children()[1].innerHTML;
+    var $selected_plan = $('#launch_preview').children()[2].innerHTML;
+    var $new_action = "/instances/create/" + $selected_service + "k" + $selected_plan;
+    $('#launch_instance').attr('action', $new_action);
+    // show the modal
+    $('#launch_modal_preview').modal({backdrop: 'static', keyboard: false});
+}
+
+function showCreateModal() {
+    // $("#modal-background").toggleClass("active", 1000);
+    $('#modal_create_service').modal({backdrop: 'static', keyboard: false});
+    $("div[role=tooltip]").remove();
+}
+
+function showNotifyModal(title, message, fa_icon, fa_color) {
+    var container = document.getElementById("main_container_fluid");
+
+    var message_modal =
+        '<div id="notify_modal" class="modal fade">' +
+            '<div class="modal-dialog" >         ' +
+                '<div class="modal-content" style="background:transparent; box-shadow:none; border:none;">' +
+                    '<div class="modalbox '+ fa_color +' col-sm-10 col-md-10 col-lg-10 center animate">' +
+                    '<div class="icon"><span class="fa '+ fa_icon +'" style="padding-top: 20px;"></span>  </div>' +
+                    '<h1>'+ title +'</h1> <p>'+ message +' </p>' +
+                    '<button type="button" class="redo btn" style="border: solid 1px;" data-dismiss="modal">Try again</button>' +
+        '</div> </div> </div> </div>';
+
+    container.insertAdjacentHTML( 'beforeend', message_modal );
+
+    var $new = $('#notify_modal');
+
+    $new.prop('class', 'modal fade') // revert to default
+        .addClass($(this).data('direction'));
+    setTimeout(function() {
+        $new.modal('show');
+    }, 1000);
+
+    // setTimeout(function() {
+    //     $new.modal('hide');
+    // }, 3000);
 }

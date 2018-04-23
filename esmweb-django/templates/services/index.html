@@ -13,7 +13,7 @@
 <div class="flex-container container-plan pr-3">
 
     {% for service in services %}
-        {% if service.logo_image != None %}
+        {% if service.logo_image %}
             {% include "services/cards/service_image_base64.html" with service=service %}
         {% else %}
             {% include "services/cards/service_icon.html" with service=service %}
@@ -23,7 +23,7 @@
             <div class="card card-stats">
                 <div class="card-header card-header-rose card-header-icon" data-header-animation="true">
                     <div class="card-icon">
-                        <i class="material-icons">exposure_neg_1</i>
+                        <i class="material-icons">code</i>
                     </div>
                 </div>
                 <div class="card-body card-body-plan">

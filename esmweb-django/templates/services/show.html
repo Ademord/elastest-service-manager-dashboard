@@ -20,11 +20,8 @@
                     <img class="img-fluid" src="{{ service.preview_image }}" style="max-height: 35em;" alt="Interface Preview">
                {% else %}
                     <div class="picture-container">
-                        <div class="picture">
-                          <img src="../../static/assets/img/default-avatar.png" class="picture-src" id="wizardPicturePreview" title="">
-                          <input type="file" id="wizard-picture" name="preview_image"  accept="image/*">
-                        </div>
-                        <h6 class="description">Add Picture</h6>
+                        <h3 style="color: darkgray;">No Preview <br> Available</h3>
+
                     </div>
                {% endif %}
             </div>
@@ -74,6 +71,5 @@
 </div>
 
 {% include "instances/modals/launch.html" %}
-{% include "instances/modals/success.html" with message="Your Service Instance has been created." %}
 
 {% endblock %}

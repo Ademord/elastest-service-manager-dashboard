@@ -108,6 +108,15 @@
 .modalbox.error .icon {
   background: #f44336;
 }
+/*.modalbox.info .icon {*/
+  /*background: #3698f4;*/
+/*}*/
+.modalbox.rose .icon {
+  background: #f43681;
+}
+.modalbox.neutral .icon {
+  background: #3c4857;
+}
 .modalbox.error .icon span {
   padding-top: 25px;
 }

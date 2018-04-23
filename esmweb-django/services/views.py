@@ -5,18 +5,18 @@ import requests
 import uuid
 import json
 from esm_dashboard.utils import esm_endpoint_check
-
+import esm_dashboard.utils as utils
 
 class ServiceForm(forms.Form):
-    service_name = forms.CharField(label='Your service name', max_length=30)
-    service_description = forms.CharField(label='Your service description', max_length=100)
+    service_name = forms.CharField(label='Service Name', max_length=30)
+    service_description = forms.CharField(label='Service Description', max_length=100)
 
-    plan_name = forms.CharField(label='Your plan name', max_length=30)
-    plan_description = forms.CharField(label='Your plan Details', max_length=100)
+    plan_name = forms.CharField(label='Plan Name', max_length=30)
+    plan_description = forms.CharField(label='Plan Details', max_length=100)
     num_variables = forms.DecimalField(label='Number of Variables')
 
-    backend = forms.CharField(label='Your backend', max_length=20)
-    template = forms.CharField(label='Your Template', max_length=500, widget=forms.Textarea)
+    backend = forms.CharField(label='Service Backend', max_length=20)
+    template = forms.CharField(label='Service Template', max_length=500, widget=forms.Textarea)
 
 
 def parse_plan_details(plan):
@@ -59,11 +59,12 @@ def parse_services(services):
             'name': service['name'],
             'icon': 'dashboard',
             'plans': parse_plans(service['plans']),
-            #  TODO must update when appropriate place found
+            # TODO sync metadata.extras
             'preview_image': service['metadata']['extras'].get('preview_image') or "",
             'logo_image': service['metadata']['extras'].get('logo_image') or "",
             'service_variables': service['metadata']['extras'].get('service_variables') or ""
         })
+    print('found...', parsed_services)
     return parsed_services
 
 
@@ -130,8 +131,8 @@ def parse_variables(cache, form):
     return parsed_variables
 
 
-def manifest_detail(manifest_id=None):
-    url = "http://localhost:8080/v2/et/manifest"
+def manifest_detail(request, manifest_id=None):
+    url = request.session.get('esm_endpoint') + "/v2/et/manifest"
 
     headers = {
         'X-Broker-API-Version': "2.12",
@@ -151,7 +152,10 @@ def manifest_detail(manifest_id=None):
         return None
 
 
-def service_catalog(request):
+def service_catalog(request, form: ServiceForm=None, received_context={}):
+    if form is None:
+        form = ServiceForm()
+
     must_configure = esm_endpoint_check(request)
     if must_configure:
         return must_configure
@@ -165,13 +169,18 @@ def service_catalog(request):
     }
     response = requests.request("GET", url, headers=headers)
 
-    parsed_services = parse_services(json.loads(response.text))
-    # return render(request, 'services/index.html', {'services': parsed_services + bootstrap_services()})
-    return render(request, 'services/index.html', {'services': parsed_services, 'bootstrap_services': bootstrap_services()})
+    context = {
+        'services': parse_services(json.loads(response.text)),
+        'bootstrap_services': bootstrap_services(),
+        'form': form,
+    }
+    context = {**received_context, **context}
+
+    return render(request, 'services/index.html', context)
 
 
 def build_create_manifest_request(request, cache):
-    url = request.session.get('esm_endpoint', 'http://localhost:8080') + "/v2/et/manifest/test_manifest"
+    url = request.session.get('esm_endpoint') + "/v2/et/manifest/test_manifest"
     payload = {
         "id": cache['manifest_id'],
         "manifest_content": cache['template'],
@@ -204,13 +213,12 @@ def build_create_manifest_request(request, cache):
 
 
 def build_create_service_request(request, cache):
-    url = request.session.get('esm_endpoint', 'http://localhost:8080') + "/v2/et/catalog"
+    url = request.session.get('esm_endpoint') + "/v2/et/catalog"
 
     payload = {
         'description': cache['service_description'],
         'id': cache['service_id'],
         'name': cache['service_name'],
-        #  TODO must update when appropriate place found
         'short_name': cache['service_name'],
         'bindable': True,
         'plan_updateable': False,
@@ -285,20 +293,27 @@ def create_service(request):
         url, payload, headers = build_create_manifest_request(request, cache)
         response = requests.request("PUT", url, data=payload, headers=headers)
         print('manifest registered', response.text)
+        if response.status_code == 200:
+            context = {'notify_message': utils.SUCCESS_MESSAGE}
+            context = {**utils.notify_success_dict, **context}
+            return service_catalog(request, None, context)
+        else:
+            context = {'notify_message': utils.ERROR_MESSAGE}
+            context = {**utils.notify_error_dict, **context}
+            return service_catalog(request, form, context)
 
-        return HttpResponseRedirect('/catalog/')
+    # from django.http import HttpResponse
+    # return HttpResponse('errors' + str(form.errors))
+    else:
+        return service_catalog(request, form)
 
-    from django.http import HttpResponse
-    return HttpResponse('errors' + str(form.errors))
-    return HttpResponseRedirect('/catalog/', {'form': form})
 
-
-def service_detail(request, service_id=None):
+def service_detail(request, service_id=None, context={}):
     must_configure = esm_endpoint_check(request)
     if must_configure:
         return must_configure
 
-    url = request.session.get('esm_endpoint', 'http://localhost:8080') + "/v2/catalog"
+    url = request.session.get('esm_endpoint') + "/v2/catalog"
     headers = {
         'Accept': "application/json",
         'X-Broker-Api-Version': "2.12",
@@ -310,7 +325,8 @@ def service_detail(request, service_id=None):
     parsed_services = parse_services(json.loads(response.text))
     for service in parsed_services:
         if service['id'] == service_id:
-            return render(request, 'services/show.html', {'service': service})
+            context = {**{'service': service}, **context}
+            return render(request, 'services/show.html', context)
 
     # todo return error message item not found
     return service_catalog(request)

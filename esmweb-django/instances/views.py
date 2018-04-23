@@ -1,10 +1,11 @@
 from django import forms
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 import json
 import requests
-from services.views import manifest_detail
+from services.views import manifest_detail, service_detail
 from esm_dashboard.utils import esm_endpoint_check
+import esm_dashboard.utils as utils
 
 
 class ServiceForm(forms.Form):
@@ -19,7 +20,7 @@ def delete_instance(request):
     if must_configure:
         return must_configure
 
-    url = request.session.get('esm_endpoint', 'http://localhost:8080') + "/v2/service_instances/test_service_instance"
+    url = request.session.get('esm_endpoint') + "/v2/service_instances/test_service_instance"
 
     querystring = {"service_id": "b1620b13-7d11-4abc-a762-f34a108ea49c", "plan_id": "36ed4b3e-c132-4746-af71-26dee76e59cb", "accept_incomplete": "false"}
 
@@ -31,11 +32,15 @@ def delete_instance(request):
     }
 
     response = requests.request("DELETE", url, headers=headers, params=querystring)
-
     print('instance deprovisioned', response.text)
-    import time
-    time.sleep(1)
-    return HttpResponseRedirect('/instances/')
+    if response.status_code == 200:
+        context = {'notify_message': utils.SUCCESS_DEPROVISION_MESSAGE}
+        context = {**utils.notify_success_dict, **context}
+        return render(request, 'instances/index.html', context)
+    else:
+        context = {'notify_message': utils.ERROR_DEPROVISION_MESSAGE}
+        context = {**utils.notify_error_dict, **context}
+        return render(request, 'instances/index.html', context)
 
 
 def create_instance(request, parameter=None):
@@ -43,27 +48,38 @@ def create_instance(request, parameter=None):
     if must_configure:
         return must_configure
 
-    service_id, plan_id = parameter.split("k")
-    url = request.session.get('esm_endpoint', 'http://localhost:8080') + "/v2/service_instances/test_service_instance"
+    if 'k' in parameter:
+        service_id, plan_id = parameter.split("k")
+        url = request.session.get('esm_endpoint') + "/v2/service_instances/test_service_instance"
 
-    querystring = {"accept_incomplete": "false"}
+        querystring = {"accept_incomplete": "false"}
 
-    payload = "{\"organization_guid\": \"org\", \"plan_id\": \"" + plan_id + "\", \"service_id\": \"" + service_id + "\",\"space_guid\": \"space\"}"
+        payload = "{\"organization_guid\": \"org\", \"plan_id\": \"" + plan_id + "\", \"service_id\": \"" + service_id + "\",\"space_guid\": \"space\"}"
 
-    headers = {
-        'Accept': "application/json",
-        'Content-Type': "application/json",
-        'X-Broker-Api-Version': "2.12",
-        'Cache-Control': "no-cache",
-        'Postman-Token': "7d98544d-3d9c-aa34-b6b1-4755fad9c8b6"
-    }
+        headers = {
+           'Accept': "application/json",
+           'Content-Type': "application/json",
+           'X-Broker-Api-Version': "2.12",
+           'Cache-Control': "no-cache",
+           'Postman-Token': "7d98544d-3d9c-aa34-b6b1-4755fad9c8b6"
+        }
 
-    response = requests.request("PUT", url, data=payload, headers=headers, params=querystring)
-    print('instance', response.text)
+        response = requests.request("PUT", url, data=payload, headers=headers, params=querystring)
+        print('instance', response.text)
+        if response.status_code == 200:
+            context = {'notify_message': utils.SUCCESS_PROVISION_MESSAGE}
+            context = {**utils.notify_success_dict, **context}
+            return render(request, 'instances/index.html', context)
 
-    import time
-    time.sleep(4)
-    return HttpResponseRedirect('/instances/')
+        else:
+            context = {'notify_message': utils.ERROR_PROVISION_MESSAGE}
+            context = {**utils.notify_error_dict, **context}
+            return service_detail(request, service_id, context)
+    else:
+        # this would only happen when someone tries to forge a request
+        context = {'notify_message': utils.ERROR_MESSAGE}
+        context = {**utils.notify_error_dict, **context}
+        return render(request, 'services/index.html', context)
 
 
 def bootstrap_instances():
@@ -112,7 +128,7 @@ def get_running_time(started_date, now):
     return running_time
 
 
-def parse_instances(instances):
+def parse_instances(request, instances):
     parsed_instances = []
 
     for instance in instances:
@@ -141,7 +157,7 @@ def parse_instances(instances):
         # prerequisites
         manifest_id = instance['context']['manifest_id']
         # this could in an impossible case break.
-        manifest = manifest_detail(manifest_id)[0]
+        manifest = manifest_detail(request, manifest_id)[0]
         # get the plan
         plan = None
         for plan in instance['service_type']['plans']:
@@ -178,7 +194,7 @@ def instance_catalog(request):
     if must_configure:
         return must_configure
 
-    url = request.session.get('esm_endpoint', 'http://localhost:8080') + "/v2/et/service_instances"
+    url = request.session.get('esm_endpoint') + "/v2/et/service_instances"
     headers = {
         'X-Broker-Api-Version': "2.12",
         'Cache-Control': "no-cache",
@@ -186,9 +202,13 @@ def instance_catalog(request):
     }
     response = requests.request("GET", url, headers=headers)
 
-    parsed_instances = parse_instances(json.loads(response.text))
+    parsed_instances = parse_instances(request, json.loads(response.text))
     # return render(request, 'instances/index.html', {'instances': parsed_instances + bootstrap_instances()})
-    return render(request, 'instances/index.html', {'instances': parsed_instances, 'bootstrap_instances': bootstrap_instances()})
+    context = {
+        'instances': parsed_instances,
+        'bootstrap_instances': bootstrap_instances(),
+    }
+    return render(request, 'instances/index.html', context)
 
 
 def instance_detail(request, instance_id=None):
@@ -196,7 +216,7 @@ def instance_detail(request, instance_id=None):
     if must_configure:
         return must_configure
 
-    url = request.session.get('esm_endpoint', 'http://localhost:8080') + "/v2/et/service_instances/{}".format(instance_id)
+    url = request.session.get('esm_endpoint') + "/v2/et/service_instances/{}".format(instance_id)
 
     headers = {
         'X-Broker-Api-Version': "2.12",
@@ -207,8 +227,7 @@ def instance_detail(request, instance_id=None):
     response = requests.request("GET", url, headers=headers)
 
     if response.status_code == 200:
-        parsed_instance = parse_instances([json.loads(response.text)])[0]
-        print(parsed_instance)
+        parsed_instance = parse_instances(request, [json.loads(response.text)])[0]
         return render(request, 'instances/show.html', {'instance': parsed_instance})
     else:
         # todo return error message isntance not found

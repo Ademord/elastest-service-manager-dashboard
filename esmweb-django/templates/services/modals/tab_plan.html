@@ -1,4 +1,17 @@
 <div class="tab-pane" id="tab_plans">
+   {% if form.errors %}
+        <div class="error-list">
+            {{ form.non_field_errors }}
+            {% if form.plan_name.errors %}
+            <h5>{{ form.plan_name.label }}</h5>
+                {{ form.plan_name.errors }}
+            {% endif %}
+            {% if form.plan_description.errors %}
+            <h5>{{ form.plan_description.label }}</h5>
+                {{ form.plan_description.errors }}
+            {% endif %}
+        </div>
+    {% endif %}
     <h5 class="info-text"> What are the details of your plan?</h5>
     <div class="row justify-content-center">
         <div class="col-lg-10">
@@ -10,8 +23,7 @@
                             <i class="material-icons">short_text</i>
                             </span>
                         </div>
-                        <div class="form-group">
-                            {{ form.plan_name.errors }}
+                        <div class="form-group {% if form.plan_name.errors %} has-danger {% endif %}">
                             <label for="plan_name" class="bmd-label-floating">Plan Name (required)</label>
                             <input type="text" class="form-control" id="plan_name" name="plan_name" >
                         </div>
@@ -22,8 +34,7 @@
                             <i class="material-icons">toc</i>
                             </span>
                         </div>
-                        <div class="form-group bmd-form-group">
-                            {{ form.plan_description.errors }}
+                        <div class="form-group bmd-form-group {% if form.plan_description.errors %} has-danger {% endif %}">
                             <label for="plan_description" class="bmd-label-floating">Plan Description (required)</label>
                             <textarea class="form-control" rows="2" id="plan_description" name="plan_description" ></textarea>
                         </div>

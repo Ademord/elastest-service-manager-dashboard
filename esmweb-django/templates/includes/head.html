@@ -1,3 +1,4 @@
+{% load static %}
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,16 +14,14 @@
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <!-- Add the slick-theme.css if you want default styling -->
-<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.0/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="{% static 'css/slick.css' %}"/>
 <!-- Add the slick-theme.css if you want default styling -->
-<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.0/slick/slick-theme.css"/>
+<link rel="stylesheet" type="text/css" href="{% static 'css/slick-theme.css' %}"/>
 
 
-<link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+<link rel="stylesheet" href="{% static 'css/chartist.min.css' %}">
 
 <script type="text/javascript">
     (function() { var css = document.createElement('link');
@@ -32,7 +31,6 @@
     document.getElementsByTagName('head')[0].appendChild(css); })();
 </script>
 
-{% load static %}
 <!-- Material Styles template -->
 <link rel="stylesheet" type="text/css" href="{% static 'css/material-dashboard.css' %}" />
 <!-- Custom styles for this template -->

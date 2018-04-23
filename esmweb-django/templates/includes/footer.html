@@ -1,24 +1,23 @@
 {% load static %}
 <!--   Core JS Files   -->
-<script src="https://demos.creative-tim.com/material-dashboard-pro/assets/js/core/jquery.min.js"></script>
-<script src="https://demos.creative-tim.com/material-dashboard-pro/assets/js/core/popper.min.js"></script>
-<script src="https://demos.creative-tim.com/material-dashboard-pro/assets/js/bootstrap-material-design.min.js"></script>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap-material-design.min.js' %}"></script>
 <script src="{% static 'js/perfect-scrollbar.jquery.min.js' %}"></script>
 
 
 <!--  Plugin for Date Time Picker and Full Calendar Plugin  -->
 <script src="{% static 'js/moment.min.js' %}"></script>
 <!--	Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
-<script src="https://demos.creative-tim.com/material-dashboard-pro/assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
+<script src="{% static 'js/bootstrap-datetimepicker.min.js' %}"></script>
 <script src="{% static 'js/nouislider.min.js' %}"></script>
 
-<script src="https://demos.creative-tim.com/material-dashboard-pro/assets/js/plugins/bootstrap-selectpicker.js"></script>
-<script src="https://demos.creative-tim.com/material-dashboard-pro/assets/js/plugins/bootstrap-tagsinput.js"></script>
-<script src="https://demos.creative-tim.com/material-dashboard-pro/assets/js/plugins/jasny-bootstrap.min.js"></script>
+<script src="{% static 'js/bootstrap-selectpicker.js' %}"></script>
+<script src="{% static 'js/bootstrap-tagsinput.js' %}"></script>
+<script src="{% static 'js/jasny-bootstrap.min.js' %}"></script>
 
 <!-- Plugins for presentation and navigation-->
 <script src="{% static 'js/modernizr.js' %}"></script>
-
 
 
 
@@ -26,9 +25,8 @@
 <script src="{% static 'js/material-dashboard-angular.js' %}"></script>
 
 
-
 <!-- Include a polyfill for ES6 Promises (optional) for IE11, UC Browser and Android browser support SweetAlert -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+<script src="{% static 'js/core.js' %}"></script>
 
 <!-- Library for adding dinamically elements -->
 <script src="{% static 'js/arrive.min.js' %}"></script>
@@ -40,7 +38,7 @@
 <!--  Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
 <script src="{% static 'js/jquery.bootstrap-wizard.js' %}"></script>
 
-<script src="https://demos.creative-tim.com/material-dashboard-pro/assets/js/plugins/jquery.select-bootstrap.js"></script>
+<script src="{% static 'js/jquery.select-bootstrap.js' %}"></script>
 
 <!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
 <script src="{% static 'js/jquery-jvectormap.js' %}"></script>
@@ -67,7 +65,8 @@
 
 </script>
 
-<script type="text/javascript" src="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.0/slick/slick.min.js"></script>
+<script type="text/javascript" src="{% static 'js/slick.min.js' %}"></script>
 
 <script src="{% static 'js/app.js' %}"></script>
+<script src="{% static 'js/snap.js' %}"></script>
 <script src="{% static 'js/404.js' %}"></script>
