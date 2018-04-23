@@ -4,6 +4,8 @@ from django.http import HttpResponseRedirect
 import json
 import requests
 from services.views import manifest_detail
+from esm_dashboard.utils import esm_endpoint_check
+
 
 class ServiceForm(forms.Form):
     service_name = forms.CharField(label='Your Service name', max_length=100)
@@ -13,7 +15,11 @@ class ServiceForm(forms.Form):
 
 
 def delete_instance(request):
-    url = "http://localhost:8080/v2/service_instances/test_service_instance"
+    must_configure = esm_endpoint_check(request)
+    if must_configure:
+        return must_configure
+
+    url = request.session.get('esm_endpoint', 'http://localhost:8080') + "/v2/service_instances/test_service_instance"
 
     querystring = {"service_id": "b1620b13-7d11-4abc-a762-f34a108ea49c", "plan_id": "36ed4b3e-c132-4746-af71-26dee76e59cb", "accept_incomplete": "false"}
 
@@ -33,8 +39,12 @@ def delete_instance(request):
 
 
 def create_instance(request, parameter=None):
+    must_configure = esm_endpoint_check(request)
+    if must_configure:
+        return must_configure
+
     service_id, plan_id = parameter.split("k")
-    url = "http://localhost:8080/v2/service_instances/test_service_instance"
+    url = request.session.get('esm_endpoint', 'http://localhost:8080') + "/v2/service_instances/test_service_instance"
 
     querystring = {"accept_incomplete": "false"}
 
@@ -164,7 +174,11 @@ def parse_instances(instances):
 
 
 def instance_catalog(request):
-    url = "http://localhost:8080/v2/et/service_instances"
+    must_configure = esm_endpoint_check(request)
+    if must_configure:
+        return must_configure
+
+    url = request.session.get('esm_endpoint', 'http://localhost:8080') + "/v2/et/service_instances"
     headers = {
         'X-Broker-Api-Version': "2.12",
         'Cache-Control': "no-cache",
@@ -178,7 +192,11 @@ def instance_catalog(request):
 
 
 def instance_detail(request, instance_id=None):
-    url = "http://localhost:8080/v2/et/service_instances/{}".format(instance_id)
+    must_configure = esm_endpoint_check(request)
+    if must_configure:
+        return must_configure
+
+    url = request.session.get('esm_endpoint', 'http://localhost:8080') + "/v2/et/service_instances/{}".format(instance_id)
 
     headers = {
         'X-Broker-Api-Version': "2.12",

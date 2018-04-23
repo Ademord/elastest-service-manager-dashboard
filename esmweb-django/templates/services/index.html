@@ -13,8 +13,8 @@
 <div class="flex-container container-plan pr-3">
 
     {% for service in services %}
-        {% if service.logo_path != None %}
-            {% include "services/cards/service_image.html" with service=service %}
+        {% if service.logo_image != None %}
+            {% include "services/cards/service_image_base64.html" with service=service %}
         {% else %}
             {% include "services/cards/service_icon.html" with service=service %}
         {% endif %}

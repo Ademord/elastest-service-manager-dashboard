@@ -44,19 +44,18 @@
                         <th>Value</th>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>Endpoint:</td>
-                        <td>http://192.168.0.1/wp-login</td>
-                    </tr>
-                    <tr>
-                        <td>Username:</td>
-                        <td>admin</td>
-                    </tr>
-                    <tr>
-                        <td>Password:</td>
-                        <td>admin</td>
-                    </tr>
-
+                    {% for key, value in service.service_variables.items %}
+                        <tr>
+                            <td>{{ key }} </td>
+                            <td>{{ value }} </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td>
+                                 No variables registered.
+                            </td>
+                        </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>

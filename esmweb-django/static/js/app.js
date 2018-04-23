@@ -91,3 +91,38 @@ window.onload=function(){
     $slideshow.slick('slickNext');
   });
 };
+
+
+function addFields(){
+    var number = document.getElementById("num_variables").value;
+    var container = document.getElementById("container_variables");
+    while (container.hasChildNodes()) {
+        container.removeChild(container.lastChild);
+    }
+    for (i=0;i<number;i++){
+        var form_control = document.createElement("div");
+        form_control.setAttribute("class", "form-group");
+
+        var id_name = "service_variable_" + (i+1);
+        // var label = document.createElement("Label");
+        // label.setAttribute("for", id_name);
+        // label.setAttribute("class", "bmd-label-floating");
+        // label.innerHTML = "key: value";
+        // form_control.appendChild(label);
+
+        var input = document.createElement("input");
+        input.type = "text";
+        input.id = id_name;
+        input.name = id_name;
+        input.setAttribute("class", "form-control");
+        input.setAttribute("placeholder", "Key: Value");
+        input.setAttribute('required', true);
+        form_control.appendChild(input);
+
+        var icon = '<div class="input-group-prepend">' +
+            '<span class="input-group-text"><i class="material-icons">toc</i></span></div>';
+        container.insertAdjacentHTML( 'beforeend', icon );
+        container.appendChild(form_control);
+        // container.appendChild(document.createElement("br"));
+    }
+}

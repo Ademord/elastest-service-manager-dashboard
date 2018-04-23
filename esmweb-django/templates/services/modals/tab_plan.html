@@ -1,47 +1,9 @@
-<div class="tab-pane" id="account">
-    <h5 class="info-text"> What plans do you want to provide? (checkboxes) </h5>
+<div class="tab-pane" id="tab_plans">
+    <h5 class="info-text"> What are the details of your plan?</h5>
     <div class="row justify-content-center">
         <div class="col-lg-10">
            <div class="plans-info">
-                <div class="default-plans row">
-                    <div class="col-sm-3">
-                        <div class="choice" data-toggle="wizard-checkbox">
-                            <input type="checkbox" name="jobb" value="Tiny">
-                            <div class="icon">
-                                <h2 style="margin-top: 25%;">XS</h2>
-                            </div>
-                            <h6>Tiny</h6>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="choice" data-toggle="wizard-checkbox">
-                            <input type="checkbox" name="jobb" value="Small">
-                            <div class="icon">
-                                <h2 style="margin-top: 25%;">S</h2>
-                            </div>
-                            <h6>Small</h6>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="choice" data-toggle="wizard-checkbox">
-                            <input type="checkbox" name="jobb" value="Medium">
-                            <div class="icon">
-                                <h2 style="margin-top: 25%;">M</h2>
-                            </div>
-                            <h6>Medium</h6>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="choice" data-toggle="wizard-checkbox">
-                            <input type="checkbox" name="jobb" value="Big">
-                            <div class="icon">
-                                <h2 style="margin-top: 25%;">X</h2>
-                            </div>
-                            <h6>Big</h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="custom-plans hide row" style="min-height: 182px;">
+                <div class="custom-plansrow" style="min-height: 182px;">
                     <div class="input-group form-control-lg">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
@@ -68,16 +30,6 @@
                     </div>
                 </div>
             </div>
-           <br>
-           <div class="row pull-right">
-                <!-- select-with-transition, from https://demos.creative-tim.com/bs3/material-kit-pro/tutorial-components.html -->
-                <!-- show based on select, from https://stackoverflow.com/questions/6164507/change-the-content-of-a-div-based-on-selection-from-dropdown-menu -->
-                <select class="selectpicker " data-style="btn btn-primary btn-round btn-sm" title="Default Plans" data-size="7" data-target=".plans-info">
-                  <option disabled data-style="unhide"> Other Plans</option>
-                  <option value="default plans" data-show=".default-plans" selected>Default Plans</option>
-                  <option value="custom plan" data-show=".custom-plans">Custom Plan</option>
-                </select>
-           </div>
         </div>
     </div>
 </div>

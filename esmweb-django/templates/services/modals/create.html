@@ -16,9 +16,10 @@
                         </div>
                         <div class="wizard-navigation">
                             <ul class="nav nav-pills">
-                                <li class="nav-item"><a class="nav-link active" href="#about"   data-toggle="tab" role="tab">Service</a></li>
-                                <li class="nav-item"><a class="nav-link"        href="#account" data-toggle="tab" role="tab">Plan</a></li>
-                                <li class="nav-item"><a class="nav-link"        href="#address" data-toggle="tab" role="tab">Template</a></li>
+                                <li class="nav-item"><a class="nav-link active" href="#tab_service"   data-toggle="tab" role="tab">Service</a></li>
+                                <li class="nav-item"><a class="nav-link"        href="#tab_plans" data-toggle="tab" role="tab">Plan</a></li>
+                                <li class="nav-item"><a class="nav-link"        href="#tab_template" data-toggle="tab" role="tab">Template</a></li>
+                                <li class="nav-item"><a class="nav-link"        href="#tab_extras" data-toggle="tab" role="tab">Extras</a></li>
                             </ul>
                         </div>
                         <div class="card-body">
@@ -27,6 +28,7 @@
                                 {% include "services/modals/tab_service.html" %}
                                 {% include "services/modals/tab_plan.html" %}
                                 {% include "services/modals/tab_template.html" %}
+                                {% include "services/modals/tab_extras.html" %}
                             </div>
                         </div>
                         <div class="card-footer">

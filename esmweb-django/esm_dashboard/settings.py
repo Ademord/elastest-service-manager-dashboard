@@ -1,14 +1,18 @@
 from django.http import HttpResponse
-import os
 from django.shortcuts import render
 from django.urls import path
+
 from services.views import service_catalog, create_service, service_detail
 from instances.views import instance_catalog, create_instance, delete_instance, instance_detail
+from esm_dashboard.utils import esm_endpoint_check, set_esm_endpoint
+
+import requests
+import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # DEBUG = True
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = ['*']
 SECRET_KEY = '4l0ngs3cr3tstr1ngw3lln0ts0l0ngw41tn0w1tsl0ng3nouuuugh15'
 ROOT_URLCONF = __name__
@@ -61,6 +65,10 @@ def test(request):
 
 
 def welcome(request):
+    must_configure = esm_endpoint_check(request)
+    if must_configure:
+        return must_configure
+
     return render(request, 'welcome.html')
 
 
@@ -113,6 +121,7 @@ urlpatterns = [
     path('instances/create/<str:parameter>',     create_instance,   name='instance_catalog_page'),
     path('instances/<str:instance_id>',     instance_detail,   name='instance_catalog_page'),
 
+    path('configure', set_esm_endpoint, name='set_esm_endpoint_page'),
     path('test', test, name='catalogpage')
 ]
 
