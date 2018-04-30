@@ -8,7 +8,7 @@
     <div style="text-align: center;top: 15%; left:40%; position: absolute;">
         <h3>{{ message }}</h3>
         <h4>{{ sub_message }}</h4>
-        <form id="set_endpoint" action="{{ form_action }}" style="/* width: 100%; */display: inline-flex;">
+        <form id="set_endpoint" action="{{ form_action }}" style="/* width: 100%; */display: inline-flex;" method="POST">
                 {% csrf_token %}
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="{{ endpoint }}" id="esm_endpoint" name="esm_endpoint">

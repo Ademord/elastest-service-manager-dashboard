@@ -28,12 +28,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'widget_tweaks',
+    'prettyjson',
 ]
+
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        # 'DIRS': ['/usr/src/app/templates/'],
         'DIRS': ['/Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/'],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -57,6 +59,7 @@ MIDDLEWARE = [
         'django.contrib.messages.middleware.MessageMiddleware',
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
     ]
+MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 
 def test(request):
     title = 'Tinyapp'

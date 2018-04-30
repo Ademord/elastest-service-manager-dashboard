@@ -39,13 +39,17 @@ $(document).ready(function(){
 
 
 // function for the create service form
-function addFields(){
+function addFields_variables(){
     var number = document.getElementById("num_variables").value;
     var container = document.getElementById("container_variables");
     while (container.hasChildNodes()) {
         container.removeChild(container.lastChild);
     }
     for (i=0;i<number;i++){
+
+        var subcontainer = document.createElement("div");
+        subcontainer.setAttribute("class", "input-group form-control-lg");
+
         var form_control = document.createElement("div");
         form_control.setAttribute("class", "form-group");
 
@@ -65,17 +69,122 @@ function addFields(){
         input.setAttribute('required', true);
         form_control.appendChild(input);
 
+
+        // var subcontainer = '<div class="input-group form-control-lg"></div>';
         var icon = '<div class="input-group-prepend">' +
             '<span class="input-group-text"><i class="material-icons">toc</i></span></div>';
-        container.insertAdjacentHTML( 'beforeend', icon );
-        container.appendChild(form_control);
+
+        subcontainer.insertAdjacentHTML( 'beforeend', icon );
+        subcontainer.appendChild(form_control);
+        container.appendChild(subcontainer);
         // container.appendChild(document.createElement("br"));
     }
 }
 
+function removeDiv(btn){
+    var index = id_array.indexOf(Number(btn.id));
+    if (index > -1) {
+      id_array.splice(index, 1);
+    }
+    (((btn.parentNode).parentNode).parentNode).removeChild((btn.parentNode).parentNode);
+}
+function textAreaAdjust(o) {
+    // these dont work
+    // o.height = "1px";
+    // $(o).height = "1px";
+    // $(o).css("height", "1px");
+    o.rows = 6;
+    var new_height = 25 + o.scrollHeight;
+    o.rows = new_height/20;
+}
+
+function generate_plan_field(id){
+    var id_name = "service_plan_" + id;
+    var subcontainer = document.createElement("div");
+    subcontainer.setAttribute("class", "input-group form-control-lg");
+    var input_container = document.createElement("div");
+    input_container.setAttribute("class", "form-group");
+    input_container.setAttribute("style", "width:100%;");
+
+    var input = document.createElement("textarea");
+    input.id = id_name;
+    input.name = id_name;
+    input.setAttribute("rows", "24");
+    input.setAttribute("onkeyup", "textAreaAdjust(this)");
+    // input.keyup = function(){
+    //         $(this).style.height = "1px";
+    //         $(this).style.height = (25+o.scrollHeight)+"px";
+    //     };
+    input.setAttribute("style", "overflow:hidden");
+    input.setAttribute("class", "form-control");
+    input.setAttribute("placeholder", "Insert your Plan details here as JSON.");
+    input.value = '' +
+    '{  \n' +
+    '    \t"name": "Test Plan 1.0",\n' +
+    '    \t"bindable": false,\n' +
+    '    \t"description": "This is my plan description",\n' +
+    '    \t"free": true,\n' +
+    '    \t"metadata": {  \n' +
+    '        \t\t"bullets": "basic plan",\n' +
+    '        \t\t"costs": {  \n' +
+    '            \t\t\t"components": {},\n' +
+    '            \t\t\t"description": "On Demand 5 per deployment, 50 per core, 10 per GB ram and 1 per GB disk",\n' +
+    '            \t\t\t"fix_cost": {  \n' +
+    '                \t\t\t\t"deployment": 5\n' +
+    '            },\n' +
+    '            \t\t\t"name": "On Demand 5 + Charges",\n' +
+    '            \t\t\t"type": "ONDEMAND",\n' +
+    '            \t\t\t"var_rate": {  \n' +
+    '                \t\t\t\t"cpus": 50,\n' +
+    '                \t\t\t\t"disk": 1,\n' +
+    '                \t\t\t\t"memory": 10\n' +
+    '            \t\t\t}\n' +
+    '        \t\t}\n' +
+    '    \t}\n' +
+    '}';
+    input.setAttribute('required', true);
+    input_container.appendChild(input);
+
+    // var subcontainer = '<div class="input-group form-control-lg"></div>';
+
+    var icon = '<div class="input-group-prepend" style="align-items: center;">' +
+        '<button class="y hC" style="\n' +
+        '    color: white;\n' +
+        '    width: 20px;\n' +
+        '    height: 20px;\n' +
+        '    margin-right: 10px;\n' +
+        '    font-size: small;\n' +
+        '    position: absolute;\n' +
+        '    top: 0;\n' +
+        '    right: 0;\n' +
+        '    border-radius: 20%;\n" id="'+ id +'" onclick="removeDiv(this);">X</button>' +
+        '</div>';
+    subcontainer.insertAdjacentHTML( 'beforeend', icon );
+    subcontainer.appendChild(input_container);
+    return subcontainer;
+}
+var id_array = [];
+
+function addFields_plans(){
+    var container = document.getElementById("container_plans");
+
+    var num_plans = document.getElementById("num_plans");
+    num_plans.value = id = Number(num_plans.value) + 1;
+    id_array.push(id);
+    var subcontainer = generate_plan_field(id);
+
+    container.appendChild(subcontainer);
+    // container.appendChild(document.createElement("br"));
+}
+
+function submitService() {
+    var num_plans = document.getElementById("num_plans");
+    num_plans.value = id_array.join("#");
+    $('#create_service').submit();
+}
 function showAfterDeleteModal() {
     var $new = $('#launch_modal_success');
-
+    // todo fix this
     $new.prop('class', 'modal fade') // revert to default
         .addClass($(this).data('direction'));
     $new.modal('show');
@@ -105,7 +214,7 @@ function showCreateModal() {
     $("div[role=tooltip]").remove();
 }
 
-function showNotifyModal(title, message, fa_icon, fa_color) {
+function showNotifyModal(title, message, fa_icon, fa_color, button_message) {
     var container = document.getElementById("main_container_fluid");
 
     var message_modal =
@@ -115,7 +224,7 @@ function showNotifyModal(title, message, fa_icon, fa_color) {
                     '<div class="modalbox '+ fa_color +' col-sm-10 col-md-10 col-lg-10 center animate">' +
                     '<div class="icon"><span class="fa '+ fa_icon +'" style="padding-top: 20px;"></span>  </div>' +
                     '<h1>'+ title +'</h1> <p>'+ message +' </p>' +
-                    '<button type="button" class="redo btn" style="border: solid 1px;" data-dismiss="modal">Try again</button>' +
+                    '<button type="button" class="redo btn" style="border: solid 1px;" data-dismiss="modal">' + button_message +'</button>' +
         '</div> </div> </div> </div>';
 
     container.insertAdjacentHTML( 'beforeend', message_modal );

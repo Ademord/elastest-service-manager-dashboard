@@ -53,16 +53,38 @@
                         if (create_errors) {
                             showCreateModal();
                         }
-                        notify = {% if notify_message %} true {% else %} false {% endif %}
+                        notify = {% if messages %} true {% else %} false {% endif %}
                         if (notify) {
-                            notify_title = '{{ notify_title }}';
-                            notify_message = '{{ notify_message|linebreaks }}';
-                            notify_fa_icon = '{{ notify_fa_icon }}';
-                            notify_fa_color = '{{ notify_fa_color }}';
-                            showNotifyModal(notify_title, notify_message, notify_fa_icon, notify_fa_color);
+                            {% for message in messages %}
+                                tags = '{{ message.tags }}';
+                                if (tags == "success"){
+                                    notify_title = 'Success!';
+                                    notify_message = '{{ message|linebreaks }}';
+                                    notify_fa_icon = 'fa-check';
+                                    notify_fa_color = 'success';
+                                    button_message = 'OK';
+                                    showNotifyModal(notify_title, notify_message, notify_fa_icon, notify_fa_color, button_message);
+                                }
+                                else if (tags == "error") {
+                                    notify_title = 'Oh no!';
+                                    notify_message = '{{ message|linebreaks }}';
+                                    notify_fa_icon = 'fa-thumbs-down';
+                                    notify_fa_color = 'error';
+                                    button_message = 'OK';
+                                    showNotifyModal(notify_title, notify_message, notify_fa_icon, notify_fa_color, button_message);
+                                }
+                                else if (tags == "error") {
+                                    notify_title = 'Info!';
+                                    notify_message = '{{ message|linebreaks }}';
+                                    notify_fa_icon = 'fa-info';
+                                    notify_fa_color = 'success neutral';
+                                    button_message = 'Try again';
+                                    showNotifyModal(notify_title, notify_message, notify_fa_icon, notify_fa_color, button_message);
+                                }
+                            {% endfor %}
                         }
                     });
-            </script>
+                </script>
 
         </div>
 

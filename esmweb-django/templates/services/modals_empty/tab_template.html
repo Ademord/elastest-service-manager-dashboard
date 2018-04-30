@@ -23,7 +23,8 @@
                 </div>
                 <div class="form-group {% if form.backend.errors %} has-danger {% endif %}">
                 <select name="backend" class="selectpicker" data-size="7" data-style="select-with-transition" title="Backend" required>
-                    <option selected value="docker-compose"> Docker Compose </option>
+                  <option disabled selected class="unhide"> Backend </option>
+                    <option value="docker-compose"> Docker Compose </option>
                     <option value="kubernetes"> Kubernetes </option>
                     <option value="openshift"> Openshift </option>
                     <option value="openshift"> EPM </option>
@@ -38,18 +39,7 @@
                 </div>
                 <div class="form-group bmd-form-group {% if form.template.errors %} has-danger {% endif %}">
                 <label for="template" class="bmd-label-floating"> Service Template</label>
-                <textarea class="form-control" rows="11" name="template" id="template" required>
-version: '3'
-services:
-  my_db:
-    environment: [MYSQL_ALLOW_EMPTY_PASSWORD=yes]
-    expose: [3306]
-    image: mysql:latest
-    networks: [db_net]
-    ports: ['3306:3306']
-networks:
-  db_net: {driver: bridge}
-            </textarea>
+                <textarea class="form-control" rows="8" name="template" id="template" required></textarea>
             </div>
             </div>
         </div>

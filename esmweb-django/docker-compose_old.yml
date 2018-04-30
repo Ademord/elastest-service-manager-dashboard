@@ -1,0 +1,23 @@
+networks:
+  dumdum: {driver: bridge}
+services:
+  dumdum:
+    environment: [USE_TORM=true, 'AAA=http://keystone']
+    expose: [56567]
+    image: ademord/dumdum:latest
+    networks: [dumdum]
+    ports: ['56567:5000']
+version: '3'
+
+version: '3.3'
+services:
+  web:
+    build: .
+    command: python3 manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "8000:8000"
+    environment:
+      DEBUG: "true"
+      SECRET_KEY: "not secure only use for development"

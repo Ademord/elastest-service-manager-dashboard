@@ -1,12 +1,10 @@
-version: '3.3'
+version: '3'
 services:
-  web:
-    build: .
-    command: python manage.py runserver 0.0.0.0:8000
-    volumes:
-      - .:/usr/src/app
-    ports:
-      - "8000:8000"
-    environment:
-      DEBUG: "true"
-      SECRET_KEY: "not secure only use for development"
+  my_db:
+    environment: [MYSQL_ALLOW_EMPTY_PASSWORD=yes]
+    expose: [3306]
+    image: mysql:latest
+    networks: [db_net]
+    ports: ['3306:3306']
+networks:
+  db_net: {driver: bridge}

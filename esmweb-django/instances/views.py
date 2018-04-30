@@ -3,9 +3,11 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 import json
 import requests
-from services.views import manifest_detail, service_detail
+from services.views import manifest_detail
 from esm_dashboard.utils import esm_endpoint_check
 import esm_dashboard.utils as utils
+from django.contrib import messages
+import uuid
 
 
 class ServiceForm(forms.Form):
@@ -16,6 +18,7 @@ class ServiceForm(forms.Form):
 
 
 def delete_instance(request):
+    # todo add Are you sure? modal
     must_configure = esm_endpoint_check(request)
     if must_configure:
         return must_configure
@@ -33,24 +36,25 @@ def delete_instance(request):
 
     response = requests.request("DELETE", url, headers=headers, params=querystring)
     print('instance deprovisioned', response.text)
+
     if response.status_code == 200:
-        context = {'notify_message': utils.SUCCESS_DEPROVISION_MESSAGE}
-        context = {**utils.notify_success_dict, **context}
-        return render(request, 'instances/index.html', context)
+        messages.success(request, utils.SUCCESS_DEPROVISION_MESSAGE)
+        return redirect('/instances/index.html')
+
     else:
-        context = {'notify_message': utils.ERROR_DEPROVISION_MESSAGE}
-        context = {**utils.notify_error_dict, **context}
-        return render(request, 'instances/index.html', context)
+        messages.error(request, utils.ERROR_DEPROVISION_MESSAGE)
+        return redirect('/instances/index.html')
 
 
 def create_instance(request, parameter=None):
+    # todo block to create an instance thats already running (plan, service) too often
     must_configure = esm_endpoint_check(request)
     if must_configure:
         return must_configure
 
     if 'k' in parameter:
         service_id, plan_id = parameter.split("k")
-        url = request.session.get('esm_endpoint') + "/v2/service_instances/test_service_instance"
+        url = request.session.get('esm_endpoint') + "/v2/service_instances/" + uuid.uuid4().hex
 
         querystring = {"accept_incomplete": "false"}
 
@@ -67,19 +71,16 @@ def create_instance(request, parameter=None):
         response = requests.request("PUT", url, data=payload, headers=headers, params=querystring)
         print('instance', response.text)
         if response.status_code == 200:
-            context = {'notify_message': utils.SUCCESS_PROVISION_MESSAGE}
-            context = {**utils.notify_success_dict, **context}
-            return render(request, 'instances/index.html', context)
+            messages.success(request, utils.SUCCESS_PROVISION_MESSAGE)
+            return redirect('/instances/')
 
         else:
-            context = {'notify_message': utils.ERROR_PROVISION_MESSAGE}
-            context = {**utils.notify_error_dict, **context}
-            return service_detail(request, service_id, context)
+            messages.error(request, response.text)
+            return redirect('/instances/'.format(service_id))
     else:
         # this would only happen when someone tries to forge a request
-        context = {'notify_message': utils.ERROR_MESSAGE}
-        context = {**utils.notify_error_dict, **context}
-        return render(request, 'services/index.html', context)
+        messages.error(request, utils.ERROR_MESSAGE)
+        return redirect('/instances/')
 
 
 def bootstrap_instances():
@@ -105,8 +106,14 @@ def str_to_datetime(s = "2016-03-26T09:25:55.000Z"):
 
 
 def get_running_time(started_date, now):
-    td = now - started_date
+    from datetime import timedelta
+    print(now)
+    print(started_date)
+    # bug: the time on the ESM is a bit off by 15sec
+    td = now - (started_date - timedelta(seconds=30))
+
     days, hours, minutes = td.days, td.seconds // 3600, (td.seconds // 60) % 60
+
     running_time = 0
     if days > 0:
         if days == 1:
@@ -153,6 +160,10 @@ def parse_instances(request, instances):
 
         # get id
         id = instance['context']['id']
+        ip = next(v for (k, v) in instance['context'].items() if '_Ip' in k)
+        port = next(v for (k, v) in instance['context'].items() if 'portbindings' in k)
+        import ast
+        port = ast.literal_eval(port)[0]['HostPort']
 
         # prerequisites
         manifest_id = instance['context']['manifest_id']
@@ -183,13 +194,15 @@ def parse_instances(request, instances):
             'status': status,
             'time_alive': running_time,
             'started_time': str(started_date),
-            'current_time': str(now)
+            'current_time': str(now),
+            'ip': ip,
+            'port': port
         })
 
     return parsed_instances
 
 
-def instance_catalog(request):
+def instance_catalog(request, previous_context={}):
     must_configure = esm_endpoint_check(request)
     if must_configure:
         return must_configure
@@ -208,6 +221,7 @@ def instance_catalog(request):
         'instances': parsed_instances,
         'bootstrap_instances': bootstrap_instances(),
     }
+    context = {**context, **previous_context}
     return render(request, 'instances/index.html', context)
 
 

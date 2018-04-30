@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+  esm:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile-esm
+    depends_on:
+      - mongo
+    image: elastest/esm:latest
+    container_name: esm
+    hostname: esm
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:rw
+    environment:
+      - ESM_MONGO_HOST=mongo
+    ports:
+      - 5000:5000
+    expose:
+      - 5000
+    networks:
+      - elastest_elastest
+
+  esm_ui:
+    depends_on:
+      - esm
+    image: ademord/esmweb:latest
+    environment:
+      - DEBUG=true
+      - SECRET_KEY=not secure only use for development
+      - ET_ESM_API=http://esm:8080
+    networks:
+      - elastest_elastest
+    ports:
+      - 8000:8000
+    expose:
+      - 8000
+
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    hostname: mongo
+    ports:
+      - "27017"
+    networks:
+      - elastest_elastest
+
+networks:
+  elastest_elastest:
+    driver: bridge

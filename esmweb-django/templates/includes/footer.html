@@ -60,6 +60,9 @@
         demo.initDashboardPageCharts();
 
         demo.initCharts();
+        $("button.parseraw" ).trigger( "click" );
+        $("button.parseraw" ).addClass('btn btn-sm btn-rose');
+        $("button.parsed" ).addClass('btn btn-sm btn-rose');
 
     });
 
@@ -70,3 +73,5 @@
 <script src="{% static 'js/app.js' %}"></script>
 <script src="{% static 'js/snap.js' %}"></script>
 <script src="{% static 'js/404.js' %}"></script>
+
+

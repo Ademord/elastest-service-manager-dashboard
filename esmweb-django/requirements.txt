@@ -1,3 +1,4 @@
+python-dateutil
 Django
-django-widget-tweaks
 requests
+django-prettyjson

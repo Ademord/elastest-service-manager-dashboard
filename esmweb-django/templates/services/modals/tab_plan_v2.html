@@ -1,0 +1,24 @@
+<div class="tab-pane" id="tab_plansv2">
+    {% if form.errors %}
+        <div class="error-list">
+            {{ form.non_field_errors }}
+            {% if form.plan_name.errors %}
+            <h5>{{ form.plan_name.label }}</h5>
+                {{ form.plan_name.errors }}
+            {% endif %}
+            {% if form.plan_description.errors %}
+            <h5>{{ form.plan_description.label }}</h5>
+                {{ form.plan_description.errors }}
+            {% endif %}
+        </div>
+    {% endif %}
+    <h5 class="info-text"> What are the details of your plan?</h5>
+    <div class="row justify-content-center">
+        <div id="container_plans" class="col-lg-8"></div>
+        <input type="text" class="form-control" id="num_plans" name="num_plans" hidden value="0">
+
+        <div class="col-lg-8">
+        <input type="button" class="btn btn-primary btn-round btn-sm pull-right" name="filldetails" value="Add Plan" onclick="addFields_plans()">
+        </div>
+    </div>
+</div>

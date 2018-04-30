@@ -1,6 +1,6 @@
 <div class="col-lg-3 col-md-12 col-sm-12 flex-item-plan">
     <div class="card card-stats">
-        <div class="card-header {{ plan.color }} card-header-icon" data-header-animation="true">
+        <div class="card-header card-header-success card-header-icon" data-header-animation="true">
             <div class="card-icon" style="min-width: 90px !important;">
                 <h2>{{ plan.name }} </h2>
             </div>
@@ -20,6 +20,12 @@
             </div>
 <!--            <h3 class="card-title card-title-plan">{{ plan.name }} <br> Service </h3>-->
             <h4> {{ plan.description |safe }} </h4>
+            {% load prettyjson %}
+            {% prettyjson_setup %}
+            <p>
+                {% prettyjson plan %}
+            </p>
+
         </div>
         <div class="card-footer">
             <div class="stats">
