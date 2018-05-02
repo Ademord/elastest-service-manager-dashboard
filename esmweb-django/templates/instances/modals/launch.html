@@ -1,6 +1,6 @@
 <!-- Modal -->
-<div id="launch_modal_preview" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+<div id="{{ plan.id }}_modal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
         <!-- Modal content-->
         <div class="modal-content" style="box-shadow: none; background: transparent;">
             <div class="card" data-color="rose" id="wizardProfile" >
@@ -12,17 +12,20 @@
                     <div class="card-body">
                         <p class="card-description text-center">Launch Service Instance</p>
                         <div class="card card-pricing" style="margin: 0; box-shadow: none;">
-                            <h6 class="card-category" style="color: #212529;padding: 0;margin: 0;">Tiny Plan</h6>
+                            <h6 class="card-category" style="color: #212529;padding: 0;margin: 0;">{{ plan.name }}</h6>
                             <div class="card-body" style="margin: 0; padding: 0;">
-                                <div class="card-icon icon-success">
-                                    <i class="material-icons" style="border: 1px solid #212529;">cloud</i>
-                                </div>
-                                <h3 class="card-title" style="color: #212529;">29$</h3>
-                                <p class="card-description" style="margin: 0;color: #343a40;">This is good if your company size is between 2 and 10 Persons.</p>
+
+                                <p class="card-description" style="margin: 0;color: #343a40;">{{ plan.description }}</p>
+                                {% load prettyjson %}
+                                {% prettyjson_setup %}
+                                <p>
+                                    {% prettyjson plan initial='parsed' %}
+                                </p>
                             </div>
                         </div>
                     </div>
-                    <form id="launch_instance" action="/instances/create/" method="post">
+
+                    <form id="launch_instance" action="/instances/create/{{ service_id }}k{{ plan.id }}" method="post">
                     <div class="card-footer ">
 
                             {% csrf_token %}
@@ -35,6 +38,7 @@
                             <div class="clearfix"></div>
                     </div>
                     </form>
+
             </div>
         </div>
     </div>

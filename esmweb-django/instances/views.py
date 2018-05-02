@@ -187,6 +187,7 @@ def parse_instances(request, instances):
 
             'plan_name': plan['name'],
             'plan_description': plan['description'],
+            'plan': plan,
 
             'backend': manifest['manifest_type'],
             'template': manifest['manifest_content'],

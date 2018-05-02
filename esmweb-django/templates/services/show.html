@@ -58,18 +58,13 @@
             </div>
         </div>
     </div>
-
 </div>
 
 <div class="row">
-
     {% for plan in service.plans %}
         {% include "services/cards/plan.html" with plan=plan service_id=service.id %}
+        {% include "instances/modals/launch.html" with plan=plan service_id=service.id %}
     {% endfor %}
-
-
 </div>
-
-{% include "instances/modals/launch.html" %}
 
 {% endblock %}

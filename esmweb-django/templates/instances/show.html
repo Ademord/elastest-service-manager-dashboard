@@ -35,11 +35,12 @@
                         <div class="card card-pricing" style="margin: 0; box-shadow: none;">
                             <h6 class="card-category" style="color: #212529;padding: 0;margin: 0;">{{ instance.plan_name }}</h6>
                             <div class="card-body" style="margin: 0; padding: 0;">
-                                <div class="card-icon icon-info">
-                                    <i class="material-icons" style="border: 1px solid #212529;">cloud</i>
-                                </div>
-                                <h3 class="card-title" style="color: #212529;">29$</h3>
                                 <p class="card-description" style="margin: 0;color: #343a40;">{{ instance.plan_description }}</p>
+                                {% load prettyjson %}
+                                {% prettyjson_setup %}
+                                <p>
+                                    {% prettyjson instance.plan initial='parsed' %}
+                                </p>
                             </div>
                         </div>
                     </div>

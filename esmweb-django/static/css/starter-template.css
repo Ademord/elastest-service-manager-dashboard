@@ -398,3 +398,7 @@ html
 .renderjson .keyword       { color: lightgoldenrodyellow; }
 .renderjson .object.syntax { color: lightseagreen; }
 .renderjson .array.syntax  { color: lightsalmon; }
+
+.jsonview ul { max-width:unset;}
+.jsonview ul li { text-align: left;}
+.jsonview { text-align: left;}

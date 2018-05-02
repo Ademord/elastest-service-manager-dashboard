@@ -2,9 +2,9 @@ $('#add_service_button').on('click', function() {
     showCreateModal();
 });
 
-$('#launch_preview').on('click', function() {
-    showLaunchModal();
-});
+// $('#launch_preview').on('click', function() {
+//     showLaunchModal();
+// });
 
 $('#launch').on('click', function() {
     showAfterLaunchModal();
@@ -196,16 +196,18 @@ function showAfterLaunchModal() {
     // code improved for showNotifyModal
 }
 
-function showLaunchModal() {
+function showLaunchModal(o) {
     // $("#modal-background").toggleClass("active", 1000);
     $("div[role=tooltip]").remove();
     // adjust form
-    var $selected_service = $('#launch_preview').children()[1].innerHTML;
-    var $selected_plan = $('#launch_preview').children()[2].innerHTML;
-    var $new_action = "/instances/create/" + $selected_service + "k" + $selected_plan;
-    $('#launch_instance').attr('action', $new_action);
-    // show the modal
-    $('#launch_modal_preview').modal({backdrop: 'static', keyboard: false});
+    // var $selected_service = button_o.parent().children()[1].innerHTML;
+    // var $selected_plan = $('#launch_preview').children()[2].innerHTML;
+    // var $new_action = "/instances/create/" + $selected_service + "k" + $selected_plan;
+    // $('#launch_instance').attr('action', $new_action);
+    // // show the modal
+    // document.getElementById(button_o.id + '_modal');
+    // alert(o.id);
+    $('#'+o.id+'_modal').modal({backdrop: 'static', keyboard: false});
 }
 
 function showCreateModal() {
@@ -241,3 +243,13 @@ function showNotifyModal(title, message, fa_icon, fa_color, button_message) {
     //     $new.modal('hide');
     // }, 3000);
 }
+
+// $('#myForm').one('submit', function() {
+//     $(this).find('input[type="submit"]').attr('disabled','disabled');
+// });
+$('#create_service').one('submit', function() {
+    $(this).find('input[type="submit"]').attr('disabled','disabled');
+});
+$('#launch_instance').one('submit', function() {
+    $(this).find('input[type="submit"]').attr('disabled','disabled');
+});

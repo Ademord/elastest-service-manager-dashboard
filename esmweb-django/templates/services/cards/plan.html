@@ -7,8 +7,7 @@
         </div>
         <div class="card-body card-body-plan" style="text-align: left;padding: 30px !important;">
             <div class="card-actions-plan ">
-
-                <button id="launch_preview" type="button" class="btn btn-info btn-link btn-plan" rel="tooltip" data-placement="bottom" title="Launch Service">
+                <button id="{{ plan.id }}" type="button" class="btn btn-info btn-link btn-plan" rel="tooltip" data-placement="bottom" title="Launch Service" onclick="showLaunchModal(this)">
                     <i class="material-icons">launch</i>
                     <p hidden>{{ service_id }}</p>
                     <p hidden>{{ plan.id }}</p>
@@ -20,11 +19,7 @@
             </div>
 <!--            <h3 class="card-title card-title-plan">{{ plan.name }} <br> Service </h3>-->
             <h4> {{ plan.description |safe }} </h4>
-            {% load prettyjson %}
-            {% prettyjson_setup %}
-            <p>
-                {% prettyjson plan %}
-            </p>
+
 
         </div>
         <div class="card-footer">
