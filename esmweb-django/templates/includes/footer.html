@@ -34,6 +34,7 @@
 <script src="{% static 'js/jquery.validate.min.js' %}"></script>
 <!--  Charts Plugin, full documentation here: https://gionkunz.github.io/chartist-js/ -->
 <script src="{% static 'js/chartist.min.js' %}"></script>
+<script src="{% static 'js/chartist-plugin-axistitle.js' %}"></script>
 
 <!--  Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
 <script src="{% static 'js/jquery.bootstrap-wizard.js' %}"></script>
@@ -46,6 +47,8 @@
 
 <!-- Material Dashboard DEMO methods -->
 <script src="{% static 'js/demo.js' %}"></script>
+<script src="{% static 'js/line_chart.js' %}"></script>
+<script src="{% static 'js/app.js' %}"></script>
 
 <script type="text/javascript">
 
@@ -56,22 +59,79 @@
             if (component && component.hasClass('btn')) {
                 component.removeClass('disabled');
         }
-        // Javascript method's body can be found in assets/js/demos.js
         demo.initDashboardPageCharts();
-
         demo.initCharts();
         $("button.parseraw" ).remove();
 //        $("button.parseraw" ).trigger( "click" );
 //        $("button.parseraw" ).addClass('btn btn-sm btn-rose');
         $("button.parsed" ).addClass('btn btn-sm btn-rose');
+        create_errors = {% if form.errors %} true {% else %} false {% endif %}
+        if (create_errors) {
+            showCreateModal();
+        }
+        notify = {% if messages %} true {% else %} false {% endif %}
+        if (notify) {
+            {% for message in messages %}
+                tags = '{{ message.tags }}';
+                if (tags == "success"){
+                    notify_title = 'Success!';
+                    notify_message = '{{ message|linebreaks }}';
+                    notify_fa_icon = 'fa-check';
+                    notify_fa_color = 'success';
+                    button_message = 'OK';
+                    showNotifyModal(notify_title, notify_message, notify_fa_icon, notify_fa_color, button_message);
+                }
+                else if (tags == "error") {
+                    notify_title = 'Oh no!';
+                    notify_message = '{{ message|linebreaks }}';
+                    notify_fa_icon = 'fa-thumbs-down';
+                    notify_fa_color = 'error';
+                    button_message = 'OK';
+                    showNotifyModal(notify_title, notify_message, notify_fa_icon, notify_fa_color, button_message);
+                }
+                else if (tags == "error") {
+                    notify_title = 'Info!';
+                    notify_message = '{{ message|linebreaks }}';
+                    notify_fa_icon = 'fa-info';
+                    notify_fa_color = 'success neutral';
+                    button_message = 'Try again';
+                    showNotifyModal(notify_title, notify_message, notify_fa_icon, notify_fa_color, button_message);
+                }
+            {% endfor %}
+        }
+        var containers = {% if containers %} '{{ containers }}' {% else %} false {% endif %}
+        var charts_container = document.getElementById("charts");
+        if (containers){
+            containers = JSON.parse(containers.replace(/&quot;/g,'"'));
+            for (i in containers){
+                container_name =  containers[i][0];
+                charts_container.insertAdjacentHTML('beforeend', '<h3>'+ container_name +'</h3>');
 
+                var series_1 = containers[i][1];
+                var series_2 = containers[i][2];
+
+                for (var i = 0; i < series_1.length; i++) {
+                    series_1[i] /= 1000000000;
+                    series_2[i] /= 1000000000;
+                }
+                var labels = ['M', null, null, null, 'W', null, null, null, null, 'S'];
+                div_id = container_name + '_CPU';
+                charts_container.insertAdjacentHTML('beforeend', newChartDiv(div_id));
+                widget.lineChart(div_id, 'CPU (cores)', labels, series_1, 5);
+
+                div_id = container_name + '_RAM';
+                charts_container.insertAdjacentHTML('beforeend', newChartDiv(div_id));
+                widget.lineChart(div_id, 'RAM',labels, series_2, 100);
+
+                charts_container.insertAdjacentHTML('beforeend', '<br>');
+            }
+        }
     });
 
 </script>
 
 <script type="text/javascript" src="{% static 'js/slick.min.js' %}"></script>
 
-<script src="{% static 'js/app.js' %}"></script>
 <script src="{% static 'js/snap.js' %}"></script>
 <script src="{% static 'js/404.js' %}"></script>
 

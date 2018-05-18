@@ -17,13 +17,13 @@ class ServiceForm(forms.Form):
     template = forms.CharField(label='Your Template', max_length=100, widget=forms.Textarea)
 
 
-def delete_instance(request):
+def delete_instance(request, parameter):
     # todo add Are you sure? modal
     must_configure = esm_endpoint_check(request)
     if must_configure:
         return must_configure
 
-    url = request.session.get('esm_endpoint') + "/v2/service_instances/test_service_instance"
+    url = request.session.get('esm_endpoint') + "/v2/service_instances/{}".format(parameter)
 
     querystring = {"service_id": "b1620b13-7d11-4abc-a762-f34a108ea49c", "plan_id": "36ed4b3e-c132-4746-af71-26dee76e59cb", "accept_incomplete": "false"}
 
@@ -243,7 +243,34 @@ def instance_detail(request, instance_id=None):
 
     if response.status_code == 200:
         parsed_instance = parse_instances(request, [json.loads(response.text)])[0]
-        return render(request, 'instances/show.html', {'instance': parsed_instance})
+
+        host = 'kafka.cloudlab.zhaw.ch'
+        port = 8086
+        user = 'root'
+        password = 'pass1234'
+        dbname = 'user-1-elastest_tss'
+        query = 'select * from "service-docker-stats" group by "container-name" order by desc limit 10;'
+        from influxdb import InfluxDBClient
+
+        client = InfluxDBClient(host, port, user, password, dbname)
+
+        print("Querying data: " + query)
+        result = client.query(query)
+        # name = result.raw['series'][0]['name']  # str
+        # columns = result.raw['series'][0]['columns']  # []
+        # values = result.raw['series'][0]['values']  # [[]]
+        containers = []
+        for serie in result.raw['series']:
+            CPU_series = []
+            RAM_series = []
+            name = serie['tags']['container-name']
+            for x in serie['values']:
+                CPU_series.append(x[3])
+            for x in serie['values']:
+                RAM_series.append(x[5])
+            containers.append([name, CPU_series, RAM_series])
+        print(containers)
+        return render(request, 'instances/show.html', {'instance': parsed_instance, 'containers': json.dumps(containers)})
     else:
         # todo return error message isntance not found
         return instance_catalog(request)

@@ -680,7 +680,6 @@ var demo = {
             md.startAnimationForBarChart(simplePieChart);
 
         }
-
         if ($('#simpleBarChart').length != 0) {
 
                 /*  **************** Simple Bar Chart - barchart ******************** */

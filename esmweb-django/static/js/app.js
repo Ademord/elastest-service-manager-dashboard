@@ -237,7 +237,7 @@ function showNotifyModal(title, message, fa_icon, fa_color, button_message) {
         .addClass($(this).data('direction'));
     setTimeout(function() {
         $new.modal('show');
-    }, 1000);
+    }, 500);
 
     // setTimeout(function() {
     //     $new.modal('hide');
@@ -253,3 +253,8 @@ $('#create_service').one('submit', function() {
 $('#launch_instance').one('submit', function() {
     $(this).find('input[type="submit"]').attr('disabled','disabled');
 });
+
+function newChartDiv(graph_name){
+    new_chart = '<div id="' + graph_name + '" class="ct-chart" data-x-axis="X axis label" data-y-axis="Y axis label"></div>';
+    return new_chart;
+}

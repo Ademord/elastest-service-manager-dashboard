@@ -7,7 +7,11 @@ from instances.views import instance_catalog, create_instance, delete_instance, 
 from esm_dashboard.utils import esm_endpoint_check, set_esm_endpoint
 
 import requests
+import json
 import os
+
+# InfluxDB
+from influxdb import InfluxDBClient
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -35,8 +39,8 @@ INSTALLED_APPS = [
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['/usr/src/app/templates/'],
-        # 'DIRS': ['/Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/'],
+        # 'DIRS': ['/usr/src/app/templates/'],
+        'DIRS': ['/Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -48,7 +52,8 @@ TEMPLATES = [
         },
     },
 ]
-#Cookie Domain
+
+# Cookie Domain
 SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
 MIDDLEWARE = [
         'django.middleware.security.SecurityMiddleware',
@@ -61,10 +66,29 @@ MIDDLEWARE = [
     ]
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 
-def test(request):
-    title = 'Tinyapp'
-    author = 'Vitor Freitas'
-    return render(request, 'tests/login.html', {'title': title, 'author': author})
+# def test(request):
+#     title = 'Tinyapp'
+#     author = 'Vitor Freitas'
+#     return render(request, 'tests/login.html', {'title': title, 'author': author})
+
+
+def test(request, host='kafka.cloudlab.zhaw.ch', port=8086):
+    """Instantiate a connection to the InfluxDB."""
+    user = 'root'
+    password = 'pass1234'
+    dbname = 'user-1-elastest_tss'
+    query = 'select * from "service-docker-stats" group by "container-name";'
+
+    client = InfluxDBClient(host, port, user, password, dbname)
+
+    print("Querying data: " + query)
+    result = client.query(query)
+
+    name = result.raw['series'][0]['name']  # str
+    columns = result.raw['series'][0]['columns']  # []
+    values = result.raw['series'][0]['values']  # [[]]
+
+    return HttpResponse("{}".format(str([serie['tags']['container-name'] for serie in result.raw['series']])))
 
 
 def welcome(request):
@@ -78,7 +102,7 @@ def welcome(request):
 # error views
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.conf.urls import ( handler400, handler403, handler404, handler500 )
+from django.conf.urls import (handler400, handler403, handler404, handler500 )
 
 # handler400 = 'esm_dashboard.settings.bad_request'
 # handler403 = 'settings.permission_denied'
@@ -119,13 +143,13 @@ urlpatterns = [
 
     path('instances',                   instance_catalog,   name='instance_catalog_page'),
     path('instances/',                  instance_catalog,   name='instance_catalog_page'),
-    path('instances/delete',            delete_instance,   name='instance_catalog_page'),
     path('instances/create',            create_instance,   name='instance_catalog_page'),
     path('instances/create/<str:parameter>',     create_instance,   name='instance_catalog_page'),
+    path('instances/delete/<str:parameter>',     delete_instance,   name='instance_catalog_page'),
     path('instances/<str:instance_id>',     instance_detail,   name='instance_catalog_page'),
 
     path('configure', set_esm_endpoint, name='set_esm_endpoint_page'),
-    path('test', test, name='catalogpage')
+    path('test', test, name='test_page')
 ]
 
 STATIC_URL = '/static/'

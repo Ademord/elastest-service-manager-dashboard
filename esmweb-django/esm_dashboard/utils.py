@@ -12,7 +12,7 @@ SUCCESS_MESSAGE = 'Operation was successfully executed.'
 ERROR_MESSAGE = 'Oops! Something went wrong, \n you should try again.'
 
 # instances
-SUCCESS_PROVISION_MESSAGE = 'Your Service Instance has been successfully deployed.'
+SUCCESS_PROVISION_MESSAGE = 'Your Service Instance has been deployed.'
 ERROR_PROVISION_MESSAGE = 'Oops! Something went wrong, \n Check your variables and try again.'
 SUCCESS_DEPROVISION_MESSAGE = 'Your Service Instance has been deprovisioned.'
 ERROR_DEPROVISION_MESSAGE = ERROR_MESSAGE

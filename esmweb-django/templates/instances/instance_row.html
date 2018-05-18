@@ -5,7 +5,7 @@
     <td>{{ instance.backend }}</td>
     <td>{{ instance.time_alive }}</td>
     <td class="td-actions text-right">
-        <form id="delete_instance" action="/instances/delete">
+        <form id="delete_instance" action="/instances/delete/{{ instance.id }}">
             {% csrf_token %}
 
             <button id="info" type="button" rel="tooltip" class="btn btn-info" data-original-title="" title="" onclick="location.href='/instances/{{ instance.id }}';">

@@ -39,7 +39,6 @@
                                 {% load prettyjson %}
                                 {% prettyjson_setup %}
                                 <p>
-                                    {% prettyjson instance.plan initial='parsed' %}
                                 </p>
                             </div>
                         </div>
@@ -86,8 +85,8 @@
                     <small>- Running vs Crashes</small>
                 </h4>
             </div>
-            <div class="card-body">
-                <div id="multipleBarsChart" class="ct-chart"></div>
+            <div id="charts" class="card-body">
+
             </div>
         </div>
         <div class="card">
