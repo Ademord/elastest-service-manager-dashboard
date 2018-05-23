@@ -163,7 +163,7 @@ def parse_instances(request, instances):
         # get id
         id = instance['context']['id']
         ip = next(v for (k, v) in instance['context'].items() if '_Ip' in k)
-        label = next(v for (k, v) in instance['context'].items() if '_config_labels_com_docker_compose_service' in k)
+        label = next(v for (k, v) in instance['context'].items() if '_config_labels_com_docker_compose_service' or '_my_db_config_labels_com.docker.compose.service' in k)
         container_names = [v[1:] for (k, v) in instance['context'].items() if label + '_name' in k]
 
         port = next(v for (k, v) in instance['context'].items() if 'portbindings' in k)
