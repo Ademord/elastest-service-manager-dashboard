@@ -1,30 +1,17 @@
 <div class="col-lg-3 col-md-12 col-sm-12 flex-item-plan">
     <div class="card card-stats">
-        <div class="card-header card-header-success card-header-icon" data-header-animation="true">
-            <div class="card-icon" style="min-width: 90px !important;">
-                <h2>{{ plan.name }} </h2>
-            </div>
+        <div class="card-header card-header-info text-center">
+            <h3 class="card-title">{{ plan.name }} </h3>
         </div>
         <div class="card-body card-body-plan" style="text-align: left;padding: 30px !important;">
-            <div class="card-actions-plan ">
-                <button id="{{ plan.id }}" type="button" class="btn btn-info btn-link btn-plan" rel="tooltip" data-placement="bottom" title="Launch Service" onclick="showLaunchModal(this)">
-                    <i class="material-icons">launch</i>
-                    <p hidden>{{ service_id }}</p>
-                    <p hidden>{{ plan.id }}</p>
-                </button>
-
-                <button type="button" class="btn btn-danger btn-link fix-broken-card" rel="tooltip" data-placement="bottom" title="Fix Header">
-                    <i class="material-icons">build</i>
-                </button>
-            </div>
-<!--            <h3 class="card-title card-title-plan">{{ plan.name }} <br> Service </h3>-->
             <h4> {{ plan.description |safe }} </h4>
-
-
         </div>
         <div class="card-footer">
             <div class="stats">
                 <i class="material-icons">access_time</i> plan created 2 days ago
+            </div>
+            <div class="ml-auto">
+                <button id="{{ plan.id }}" type="button" class="btn btn-next btn-fill btn-rose btn-wd" rel="tooltip" data-placement="bottom" title="Launch Service" onclick="showLaunchModal(this)">Launch</button>
             </div>
         </div>
     </div>
