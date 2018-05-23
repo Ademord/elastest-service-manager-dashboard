@@ -39,8 +39,8 @@ INSTALLED_APPS = [
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        # 'DIRS': ['/usr/src/app/templates/'],
-        'DIRS': ['/Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/'],
+        'DIRS': ['/usr/src/app/templates/'],
+        # 'DIRS': ['/Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

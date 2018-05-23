@@ -301,10 +301,10 @@ def create_service(request):
             return redirect('/catalog/')
 
 
-    from django.http import HttpResponse
-    return HttpResponse('errors' + str(form.errors))
-    # else:
-    #     return service_catalog(request, form)
+    # from django.http import HttpResponse
+    # return HttpResponse('errors' + str(form.errors))
+    else:
+        return service_catalog(request, form)
 
 
 def service_detail(request, service_id=None):

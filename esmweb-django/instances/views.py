@@ -54,7 +54,8 @@ def create_instance(request, parameter=None):
 
     if 'k' in parameter:
         service_id, plan_id = parameter.split("k")
-        url = request.session.get('esm_endpoint') + "/v2/service_instances/" + uuid.uuid4().hex
+        instance_id = uuid.uuid4().hex
+        url = request.session.get('esm_endpoint') + "/v2/service_instances/" + instance_id
 
         querystring = {"accept_incomplete": "false"}
 
@@ -139,6 +140,7 @@ def parse_instances(request, instances):
     parsed_instances = []
 
     for instance in instances:
+        # print("instance: {}".format(instance))
         # get Status
         preview = ['status']
         type([v for k, v in instance['context'].items() if any(possible_key in k for possible_key in preview)])
@@ -161,6 +163,9 @@ def parse_instances(request, instances):
         # get id
         id = instance['context']['id']
         ip = next(v for (k, v) in instance['context'].items() if '_Ip' in k)
+        label = next(v for (k, v) in instance['context'].items() if '_config_labels_com_docker_compose_service' in k)
+        container_names = [v[1:] for (k, v) in instance['context'].items() if label + '_name' in k]
+
         port = next(v for (k, v) in instance['context'].items() if 'portbindings' in k)
         import ast
         port = ast.literal_eval(port)[0]['HostPort']
@@ -197,7 +202,8 @@ def parse_instances(request, instances):
             'started_time': str(started_date),
             'current_time': str(now),
             'ip': ip,
-            'port': port
+            'port': port,
+            'container_names': container_names
         })
 
     return parsed_instances
@@ -260,16 +266,24 @@ def instance_detail(request, instance_id=None):
         # columns = result.raw['series'][0]['columns']  # []
         # values = result.raw['series'][0]['values']  # [[]]
         containers = []
+        print('parsed found:', parsed_instance['container_names'])
         for serie in result.raw['series']:
             CPU_series = []
             RAM_series = []
             name = serie['tags']['container-name']
-            for x in serie['values']:
-                CPU_series.append(x[3])
-            for x in serie['values']:
-                RAM_series.append(x[5])
-            containers.append([name, CPU_series, RAM_series])
+            # todo remove
+            print('sentinel container name:', name)
+            if name in parsed_instance['container_names']:
+            # if True:
+                print('container match found!')
+                for x in serie['values']:
+                    CPU_series.append(x[3])
+                for x in serie['values']:
+                    RAM_series.append(x[5])
+                name = name.split('_', 1)[-1]
+                containers.append([name, CPU_series, RAM_series])
         print(containers)
+
         return render(request, 'instances/show.html', {'instance': parsed_instance, 'containers': json.dumps(containers)})
     else:
         # todo return error message isntance not found
