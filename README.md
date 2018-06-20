@@ -1,5 +1,3 @@
-[![][ElasTest Logo]][ElasTest]
-
 Copyright © 2017-2019 Zuercher Hochschule fuer Angewandte Wissenschaften. Licensed under [Apache 2.0 License].
 
 # Nexus UI
@@ -53,6 +51,7 @@ limitations under the License.
 
 # Supported By
 
-[![][ElasTest Logo]][ElasTest]
+[![][http://elastest.io/images/logos_elastest/elastest-logo-gray-small.png]][ElasTest]
+
 [Apache 2.0 License]: http://www.apache.org/licenses/LICENSE-2.0
-[ElasTest Logo]: http://elastest.io/images/logos_elastest/elastest-logo-gray-small.png
+
