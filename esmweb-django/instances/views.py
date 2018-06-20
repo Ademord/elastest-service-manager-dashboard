@@ -1,6 +1,4 @@
-from django import forms
 from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect
 import json
 import requests
 from services.views import manifest_detail
@@ -10,11 +8,7 @@ from django.contrib import messages
 import uuid
 
 
-class ServiceForm(forms.Form):
-    service_name = forms.CharField(label='Your Service name', max_length=100)
-    plan_name = forms.CharField(label='Your Plan name', max_length=100)
-    plan_details = forms.CharField(label='Your Plan Details', max_length=100)
-    template = forms.CharField(label='Your Template', max_length=100, widget=forms.Textarea)
+fake_flag = 0
 
 
 def delete_instance(request, parameter):
@@ -148,9 +142,12 @@ def parse_instances(request, instances):
         # color and icon for instances.index/.show
         color = 'danger'
         status_icon = 'clear'
+        hex_color = '#ea4542'
+
         if status == 'running':
             color = 'success'
             status_icon = 'done'
+            hex_color = '#4caf50'
 
         # get Status
         preview = ['startedat']
@@ -164,8 +161,11 @@ def parse_instances(request, instances):
         id = instance['context']['id']
         ip = next(v for (k, v) in instance['context'].items() if '_Ip' in k)
         label = next(v for (k, v) in instance['context'].items() if '_config_labels_com_docker_compose_service' or '_my_db_config_labels_com.docker.compose.service' in k)
+        # label = next(v for (k, v) in instance['context'].items() if '_config_labels_com_docker_compose_service' in k)
+        # print('looking for: ' + label + '_name')
+        # print('instance has all these items: ', instance['context'].items())
         container_names = [v[1:] for (k, v) in instance['context'].items() if label + '_name' in k]
-
+        # print('container names found:', container_names)
         port = next(v for (k, v) in instance['context'].items() if 'portbindings' in k)
         import ast
         port = ast.literal_eval(port)[0]['HostPort']
@@ -185,6 +185,7 @@ def parse_instances(request, instances):
             'id': id,
             'color': color,
             'status_icon': status_icon,
+            'hex_color': hex_color,
 
             'service_id': instance['service_type']['id'],
             'service_name': instance['service_type']['name'],
@@ -222,7 +223,10 @@ def instance_catalog(request, previous_context={}):
     }
     response = requests.request("GET", url, headers=headers)
 
-    parsed_instances = parse_instances(request, json.loads(response.text))
+    if response.status_code == 200:
+        parsed_instances = parse_instances(request, json.loads(response.text))
+    else:
+        parsed_instances = []
     # return render(request, 'instances/index.html', {'instances': parsed_instances + bootstrap_instances()})
     context = {
         'instances': parsed_instances,
@@ -230,6 +234,12 @@ def instance_catalog(request, previous_context={}):
     }
     context = {**context, **previous_context}
     return render(request, 'instances/index.html', context)
+
+
+def reverse_and_fill_series(series):
+    for i in range(len(series), 10):
+        series.append(0)
+    return list(reversed(series))
 
 
 def instance_detail(request, instance_id=None):
@@ -250,6 +260,7 @@ def instance_detail(request, instance_id=None):
     if response.status_code == 200:
         parsed_instance = parse_instances(request, [json.loads(response.text)])[0]
 
+        # query influx db: containers_data
         host = 'kafka.cloudlab.zhaw.ch'
         port = 8086
         user = 'root'
@@ -257,34 +268,69 @@ def instance_detail(request, instance_id=None):
         dbname = 'user-1-elastest_tss'
         query = 'select * from "service-docker-stats" group by "container-name" order by desc limit 10;'
         from influxdb import InfluxDBClient
-
         client = InfluxDBClient(host, port, user, password, dbname)
-
         print("Querying data: " + query)
-        result = client.query(query)
+        containers_data = client.query(query)
         # name = result.raw['series'][0]['name']  # str
         # columns = result.raw['series'][0]['columns']  # []
         # values = result.raw['series'][0]['values']  # [[]]
         containers = []
-        print('parsed found:', parsed_instance['container_names'])
-        for serie in result.raw['series']:
-            CPU_series = []
-            RAM_series = []
-            name = serie['tags']['container-name']
-            # todo remove
-            print('sentinel container name:', name)
-            if name in parsed_instance['container_names']:
-            # if True:
-                print('container match found!')
-                for x in serie['values']:
-                    CPU_series.append(x[3])
-                for x in serie['values']:
-                    RAM_series.append(x[5])
-                name = name.split('_', 1)[-1]
-                containers.append([name, CPU_series, RAM_series])
-        print(containers)
+        global fake_flag
+        print('containers found from parsed instance: ', parsed_instance['container_names'])
+        # print('query result: ', containers_data)
+        if containers_data:
+            for serie in containers_data.raw['series']:
+                CPU_series = []
+                RAM_series = []
+                name = serie['tags']['container-name']
+                # todo remove
+                print('sentinel container name:', name)
+                if name in parsed_instance['container_names']:
+                    # if True:
+                    print('container match found!')
+                    for x in serie['values']:
+                        CPU_series.append(x[3])
+                    for x in serie['values']:
+                        RAM_series.append(x[5])
+                    name = name.split('_', 1)[-1]
+                    CPU_series= [0, 2,3.4,0.4, 0.1]
+                    RAM_series = [0, 50, 60, 10, 2]
 
-        return render(request, 'instances/show.html', {'instance': parsed_instance, 'containers': json.dumps(containers)})
+                    CPU_series = reverse_and_fill_series(CPU_series)
+                    RAM_series = reverse_and_fill_series(RAM_series)
+                    print('resulting..', CPU_series)
+                    containers.append([name, CPU_series, RAM_series])
+            # print(containers)
+
+        query = 'select * from "service-health-check" order by desc limit 10;'
+        health_data = client.query(query).raw
+        health_series = []
+        print('health data queried: ', health_data)
+        if len(health_data) > 1:
+            health_data = health_data['series'][0]
+            # print('instance id: ', instance_id)
+            if 'instance_id' in health_data['columns']:
+                instance_index = health_data['columns'].index('instance_id')
+                msg_index = health_data['columns'].index('msg')
+                # health_series = ['alive' in record['msg'] for record in health_data['values'] if instance_id == record[index]]
+                health_series = [int('alive' in record[msg_index]) for record in health_data['values']]
+                # for record in health_data['values']:
+                #     if instance_id == record[index]:
+                #         if 'alive' in record['msg']:
+                #             status = 1
+                #         else:
+                #             status = 0
+                #         health_series.append(status)
+                health_series = [1,1,1, 1]
+                health_series = reverse_and_fill_series(health_series)
+                print('health series for this instance:', health_series)
+        else:
+            parsed_instance['color'] = 'warning'
+            parsed_instance['status_icon'] = 'more_horiz'
+            # parsed_instance['hex_color'] = '#4caf50'
+            parsed_instance['hex_color'] = '#fd9a0f'
+
+        return render(request, 'instances/show.html', {'instance': parsed_instance, 'containers': json.dumps(containers), 'health_series': health_series})
     else:
-        # todo return error message isntance not found
+        # todo return error message instance not found
         return instance_catalog(request)

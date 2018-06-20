@@ -64,7 +64,7 @@
         $("button.parseraw" ).remove();
 //        $("button.parseraw" ).trigger( "click" );
 //        $("button.parseraw" ).addClass('btn btn-sm btn-rose');
-        $("button.parsed" ).addClass('btn btn-sm btn-rose');
+        $("button.parsed" ).addClass('btn btn-sm btn-default');
         create_errors = {% if form.errors %} true {% else %} false {% endif %}
         if (create_errors) {
             showCreateModal();
@@ -99,6 +99,30 @@
                 }
             {% endfor %}
         }
+        // X Axis Labels
+        var date_mx1 = new Date(Date.now());
+        date_mx1_ = date_mx1.toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'});
+        var date_mx2 = new Date(Date.now() - 60000*5);
+        date_mx2_ = date_mx2.toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'});
+        var date_mx3 = new Date(Date.now() - 60000*9);
+        date_mx3_ = date_mx3.toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'});
+        var labels = [date_mx3_, null, null, null, date_mx2_, null, null, null, null, date_mx1_];
+
+        // health series
+        var health_series = {% if health_series %} '{{ health_series }}' {% else %} false {% endif %}
+
+        var health_series_container = document.getElementById("health_series_chart");
+        if (health_series){
+            health_series = JSON.parse(health_series.replace(/&quot;/g,'"'));
+            for (i in health_series){
+                div_id = 'alive';
+                health_series_container.insertAdjacentHTML('beforeend', newChartDiv(div_id));
+                widget.lineChart(div_id, 'Alive', labels, health_series, 1.5);
+
+            }
+        }
+
+
         var containers = {% if containers %} '{{ containers }}' {% else %} false {% endif %}
         var charts_container = document.getElementById("charts");
         if (containers){
@@ -110,11 +134,12 @@
                 var series_1 = containers[i][1];
                 var series_2 = containers[i][2];
 
-                for (var i = 0; i < series_1.length; i++) {
-                    series_1[i] /= 1000000000;
-                    series_2[i] /= 1000000000;
-                }
-                var labels = ['M', null, null, null, 'W', null, null, null, null, 'S'];
+//                for (var i = 0; i < series_1.length; i++) {
+//                    series_1[i] /= 1000000000;
+//                    series_2[i] /= 1000000000;
+//                }
+
+//                var labels = ['M', null, null, null, 'W', null, null, null, null, 'S'];
                 div_id = container_name + '_CPU';
                 charts_container.insertAdjacentHTML('beforeend', newChartDiv(div_id));
                 widget.lineChart(div_id, 'CPU (cores)', labels, series_1, 5);
@@ -126,6 +151,7 @@
                 charts_container.insertAdjacentHTML('beforeend', '<br>');
             }
         }
+
     });
 
 </script>

@@ -9,6 +9,8 @@
         <ul class="timeline timeline-simple">
             <li class="timeline-inverted">
                 <div class="timeline-badge {{ instance.color }}">
+                    <div class="dot" style="border:20px solid {{ instance.hex_color }};" ></div>
+                    <div class="pulse" hidden></div>
                     <i class="material-icons">card_travel</i>
                 </div>
                 <div class="timeline-panel">
@@ -25,6 +27,8 @@
             </li>
             <li class="timeline-inverted">
                 <div class="timeline-badge {{ instance.color }}">
+                    <div class="dot" style="border:20px solid {{ instance.hex_color }};" ></div>
+                    <div class="pulse" hidden></div>
                     <i class="material-icons">cloud</i>
                 </div>
                 <div class="timeline-panel">
@@ -49,6 +53,8 @@
             </li>
             <li class="timeline-inverted">
                 <div class="timeline-badge {{ instance.color }}">
+                    <div class="dot" style="border:20px solid {{ instance.hex_color }};" ></div>
+                    <div class="pulse" hidden></div>
                     <i class="material-icons">fingerprint</i>
                 </div>
                 <div class="timeline-panel">
@@ -71,6 +77,8 @@
             </li>
             <li class="timeline-inverted">
                 <div class="timeline-badge {{ instance.color }}">
+                    <div class="dot" style="border:20px solid {{ instance.hex_color }};" ></div>
+                    <div class="pulse" hidden></div>
                     <i class="material-icons">{{ instance.status_icon }}</i>
                 </div>
             </li>
@@ -78,8 +86,22 @@
     </div>
     <div class="col-lg-6 col-md-10">
         <div class="card">
-            <div class="card-header card-header-icon card-header-info">
+            <div class="card-header card-header-icon card-header-{{ instance.color }}">
                 <div class="card-icon">
+                    <div class="dot" style="border:20px solid {{ instance.hex_color }};" ></div>
+                    <div class="pulse" hidden></div>
+                    <i class="material-icons">{{ instance.status_icon }}</i>
+                </div>
+                <h4 class="card-title">Service Status</h4>
+            </div>
+            <div id="health_series_chart" class="card-body">
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header card-header-icon card-header-{{ instance.color }}">
+                <div class="card-icon">
+                    <div class="dot" style="border:20px solid {{ instance.hex_color }};" ></div>
+                    <div class="pulse" hidden></div>
                     <i class="material-icons">insert_chart</i>
                 </div>
                 <h4 class="card-title">Containers Performance
@@ -92,10 +114,9 @@
         <div class="card">
             <div class="card-header card-header-icon card-header-info">
                 <div class="card-icon">
-                    <i class="material-icons">code</i>
+                    <i class="material-icons"> code</i>
                 </div>
-                <h4 class="card-title">Access Variables
-                </h4>
+                <h4 class="card-title">Access Variables</h4>
             </div>
             <div class="card-body table-responsive">
                 <table class="table table-hover">

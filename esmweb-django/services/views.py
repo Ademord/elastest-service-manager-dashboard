@@ -1,6 +1,5 @@
 from django import forms
 from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect
 import requests
 import uuid
 import json
@@ -17,7 +16,7 @@ class ServiceForm(forms.Form):
     num_variables = forms.DecimalField(label='Number of Variables')
 
     backend = forms.CharField(label='Service Backend', max_length=20)
-    template = forms.CharField(label='Service Template', max_length=500, widget=forms.Textarea)
+    template = forms.CharField(label='Service Template', max_length=1200, widget=forms.Textarea)
 
 
 # def parse_plan_details(plan):
@@ -196,7 +195,8 @@ def service_catalog(request, form: ServiceForm=None, received_context={}):
 
 
 def build_create_manifest_request(request, cache, plan_id):
-    url = request.session.get('esm_endpoint') + "/v2/et/manifest/test_manifest"
+    manifest_id = uuid.uuid4().hex
+    url = request.session.get('esm_endpoint') + "/v2/et/manifest/" + manifest_id
     payload = {
         "id": cache['manifest_id'],
         "manifest_content": cache['template'],

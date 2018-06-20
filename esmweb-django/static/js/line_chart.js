@@ -6,17 +6,24 @@ var widget = {
             };
 
         optionsDailySalesChart = {
+            low: 0,
+            high: y_high,
+
+            axisY: {
+                onlyInteger: true
+            },
+
             lineSmooth: Chartist.Interpolation.cardinal({
                 tension: 0
             }),
-            low: 0,
-            high: y_high, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+
             chartPadding: {
                 top: 0,
                 right: 0,
                 bottom: 0,
                 left: 10
             },
+
             plugins: [
                 Chartist.plugins.ctAxisTitle({
                     axisY: {
@@ -27,7 +34,8 @@ var widget = {
                             y: 11
                         },
                         textAnchor: 'middle',
-                        flipTitle: true
+                        flipTitle: true,
+                        onlyInteger: true
                     }
                 })
             ]
