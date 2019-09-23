@@ -10,7 +10,7 @@ INFO_TITLE = 'Info!'
 
 SUCCESS_MESSAGE = 'Operation was successfully executed.'
 ERROR_MESSAGE = 'Oops! Something went wrong, \n you should try again.'
-
+INVALID_IMPORT_URL = 'Oops! The URL you used \n seems to be not working, \n you should try again!'
 # instances
 SUCCESS_PROVISION_MESSAGE = 'Your Service Instance has been deployed.'
 ERROR_PROVISION_MESSAGE = 'Oops! Something went wrong, \n Check your variables and try again.'

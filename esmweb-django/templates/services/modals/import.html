@@ -1,0 +1,44 @@
+<!-- Modal -->
+<div id="modal_import_service" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content" style="box-shadow: none; background: transparent;">
+            <!--      Wizard container        -->
+            <div class="wizard-container">
+                <div class="card" data-color="rose" >
+                   
+                        <div class="card-header text-center">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h3 class="card-title">Import Service</h3>
+                            <h5 class="card-description">Import a service definition for future deployment.</h5>
+                        </div>
+                     
+                        <div class="card-body">
+                            <div class="tab-content" >
+                                {% include "services/modals/import_section_fetch.html" %}                                
+                            </div>
+                        </div>
+                    
+                        <div class="row justify-content-center">
+                            <div class="col-sm-8 col-lg-10">
+                                <form id="import_service_form" action="/catalog/import" method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <input type="hidden" id="import_service_form_url" name="import_service_form_url"> 
+                                    <table class="table" id="import_container" name="import_container" style="margin: 0px 3.8em; width: -webkit-fill-available"></table>
+                                    
+                                    <div class="card-footer">
+                                        <div class="ml-auto">
+                                            <input type="submit" class="btn btn-finish btn-fill btn-rose btn-wd" id="import_service_button" value="Import" style="display: none;" form="import_service_form">
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                </div>
+            </div>  
+            
+            <!-- wizard container -->
+        </div>
+    </div>
+</div>

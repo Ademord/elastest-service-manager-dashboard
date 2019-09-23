@@ -65,6 +65,7 @@ def create_instance(request, parameter=None):
 
         response = requests.request("PUT", url, data=payload, headers=headers, params=querystring)
         print('instance', response.text)
+        print('instance response status_code', response.status_code)
         if response.status_code == 200:
             messages.success(request, utils.SUCCESS_PROVISION_MESSAGE)
             return redirect('/instances/')
@@ -136,39 +137,60 @@ def parse_instances(request, instances):
     for instance in instances:
         # print("instance: {}".format(instance))
         # get Status
-        preview = ['status']
-        type([v for k, v in instance['context'].items() if any(possible_key in k for possible_key in preview)])
-        status = [v for k, v in instance['context'].items() if any(possible_key in k for possible_key in preview)][0]
+        preview = ['status', 'state']
+        print("starting point... context received from the backend: {}".format(instance))
+        if type(instance) == list and instance[1] == 500:
+            return [] # TODO this 500 needs to transfer out
+        # type([v for k, v in instance['context'].items() if any(possible_key in k for possible_key in preview)])
+
+        status = [v for k, v in instance['state'].items() if any(possible_key in k for possible_key in preview)][0]
+        print("status found...a{}a".format(status))
+        # status = [v for k, v in instance['context'].items() if any(possible_key in k for possible_key in preview)][0]
         # color and icon for instances.index/.show
         color = 'danger'
         status_icon = 'clear'
         hex_color = '#ea4542'
-
-        if status == 'running':
+        if status == 'running' or status == 'succeeded':
+            status = 'running'
+            print('pre_status in corrected...', status)
             color = 'success'
             status_icon = 'done'
             hex_color = '#4caf50'
 
-        # get Status
-        preview = ['startedat']
-        started_date = [v for k, v in instance['context'].items() if any(possible_key in k for possible_key in preview)][0]
-        started_date = str_to_datetime(started_date)
+        # get StartDate, RunningTime
         from datetime import datetime, timezone
         now = datetime.now(timezone.utc)
-        running_time = get_running_time(started_date, now)
+        preview = ['startedat']
+
+        # TODO date is not being captured, nor return in context
+        started_date = [v for k, v in instance['context'].items() if any(possible_key in k for possible_key in preview)]
+        if started_date:
+            started_date = str_to_datetime(started_date[0])
+            running_time = get_running_time(started_date, now)
+
+        else:
+            started_date = 'unknown'
+            running_time = 'unknown'
 
         # get id
+        print("middle point... context received from the backend: {}".format(instance['context'].items()))
+
         id = instance['context']['id']
-        ip = next(v for (k, v) in instance['context'].items() if '_Ip' in k)
-        label = next(v for (k, v) in instance['context'].items() if '_config_labels_com_docker_compose_service' or '_my_db_config_labels_com.docker.compose.service' in k)
+        ip = next((v for (k, v) in instance['context'].items() if '_Ip' in k), None)
+        label = next((v for (k, v) in instance['context'].items()
+                    if '_config_labels_com_docker_compose_service'
+                    or '_my_db_config_labels_com.docker.compose.service' in k), None)
+
         # label = next(v for (k, v) in instance['context'].items() if '_config_labels_com_docker_compose_service' in k)
-        # print('looking for: ' + label + '_name')
+        print('looking for label: ' + str(label) + '_name')
         # print('instance has all these items: ', instance['context'].items())
-        container_names = [v[1:] for (k, v) in instance['context'].items() if label + '_name' in k]
-        # print('container names found:', container_names)
-        port = next(v for (k, v) in instance['context'].items() if 'portbindings' in k)
-        import ast
-        port = ast.literal_eval(port)[0]['HostPort']
+        containers = [v for (k, v) in instance['context'].items() if label + '_name' in k]
+        container_names = [v[1:] for v in containers]
+        print('container names found:', container_names)
+        port = next((v for (k, v) in instance['context'].items() if 'portbindings' in k), None)
+        if port:
+            import ast
+            port = ast.literal_eval(port)[0]['HostPort']
 
         # prerequisites
         manifest_id = instance['context']['manifest_id']
@@ -202,8 +224,8 @@ def parse_instances(request, instances):
             'time_alive': running_time,
             'started_time': str(started_date),
             'current_time': str(now),
-            'ip': ip,
-            'port': port,
+            'ip': str(ip),
+            'port': str(port),
             'container_names': container_names
         })
 
@@ -305,26 +327,33 @@ def instance_detail(request, instance_id=None):
         query = 'select * from "service-health-check" order by desc limit 10;'
         health_data = client.query(query).raw
         health_series = []
+        # demo
+        health_series = [1, 1, 0, 0]
+        health_series = reverse_and_fill_series(health_series)
+
+        print('status...', parsed_instance['status'])
         print('health data queried: ', health_data)
+        print(parsed_instance)
         if len(health_data) > 1:
+            print('health data > 1...')
             health_data = health_data['series'][0]
             # print('instance id: ', instance_id)
             if 'instance_id' in health_data['columns']:
-                instance_index = health_data['columns'].index('instance_id')
-                msg_index = health_data['columns'].index('msg')
-                # health_series = ['alive' in record['msg'] for record in health_data['values'] if instance_id == record[index]]
-                health_series = [int('alive' in record[msg_index]) for record in health_data['values']]
-                # for record in health_data['values']:
-                #     if instance_id == record[index]:
-                #         if 'alive' in record['msg']:
-                #             status = 1
-                #         else:
-                #             status = 0
-                #         health_series.append(status)
-                health_series = [1,1,1, 1]
+                # instance_index = health_data['columns'].index('instance_id')
+                # msg_index = health_data['columns'].index('msg')
+                # # health_series = ['alive' in record['msg'] for record in health_data['values'] if instance_id == record[index]]
+                # health_series = [int('alive' in record[msg_index]) for record in health_data['values']]
+                # # for record in health_data['values']:
+                # #     if instance_id == record[index]:
+                # #         if 'alive' in record['msg']:
+                # #             status = 1
+                # #         else:
+                # #             status = 0
+                # #         health_series.append(status)
+                health_series = [0,1,1,1]
                 health_series = reverse_and_fill_series(health_series)
                 print('health series for this instance:', health_series)
-        else:
+        elif parsed_instance['status'] != 'running':
             parsed_instance['color'] = 'warning'
             parsed_instance['status_icon'] = 'more_horiz'
             # parsed_instance['hex_color'] = '#4caf50'

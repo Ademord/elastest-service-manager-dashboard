@@ -16,7 +16,14 @@ class ServiceForm(forms.Form):
     num_variables = forms.DecimalField(label='Number of Variables')
 
     backend = forms.CharField(label='Service Backend', max_length=20)
-    template = forms.CharField(label='Service Template', max_length=1200, widget=forms.Textarea)
+    template = forms.CharField(label='Service Template', max_length=3000, widget=forms.Textarea)
+
+class ServiceImportForm(forms.Form):
+    import_service_form_url = forms.CharField(label='Service Definition URL', max_length=3300)
+    service_definitions = forms.MultipleChoiceField(
+        choices = [], # this is optional
+        widget  = forms.CheckboxSelectMultiple
+        )
 
 
 # def parse_plan_details(plan):
@@ -194,16 +201,17 @@ def service_catalog(request, form: ServiceForm=None, received_context={}):
     return render(request, 'services/index.html', context)
 
 
-def build_create_manifest_request(request, cache, plan_id):
+def build_create_manifest_request(request, cache, plan_id = None):
     manifest_id = uuid.uuid4().hex
     url = request.session.get('esm_endpoint') + "/v2/et/manifest/" + manifest_id
+    print("Submitting mainfest content of type: {} with:\n{}".format(type(cache.get('manifest_content')),cache.get('manifest_content')))
     payload = {
-        "id": cache['manifest_id'],
-        "manifest_content": cache['template'],
-        "manifest_type": cache['backend'],
+        "id": cache.get('manifest_id') or cache.get('id'),
+        "manifest_content": cache.get('template') or cache.get('manifest_content'),
+        "manifest_type": cache.get('backend') or cache.get('manifest_type'),
         # support for same manifest for many plans
-        "plan_id": plan_id,
-        "service_id": cache['service_id'],
+        "plan_id": plan_id or cache.get('plan_id'),
+        "service_id": cache.get('service_id') or '',
         "endpoints": {
             "dds": {
                 "description": "DDS main service",
@@ -233,20 +241,20 @@ def build_create_service_request(request, cache):
     url = request.session.get('esm_endpoint') + "/v2/et/catalog"
 
     payload = {
-        'description': cache['service_description'],
-        'id': cache['service_id'],
-        'name': cache['service_name'],
-        'short_name': cache['service_name'],
+        'description': cache.get('service_description') or cache.get('description'),
+        'id': cache.get('service_id') or cache.get('id'),
+        'name': cache.get('service_name') or cache.get('name'),
+        'short_name': cache.get('service_name') or cache.get('name'),
         'bindable': True,
         'plan_updateable': False,
         'metadata': {
                 'extras': {
-                    'preview_image': cache['preview_image'],
-                    'logo_image': cache['logo_image'],
-                    'service_variables': cache['service_variables']
+                    'preview_image': cache.get('preview_image') or '',
+                    'logo_image': cache.get('logo_image') or '',
+                    'service_variables': cache.get('service_variables') or ''
                 }
             },
-        'plans': cache['plans']
+        'plans': cache.get('plans') or ''
     }
     print(payload)
     payload = json.dumps(payload)
@@ -305,6 +313,92 @@ def create_service(request):
     # return HttpResponse('errors' + str(form.errors))
     else:
         return service_catalog(request, form)
+
+def is_valid_url(url):
+    import re
+    regex = re.compile(
+        r'^https?://'  # http:// or https://
+        r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+[A-Z]{2,6}\.?|'  # domain...
+        r'localhost|'  # localhost...
+        r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})' # ...or ip
+        r'(?::\d+)?'  # optional port
+        r'(?:/?|[/?]\S+)$', re.IGNORECASE)
+    return url is not None and regex.search(url) and url is not ""
+
+
+def get_selected_services(selected_indexes_raw, url):
+    selected_indexes = list(map(int, selected_indexes_raw))
+
+    print("List of Service Definitions: ", selected_indexes)
+    print("URL: ", url)
+
+    if not is_valid_url(url):
+        messages.error(request, utils.INVALID_IMPORT_URL)
+        return redirect('/catalog/') 
+
+    json_file = requests.get(url).json()
+    counter = 0
+    selected = {}
+    
+    for k, v in json_file.items():
+        if counter in selected_indexes:
+            selected[k] = v
+        counter+=1
+    
+    return selected
+    
+# TODO kubernetes locally could not be tested, since a deployment 
+# in docker cannot access the host network and reach the minikube endpoint
+def import_service(request):
+    json_data = json.loads(json.dumps(request.POST))
+    print("Received form JSON: {}".format(json_data))
+
+    # verify ESM connection established
+    must_configure = esm_endpoint_check(request)
+    if must_configure:
+        return must_configure
+
+    # validate URL and get what matters
+    selected = get_selected_services(request.POST.getlist('service_definitions'), request.POST.get('import_service_form_url'))
+    print("Filtered selected: {}".format(selected))
+
+    responses = {}
+    responses_numeric = 0
+    for k,v in selected.items():
+        response_temp = 0
+
+        # Register Service and Plans
+        service_cache = v['service']
+        url, payload, headers = build_create_service_request(request, service_cache)
+        response = requests.request("PUT", url, data=payload, headers=headers)
+        print('service registered', response.text)
+        if response.status_code == 200:
+          response_temp += 1
+            
+        # Register Manifest
+        for manifest_cache in v['manifests']:
+            url, payload, headers = build_create_manifest_request(request, manifest_cache)
+            response = requests.request("PUT", url, data=payload, headers=headers)
+            print('manifest registered', response.text)
+            if response.status_code == 200:
+                response_temp += 1
+            
+        responses[k] = True if response_temp > 0 else False
+        responses_numeric += response_temp
+
+    if responses_numeric > 0:
+        # TODO adapt message to show the result of each service :]
+        messages.success(request,  utils.SUCCESS_MESSAGE + str(responses)) 
+        return redirect('/catalog/')
+
+    else:
+        messages.error(request, utils.ERROR_MESSAGE + str(responses))
+        return redirect('/catalog/')
+
+    # base_cache = {}
+    # base_cache['service_id'] = uuid.uuid4().hex
+    # # cache['plan_id'] = uuid.uuid4().hex
+    # base_cache['manifest_id'] = uuid.uuid4().hex
 
 
 def service_detail(request, service_id=None):

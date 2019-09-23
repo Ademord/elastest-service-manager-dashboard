@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.urls import path
 
-from services.views import service_catalog, create_service, service_detail
+from services.views import service_catalog, create_service, import_service, service_detail
 from instances.views import instance_catalog, create_instance, delete_instance, instance_detail
 from esm_dashboard.utils import esm_endpoint_check, set_esm_endpoint
 
@@ -39,8 +39,8 @@ INSTALLED_APPS = [
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        # 'DIRS': ['/usr/src/app/templates/'],
-        'DIRS': ['/Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/'],
+        'DIRS': ['/usr/src/app/templates/'],
+        # 'DIRS': ['/Users/ribr/Documents/elastest-service-manager-dashboard/esmweb-django/templates/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -106,21 +106,21 @@ from django.conf.urls import (handler400, handler403, handler404, handler500 )
 
 # handler400 = 'esm_dashboard.settings.bad_request'
 # handler403 = 'settings.permission_denied'
-handler400 = 'esm_dashboard.settings.page_not_found'
+handler400 = 'esm_dashboard.settings.bad_request'
 handler404 = 'esm_dashboard.settings.page_not_found'
-handler500 = 'esm_dashboard.settings.page_not_found'
+handler500 = 'esm_dashboard.settings.server_error'
 # handler500 = 'esm_dashboard.settings.server_error'
 
 
 # HTTP Error 400
-def bad_request(request):
+def bad_request(request, exception):
     response = render_to_response('400.html')
     response.status_code = 400
     return render(request, 'welcome.html')
 
 
 # HTTP Error 404
-def page_not_found(request):
+def page_not_found(request, exception):
     response = render_to_response('404.html')
     response.status_code = 404
     return response
@@ -132,12 +132,13 @@ def server_error(request):
     response.status_code = 500
     return response
 
-
+# Respective imports for each method in each controller are listed above.
 urlpatterns = [
     path('',                            service_catalog,            name='welcome_page'),
     path('catalog',                     service_catalog,    name='service_catalog_page'),
     path('catalog/',                    service_catalog,    name='service_catalog_page'),
     path('catalog/create',              create_service,    name='service_catalog_page'),
+    path('catalog/import',              import_service,    name='service_catalog_page'),
     path('catalog/<str:service_id>',    service_detail,     name='service_detail_page'),
     path('catalog/<str:service_id>/',   service_detail,     name='service_detail_page'),
 

@@ -510,3 +510,10 @@ html
     background-color: #17A2B7;
     box-shadow: 0 4px 20px 0 rgba(0,0,0,.14), 0 7px 10px -5px rgba(23,162,183,.4);
 }
+
+
+@media (max-width: 1000px) {
+    .import-button {
+      display: none;
+    }
+  }

@@ -2,9 +2,13 @@
 {% block content %}
 
 <div class="plus-plugin">
-        <button id="add_service_button" class="y hC" style="background: #e91e63;">
-            <img class="o8 a6" src="https://ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/2x/btw_ic_speeddial_white_24dp_2x.png" alt="">
-        </button>
+    <button id="import_service_button" class="import-button y hC" style="background: #4f6b82;">
+        <i class="o8 a6 material-icons" style="filter:invert(1)">link</i>
+    </button>
+    
+    <button id="add_service_button" class="y hC" style="background: #e91e63;">
+        <img class="o8 a6" src="https://ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/2x/btw_ic_speeddial_white_24dp_2x.png" alt="">
+    </button>
 </div>
 
 
@@ -32,11 +36,12 @@
                             <i class="material-icons">build</i>
                         </button>
                     </div>
-                    <h3 class="card-title card-title-plan"> No services <br> registered </h3>
+                    <h4 class="card-title card-title-plan"> No services <br> registered </h4>
                 </div>
                 <br>
             </div>
         </div>
+        
 
     {% endfor %}
 
@@ -57,5 +62,6 @@
 </div>
 
 {% include "services/modals/create.html" %}
+{% include "services/modals/import.html" %}
 
 {% endblock %}

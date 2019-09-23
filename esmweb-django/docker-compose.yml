@@ -1,50 +1,44 @@
+# This file is meant to be ran after:
+# 1. Spawning the docker-compose.yml in the main ESM directory
+# 2. De-spawning the esm_ui
+# Only then we can spawn this volume-mounted instance to develop or to play around with the UI internals.
+ 
 version: '3'
-
 services:
-  esm:
-    build:
-      context: ./
-      dockerfile: ./Dockerfile-esm
-    depends_on:
-      - mongo
-    image: elastest/esm:latest
-    container_name: esm
-    hostname: esm
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:rw
-    environment:
-      - ESM_MONGO_HOST=mongo
-    ports:
-      - 5000:5000
-    expose:
-      - 5000
-    networks:
-      - elastest_elastest
-
   esm_ui:
-    depends_on:
-      - esm
-    image: ademord/esmweb:latest
+    container_name: esm_ui
+    hostname: esm_ui
+    # depends_on:
+    #   - esm
+    # image: ademord/esmweb:latest
+    
+    # environment:
+    #   - DEBUG=true
+    #   - SECRET_KEY=not secure only use for development
+    #   - ET_ESM_API=http://esm:8080
+    # networks:
+    #   - elastest
+    # # ports:
+    #   - 8000:8000
+    # expose:
+    #   - 8000
+    
+    build: .
+    # command: python3 manage.py runserver 0.0.0.0:8000
     environment:
       - DEBUG=true
       - SECRET_KEY=not secure only use for development
-      - ET_ESM_API=http://esm:8080
+      - ET_ESM_API=http://esm:37005
+    volumes:
+      - .:/usr/src/app
     networks:
-      - elastest_elastest
+      - elastest
     ports:
       - 8000:8000
     expose:
       - 8000
-
-  mongo:
-    image: mongo:latest
-    container_name: mongo
-    hostname: mongo
-    ports:
-      - "27017
-    networks:
-      - elastest_elastest
-
+    
 networks:
-  elastest_elastest:
-    driver: bridge
+  elastest:
+    external:
+      name: esm_elastest

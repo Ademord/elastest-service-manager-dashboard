@@ -2,6 +2,10 @@ $('#add_service_button').on('click', function() {
     showCreateModal();
 });
 
+$('#import_service_button').on('click', function() {
+    showImportModal();
+});
+
 // $('#launch_preview').on('click', function() {
 //     showLaunchModal();
 // });
@@ -182,6 +186,10 @@ function submitService() {
     num_plans.value = id_array.join("#");
     $('#create_service').submit();
 }
+function submitImportService() {
+    
+    $('#import_service').submit();
+}
 function showAfterDeleteModal() {
     var $new = $('#launch_modal_success');
     // todo fix this
@@ -213,6 +221,12 @@ function showLaunchModal(o) {
 function showCreateModal() {
     // $("#modal-background").toggleClass("active", 1000);
     $('#modal_create_service').modal({backdrop: 'static', keyboard: false});
+    $("div[role=tooltip]").remove();
+}
+
+function showImportModal() {
+    // $("#modal-background").toggleClass("active", 1000);
+    $('#modal_import_service').modal({backdrop: 'static', keyboard: false});
     $("div[role=tooltip]").remove();
 }
 
@@ -257,4 +271,89 @@ $('#launch_instance').one('submit', function() {
 function newChartDiv(graph_name){
     new_chart = '<div id="' + graph_name + '" class="ct-chart" data-x-axis="X axis label" data-y-axis="Y axis label"></div>';
     return new_chart;
+}
+
+function JSONstringify(json) {
+    if (typeof json != 'string') {
+        json = JSON.stringify(json, undefined, '\t');
+    }
+
+    var 
+        arr = [],
+        _string = 'color:green',
+        _number = 'color:darkorange',
+        _boolean = 'color:blue',
+        _null = 'color:magenta',
+        _key = 'color:red';
+
+    json = json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+        var style = _number;
+        if (/^"/.test(match)) {
+            if (/:$/.test(match)) {
+                style = _key;
+            } else {
+                style = _string;
+            }
+        } else if (/true|false/.test(match)) {
+            style = _boolean;
+        } else if (/null/.test(match)) {
+            style = _null;
+        }
+        arr.push(style);
+        arr.push('');
+        return '%c' + match + '%c';
+    });
+
+    // arr.unshift(json);
+    return json;
+    // console.log.apply(console, arr);
+}
+
+function fetchPreviewFromGithub() {
+    var container = $('#import_container')
+    
+    import_service_url = document.getElementById("import_service_url").value; // $("#import_service_url")[0].value;
+// https://raw.githubusercontent.com/Ademord/simple_import/master/services_to_import.json
+// https://raw.githubusercontent.com/Ademord/simple_import/master/services_to_import_docker.json
+
+    console.log("url_github_received" + import_service_url);
+    document.getElementById("import_service_form_url").value = import_service_url;
+
+    $.getJSON(import_service_url, function(data) {
+    //data is the JSON string
+        console.log(data);
+        
+        setTimeout(function() {
+            table_head = '<thead> <th> Select </th> <th> Service Name </th> <th> Service Definition </th> </thead>';
+
+            // table_row = '<tr> <td> <input style="margin:6px"type="checkbox" name="service" \
+            //             value={{ service }}> </td>  <td> {{ service }} </td> </tr>'
+            var items = [];
+            counter = 0
+            $.each( data, function( key, val ) {
+                // console.log(JSONstringify(val))
+                string_value = JSON.stringify(val, null, 2)
+                string_value = string_value.replace(/"/g,"'")
+                items.push( '<tr> <td> <input style="margin:6px" type="checkbox" name="service_definitions" \
+                value="'+ counter +'"> </td>  <td>'+ key +'</td> <td> <pre style="width: 36em; max-height: 40em; white-space: pre-wrap;">'+ string_value + '</pre> </td> </tr>' );
+                counter+=1;
+            });
+
+            container.empty();
+
+            if (items.length) {
+                var content = items.join("");
+                container.append(table_head);
+                container.append(content);
+              }
+
+            // container.append(table_row)
+            // container.insertAdjacentHTML('beforeend', services);
+            $(import_service_button).show();
+        }, 1000);
+    });
+
+    container.text('Loading the JSON file...');
+
+
 }

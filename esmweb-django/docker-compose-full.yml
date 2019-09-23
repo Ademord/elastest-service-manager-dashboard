@@ -1,0 +1,58 @@
+version: '3'
+services:
+  esm:
+    depends_on:
+      - mongo
+    image: elastest/esm:latest
+    container_name: esm
+    hostname: esm
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:rw
+    environment:
+      - ESM_PORT=37005
+      - ESM_CHECK_PORT=5001
+      - ESM_DOCKER_DELETE_TIMEOUT=1  # low for quicker test runs
+      - ESM_MEASURE_INSTANCES=NO
+      - ET_EMP_API=http://emp:9100
+      - ESM_MONGO_HOST=mongo
+      - ESM_MEASURE_INSTANCES=YES
+      - ESM_SENTINEL_TOPIC=user-1-elastest_tss
+      - ESM_SENTINEL_AGENT=sentinel-internal-log-agent
+      - ESM_SENTINEL_KAFKA_ENDPOINT=kafka.cloudlab.zhaw.ch:9092
+      - ESM_SENTINEL_KAFKA_KEY_SERIALIZER=StringSerializer
+      - ESM_SENTINEL_KAFKA_VALUE_SERIALIZER=StringSerializer
+      - ESM_SENTINEL_SERIES_NAME=service-health-check
+    ports:
+      - 8080:5000
+    expose:
+      - 5000
+    networks:
+      - elastest_elastest
+
+  esm_ui:
+    depends_on:
+      - esm
+    image: ademord/esmweb:latest
+    environment:
+      - DEBUG=true
+      - SECRET_KEY=not secure only use for development
+      - ET_ESM_API=http://esm:8080
+    networks:
+      - elastest_elastest
+    ports:
+      - 8001:8000
+    expose:
+      - 8000
+
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    hostname: mongo
+    ports:
+      - "27017"
+    networks:
+      - elastest_elastest
+
+networks:
+  elastest_elastest:
+    driver: bridge
